@@ -1880,10 +1880,34 @@
             }
 
             qtvBattleMap = L.map('qtv-battle-map').setView([10.757, 106.662], 14);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap &copy; CARTO',
-                maxZoom: 19
-            }).addTo(qtvBattleMap);
+
+            // 3 lớp nền bản đồ miễn phí, không cần API Key
+            var googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: '&copy; Google Maps'
+            });
+
+            var osmStandard = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; OpenStreetMap'
+            });
+
+            var googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: '&copy; Google Maps'
+            });
+
+            // Mặc định dùng nền Google Đường phố
+            googleStreets.addTo(qtvBattleMap);
+
+            // Nút chuyển chế độ bản đồ góc trên bên phải
+            L.control.layers({
+                "🗺️ Đường phố": googleStreets,
+                "🌐 OpenStreetMap": osmStandard,
+                "🛰️ Vệ tinh": googleSatellite
+            }, null, { position: 'topright' }).addTo(qtvBattleMap);
 
             qtvMapLayerGroup = L.layerGroup().addTo(qtvBattleMap);
 
