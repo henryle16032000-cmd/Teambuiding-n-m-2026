@@ -619,9 +619,8 @@
                                 <div class="cipher-timer-value-wrap">
                                     <span id="cipher-penalty-float" class="cipher-penalty-float">+ 180 giây</span>
                                     <span id="cipher-stopwatch-display" class="cipher-timer-red">00:00:00</span>
-                                    <span id="cipher-stopwatch-sec" class="cipher-timer-sec">0s</span>
                                 </div>
-                                <div class="cipher-timer-sub" id="cipher-timer-sub">Đang tính giờ giải mật thư...</div>
+                                <div class="cipher-timer-sub" id="cipher-timer-sub" style="display: none;"></div>
                             </div>
 
                             <input id="station-password-input" type="text" placeholder="Nhập đáp án mật thư tại đây..." autocomplete="off" style="width: 100%; padding: 12px; border-radius: 12px; border: 2px solid #fcd34d; font-size: 14px; font-weight: 800; text-align: center; text-transform: uppercase; outline: none; margin-bottom: 12px; font-family: 'Space Mono', monospace;" />
@@ -635,7 +634,7 @@
                             </button>
 
                             <div id="cipher-hint-box" class="cipher-hint-box">
-                                <div class="cipher-hint-title">💡 GỢI Ý TỪ BAN TỔ CHỨC (+3 PHÚT)</div>
+                                <div class="cipher-hint-title">💡 GỢI Ý TỪ BAN TỔ CHỨC</div>
                                 <div class="cipher-hint-text" id="cipher-hint-text"></div>
                             </div>
 
@@ -1521,9 +1520,7 @@
         function updateCipherDisplayMs(ms) {
             var safeMs = Math.max(0, Math.floor(ms));
             var dispEl = document.getElementById('cipher-stopwatch-display');
-            var secEl = document.getElementById('cipher-stopwatch-sec');
             if (dispEl) dispEl.textContent = formatTimeMs(safeMs);
-            if (secEl) secEl.textContent = Math.floor(safeMs / 1000) + 's';
         }
 
         function getCurrentCipherLiveMs() {
@@ -1610,12 +1607,10 @@
                 if (cipher.isBeforeStart) {
                     subEl.textContent = '⏳ Chờ đến giờ khai mạc chung để bắt đầu đếm';
                     subEl.style.color = '#b45309';
-                } else if (cipher.parMinutes > 0) {
-                    subEl.textContent = '🎯 Thời gian chuẩn trạm này: ' + cipher.parMinutes + ' phút' + (cipher.hintUsed ? ' • Đã cộng +180s gợi ý' : '');
-                    subEl.style.color = '#78350f';
+                    subEl.style.display = 'block';
                 } else {
-                    subEl.textContent = cipher.hintUsed ? '⚠️ Đã cộng +180 giây phí gợi ý' : 'Đang tính giờ giải mật thư thực tế';
-                    subEl.style.color = '#78350f';
+                    subEl.textContent = '';
+                    subEl.style.display = 'none';
                 }
             }
 
@@ -1624,19 +1619,13 @@
             var hintTextEl = document.getElementById('cipher-hint-text');
 
             if (btnHint) {
-                if (!cipher.hasHint && !cipher.hintUsed) {
+                if (!cipher.hasHint || cipher.hintUsed) {
                     btnHint.style.display = 'none';
                 } else {
                     btnHint.style.display = 'block';
-                    if (cipher.hintUsed) {
-                        btnHint.disabled = true;
-                        btnHint.classList.add('used');
-                        btnHint.textContent = '✅ ĐÃ SỬ DỤNG GỢI Ý (+180 GIÂY)';
-                    } else {
-                        btnHint.disabled = false;
-                        btnHint.classList.remove('used');
-                        btnHint.textContent = '💡 XIN GỢI Ý MẬT THƯ (+ 180 GIÂY)';
-                    }
+                    btnHint.disabled = false;
+                    btnHint.classList.remove('used');
+                    btnHint.textContent = '💡 XIN GỢI Ý MẬT THƯ (+ 180 GIÂY)';
                 }
             }
 
@@ -1647,7 +1636,6 @@
                 hintBox.style.display = 'none';
             }
 
-            // Nếu đồng đội vừa bấm xin gợi ý trong lúc mình đang mở màn hình -> chạy luôn hiệu ứng +180s
             if (isSameStation && !prevHintUsed && cipher.hintUsed && !isCipherAnimating) {
                 var currentDisplayMs = getCurrentCipherLiveMs();
                 localCipherHintUsed = true;
@@ -1680,11 +1668,7 @@
                         var hintBox = document.getElementById('cipher-hint-box');
                         var hintTextEl = document.getElementById('cipher-hint-text');
 
-                        if (btnHint) {
-                            btnHint.disabled = true;
-                            btnHint.classList.add('used');
-                            btnHint.textContent = '✅ ĐÃ SỬ DỤNG GỢI Ý (+180 GIÂY)';
-                        }
+                        if (btnHint) btnHint.style.display = 'none';
 
                         if (!res.alreadyUsed) {
                             playHintPenaltyAnimation(msBeforeHint, res.penaltyMs || 180000, function() {
