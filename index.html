@@ -193,30 +193,26 @@
             .dash-header { flex-direction: column; }
         }
 
-        /* --- GIAO DIỆN QUẢN TRỊ VIÊN TỔNG (QTV ALL - BỐ CỤC 3 Ô CÂN XỨNG) --- */
-        .app-card.logged-in-qtv { max-width: 1300px; height: 750px; min-height: 700px; background: #f8fafc; padding: 0 !important; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.2); overflow: hidden; }
+        /* --- GIAO DIỆN QUẢN TRỊ VIÊN TỔNG (QTV ALL - TỰ GIÃN FULL NỘI DUNG) --- */
+        .app-card.logged-in-qtv { max-width: 1300px; height: auto; min-height: 720px; background: #f8fafc; padding: 0 !important; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.2); overflow: visible; }
         .app-card.logged-in-qtv .left-panel { display: none !important; }
-        .app-card.logged-in-qtv .right-panel { width: 100% !important; height: 100% !important; padding: 0 !important; background: transparent; justify-content: flex-start; align-items: stretch; }
+        .app-card.logged-in-qtv .right-panel { width: 100% !important; height: auto !important; min-height: 720px; padding: 0 !important; background: transparent; justify-content: flex-start; align-items: stretch; }
         
-        .qtv-container { display: flex; width: 100%; height: 100%; flex-direction: row; align-items: stretch !important; justify-content: flex-start !important; text-align: left !important; padding: 16px; gap: 16px; background: #f8fafc; }
+        .qtv-container { display: flex; width: 100%; height: auto; min-height: 720px; flex-direction: row; align-items: stretch !important; justify-content: flex-start !important; text-align: left !important; padding: 16px; gap: 16px; background: #f8fafc; border-radius: 28px; }
         
-        /* Ô 1: Sidebar bên trái */
-        .qtv-sidebar { width: 250px; flex-shrink: 0; background: white; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; padding: 16px 0; height: 100%; overflow-y: auto; }
+        /* Ô 1: Sidebar bên trái tự kéo dài bằng đúng chiều cao cột phải */
+        .qtv-sidebar { width: 250px; flex-shrink: 0; background: white; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; padding: 16px 0; height: auto; }
         .qtv-menu { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
         .qtv-menu li { padding: 14px 24px; font-size: 14px; font-weight: 700; color: #475569; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; border-left: 4px solid transparent; }
         .qtv-menu li:hover { background: #f8fafc; color: #0284c7; }
         .qtv-menu li.active { background: #e0f2fe; color: #0369a1; border-left-color: #0284c7; }
         
         /* Cột bên phải chứa Ô 2 (Header) + Ô 3 (Nội dung) */
-        .qtv-main { flex: 1; display: flex; flex-direction: column; background: transparent; height: 100%; overflow: hidden; gap: 16px; }
+        .qtv-main { flex: 1; min-width: 0; display: flex; flex-direction: column; background: transparent; height: auto; overflow: visible; gap: 16px; }
         
-        /* Ô 2: Header Logo trái - Chữ phải 2 dòng cân đối */
-        .qtv-header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 14px 24px; border: 1px solid #e2e8f0; margin: 0; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); flex-shrink: 0; }
+        /* Ô 2: Header */
+        .qtv-header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 14px 24px; border: 1px solid #e2e8f0; margin: 0; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); flex-shrink: 0; flex-wrap: wrap; gap: 12px; }
         .qtv-header-left { display: flex; align-items: center; gap: 12px; }
-        .qtv-header-text-group { display: flex; flex-direction: column; justify-content: center; line-height: 1.2; }
-        .qtv-header-left .org-title { font-size: 13px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; }
-        .qtv-header-left .org-sub { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-top: 3px; }
-        
         .qtv-header-right { display: flex; gap: 12px; align-items: center; }
         .qtv-bell-btn { background: #fef2f2; border: 1px solid #fecaca; color: #ef4444; width: 42px; height: 42px; border-radius: 50%; font-size: 18px; cursor: pointer; position: relative; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
         .qtv-bell-btn:hover { background: #fee2e2; }
@@ -224,9 +220,9 @@
         .qtv-exit-btn { background: #f1f5f9; border: none; color: #475569; padding: 10px 20px; border-radius: 20px; font-weight: 800; font-size: 13px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
         .qtv-exit-btn:hover { background: #e2e8f0; color: #0f172a; }
         
-        /* Ô 3: Khu vực hiển thị nội dung động */
-        .qtv-content-area { flex: 1; padding: 0; overflow-y: auto; display: flex; flex-direction: column; }
-        .qtv-tab-content { display: none; background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; flex: 1; min-height: 100%; }
+        /* Ô 3: Khu vực hiển thị nội dung động - tự bung hết chiều cao tất cả các trạm */
+        .qtv-content-area { flex: 1; padding: 0; overflow: visible; display: flex; flex-direction: column; }
+        .qtv-tab-content { display: none; background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; flex: 1; height: auto; min-height: 580px; }
         .qtv-tab-content.active { display: block; animation: fadeIn 0.3s ease; }
         
         .qtv-tab-title { font-size: 18px; font-weight: 900; color: #0f172a; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px dashed #e2e8f0; padding-bottom: 10px; }
@@ -521,7 +517,7 @@
                     <!-- Ô 1: MENU BÊN TRÁI -->
                     <div class="qtv-sidebar">
                         <ul class="qtv-menu">
-                            <li class="active" onclick="qtvSwitchTab('map', this)">🗺️ Bản đồ chiến sự</li>
+                            <li class="active" onclick="qtvSwitchTab('map', this)">🗺️ Bản đồ tổng quan</li>
                             <li onclick="qtvSwitchTab('teams', this)">👥 Quản lý Đội chơi</li>
                             <li onclick="qtvSwitchTab('stations', this)">🏛️ Quản lý Trạm & CTV</li>
                             <li onclick="qtvSwitchTab('sos', this)">🚨 Trung tâm SOS</li>
@@ -533,14 +529,13 @@
                     <div class="qtv-main">
                         <div class="qtv-header">
                             <div class="qtv-header-left">
-                                <img src="https://lh3.googleusercontent.com/d/1t573OYGX82TWLGZ3u6uyZN6G6WoQ7MlV" alt="Logo" style="height: 45px; width: auto; object-fit: contain;" onerror="this.style.display='none'"/>
-                                <div class="qtv-header-text-group">
-                                    <div class="org-title">BAN ĐIỀU HÀNH HỆ THỐNG</div>
-                                    <div class="org-sub">TEAMBUILDING NĂM 2026</div>
+                                <img src="https://lh3.googleusercontent.com/d/1t573OYGX82TWLGZ3u6uyZN6G6WoQ7MlV" alt="Logo" class="dash-logo" onerror="this.style.display='none'"/>
+                                <div class="dash-title">
+                                    <div class="uni-name admin-mode">ĐẠI HỌC Y DƯỢC TP. HỒ CHÍ MINH</div>
+                                    <div class="org-name admin-mode">HỆ THỐNG QUẢN TRỊ</div>
                                     <span id="qtv-display-name" style="display: none;">...</span>
                                 </div>
                             </div>
-                            
                             <div class="qtv-header-right">
                                 <span id="qtv-last-sync" style="font-size: 11px; font-weight: 700; color: #64748b; font-family: 'Space Mono', monospace;">--:--:--</span>
                                 <button class="qtv-bell-btn" id="qtv-refresh-btn" onclick="fetchQtvDashboardData(true)" title="Làm mới toàn bộ dữ liệu QTV" style="background: #f0f9ff; border-color: #bae6fd; color: #0284c7;">
@@ -560,7 +555,7 @@
                             <!-- TAB 1: BẢN ĐỒ CHIẾN SỰ -->
                             <div id="qtv-tab-map" class="qtv-tab-content active">
                                 <div class="qtv-tab-header-row">
-                                    <div class="qtv-tab-title">🗺️ BẢN ĐỒ TỔNG QUAN CHIẾN SỰ</div>
+                                    <div class="qtv-tab-title">🗺️ BẢN ĐỒ TỔNG QUAN</div>
                                     <div class="qtv-meta-bar">
                                         <span id="qtv-map-gps-summary" class="qtv-badge badge-blue">Đang tải GPS...</span>
                                         <button class="qtv-chip-btn active-filter" id="filter-show-stations" onclick="toggleQtvMapLayer('stations', this)">🏛️ Trạm</button>
@@ -609,7 +604,7 @@
                             <!-- TAB 3: QUẢN LÝ TRẠM & CTV -->
                             <div id="qtv-tab-stations" class="qtv-tab-content">
                                 <div class="qtv-tab-header-row">
-                                    <div class="qtv-tab-title">🏛️ KIỂM SOÁT TRẠM & CỘNG TÁC VIÊN</div>
+                                    <div class="qtv-tab-title">🏛️ QUẢN LÝ TRẠM & CỘNG TÁC VIÊN</div>
                                     <div class="qtv-meta-bar">
                                         <span class="qtv-badge badge-amber">⚠️ Cảnh báo ùn tắc khi ≥ 3 đội/trạm</span>
                                     </div>
@@ -2300,6 +2295,36 @@
             tbody.innerHTML = html;
         }
 
+                var TEAM_BADGE_COLORS = [
+            '#ef4444', // Đỏ tươi
+            '#2563eb', // Xanh dương
+            '#10b981', // Xanh ngọc
+            '#d97706', // Vàng cam
+            '#8b5cf6', // Tím Violet
+            '#ec4899', // Hồng sen
+            '#0891b2', // Xanh Cyan
+            '#ea580c', // Cam đậm
+            '#65a30d', // Xanh lá
+            '#4f46e5', // Chàm Indigo
+            '#be123c', // Đỏ rượu
+            '#0d9488'  // Xanh cổ vịt
+        ];
+
+        function getUniqueTeamColor(teamId) {
+            if (qtvLastData && qtvLastData.teams) {
+                for (var i = 0; i < qtvLastData.teams.length; i++) {
+                    if (qtvLastData.teams[i].id === teamId) {
+                        return TEAM_BADGE_COLORS[i % TEAM_BADGE_COLORS.length];
+                    }
+                }
+            }
+            var hash = 0;
+            for (var j = 0; j < teamId.length; j++) {
+                hash = teamId.charCodeAt(j) + ((hash << 5) - hash);
+            }
+            return TEAM_BADGE_COLORS[Math.abs(hash) % TEAM_BADGE_COLORS.length];
+        }
+
         function renderQtvStationsGrid(data) {
             var grid = document.getElementById('qtv-stations-grid');
             if (!grid || !data.stations) return;
@@ -2313,8 +2338,9 @@
 
                 var teamsHtml = st.teamsHere.length > 0
                     ? st.teamsHere.map(function(t) {
-                        var cls = t.status === 'running' ? 'badge-green' : 'badge-slate';
-                        return '<span class="qtv-badge ' + cls + '">' + t.id + '</span>';
+                        var bgColor = getUniqueTeamColor(t.id);
+                        var statusIcon = t.status === 'running' ? '⏱️ ' : (t.lockStatus === 'LOCKED' ? '🔒 ' : '');
+                        return '<span class="qtv-badge" style="background:' + bgColor + '; color:#ffffff; box-shadow:0 2px 6px rgba(0,0,0,0.15); letter-spacing:0.3px;">' + statusIcon + t.id + '</span>';
                     }).join('')
                     : '<span style="font-size:11.5px; color:#94a3b8;">Hiện không có đội nào</span>';
 
