@@ -1436,8 +1436,22 @@
             }, 1000);
             
             var fetchTimer = function() {
+                if (isEndgameTriggered) {
+                    var lockCardEnd = document.getElementById('passwordLockCard');
+                    var chalCardEnd = document.getElementById('challengeCard');
+                    var itinCardEnd = document.getElementById('itineraryCard');
+                    if (lockCardEnd) lockCardEnd.style.display = 'none';
+                    if (chalCardEnd) chalCardEnd.style.display = 'none';
+                    if (itinCardEnd) itinCardEnd.style.display = 'block';
+                    if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                    if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+                    return;
+                }
+
                 google.script.run.withSuccessHandler(function(res) {
                     if (res && res.success) {
+                        if (isEndgameTriggered) return;
+
                         if (res.status === 'force_reload') {
                             silentReload();
                             return;
@@ -1475,25 +1489,22 @@
                             if (itinCard) itinCard.style.display = 'none';
                             if (challengeCard) challengeCard.style.display = 'none';
                             if (lockCard) lockCard.style.display = 'block';
-                            if (res.cipher) syncCipherUI(res.cipher);
                             setStudentMapVisible(false);
+                            if (res.cipher && typeof syncCipherUI === 'function') syncCipherUI(res.cipher);
                         } else if (res.status === 'finished') {
                             if (lockCard) lockCard.style.display = 'none';
                             if (itinCard) itinCard.style.display = 'none';
                             if (challengeCard) challengeCard.style.display = 'block';
                             setStudentMapVisible(false);
-                            stopCipherLiveTicker();
+                            if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
                         } else {
                             if (lockCard) lockCard.style.display = 'none';
                             if (challengeCard) challengeCard.style.display = 'none';
                             if (itinCard) itinCard.style.display = 'block';
-                            if (!isEndgameTriggered) {
-                                var svWrap = document.getElementById('svMapWrapper');
-                                if (svWrap && svWrap.style.display !== 'flex') {
-                                    setStudentMapVisible(true);
-                                }
-                            } else {
-                                setStudentMapVisible(false);
+                            if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                            var svWrap = document.getElementById('svMapWrapper');
+                            if (svWrap && svWrap.style.display !== 'flex') {
+                                setStudentMapVisible(true);
                             }
                         }
                     }
@@ -2109,18 +2120,19 @@
             if (!response) return;
 
             var lockCard = document.getElementById('passwordLockCard');
-            var mapEl = document.getElementById('map');
             var itinCard = document.getElementById('itineraryCard');
+            var mapEl = document.getElementById('map');
+            if (mapEl) mapEl.style.display = ''; // Xóa style ẩn cũ nếu có
 
-            if (response && response.lockStatus) {
+            if (response.lockStatus) {
                 if (response.lockStatus === 'LOCKED') {
                     if (lockCard) lockCard.style.display = 'block';
-                    if (mapEl) mapEl.style.display = 'none';
                     if (itinCard) itinCard.style.display = 'none';
+                    if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
                 } else {
                     if (lockCard) lockCard.style.display = 'none';
-                    if (mapEl) mapEl.style.display = 'flex';
                     if (itinCard) itinCard.style.display = 'block';
+                    if (!isEndgameTriggered && typeof setStudentMapVisible === 'function') setStudentMapVisible(true);
                 }
             }
 
@@ -2129,32 +2141,17 @@
                 var completed = response.progress ? response.progress : 0;
                 progressEl.innerHTML = '🏆 ' + completed + '/5 Trạm';
             }
-            var itineraryCard = document.getElementById('itineraryCard');
+
             if (response.station) {
-                targetLat = response.station.lat; targetLng = response.station.lng;
+                targetLat = response.station.lat;
+                targetLng = response.station.lng;
                 currentStationCode = response.station.code;
                 currentStationDisplayName = response.station.name || "";
                 hasStudentMapFitted = false;
-                if (response.lockStatus !== 'LOCKED') {
-                    setStudentMapVisible(true);
-                    updateStudentMapMarkers();
-                }
-                var badgeEl = document.getElementById('ui-station-badge');
-                if (badgeEl) badgeEl.textContent = "ĐIỂM ĐẾN: " + response.station.code;
-                var targetNameEl = document.getElementById('ui-target-name');
-                if (targetNameEl) targetNameEl.textContent = response.station.name;
-                var btnMap = document.getElementById('ui-btn-map');
-                if (btnMap) btnMap.href = "https://maps.google.com/?q=" + encodeURIComponent(response.station.name);
-                var stepsHtml = "";
-                if (response.station.steps) {
-                    response.station.steps.forEach(function(step, idx) { stepsHtml += '<li>📍 <strong>Bước ' + (idx + 1) + ':</strong> ' + step + '</li>'; });
-                }
-                if (response.station.prep) { stepsHtml += '<li>💰 <strong>Chuẩn bị:</strong> ' + response.station.prep + '</li>'; }
-                document.getElementById('ui-step-list').innerHTML = stepsHtml;
-                if (itineraryCard && response.lockStatus !== 'LOCKED') itineraryCard.style.display = 'block';
-                
-                if (itineraryCard && itineraryCard.classList.contains('endgame') && !isEndgameTriggered) {
-                    itineraryCard.classList.remove('endgame');
+
+                // Khôi phục giao diện bình thường nếu trước đó vừa thoát trạng thái hết giờ
+                if (itinCard && itinCard.classList.contains('endgame') && !isEndgameTriggered) {
+                    itinCard.classList.remove('endgame');
                     var badge = document.getElementById('ui-station-badge');
                     if (badge) badge.classList.remove('endgame');
                     var navBox = document.getElementById('text-nav-box');
@@ -2163,10 +2160,44 @@
                     if (navDist) navDist.style.color = "#1d4ed8";
                     var navInst = document.getElementById('nav-instruction');
                     if (navInst) navInst.style.color = "#1e40af";
-                    if (mapEl) mapEl.style.display = 'flex';
+                    var actionBtns = document.getElementById('ui-action-btns');
+                    if (actionBtns) {
+                        actionBtns.innerHTML = '<a href="#" target="_blank" class="btn-map" id="ui-btn-map">🗺️ Mở Bản đồ</a><a href="https://map.busmap.vn/hcm" target="_blank" class="btn-bus">🚌 Canh Xe Buýt</a>';
+                    }
                 }
+
+                if (response.lockStatus !== 'LOCKED' && !isEndgameTriggered) {
+                    if (typeof setStudentMapVisible === 'function') setStudentMapVisible(true);
+                    if (typeof updateStudentMapMarkers === 'function') updateStudentMapMarkers();
+                }
+
+                var badgeEl = document.getElementById('ui-station-badge');
+                if (badgeEl) badgeEl.textContent = "ĐIỂM ĐẾN: " + response.station.code;
+                var targetNameEl = document.getElementById('ui-target-name');
+                if (targetNameEl) targetNameEl.textContent = response.station.name;
+                var btnMap = document.getElementById('ui-btn-map');
+                if (btnMap) btnMap.href = "https://maps.google.com/?q=" + encodeURIComponent(response.station.name);
+
+                var stepsHtml = "";
+                if (response.station.steps) {
+                    response.station.steps.forEach(function(step, idx) {
+                        stepsHtml += '<li>📍 <strong>Bước ' + (idx + 1) + ':</strong> ' + step + '</li>';
+                    });
+                }
+                if (response.station.prep) {
+                    stepsHtml += '<li>💰 <strong>Chuẩn bị:</strong> ' + response.station.prep + '</li>';
+                }
+                var stepListEl = document.getElementById('ui-step-list');
+                if (stepListEl) stepListEl.innerHTML = stepsHtml;
+
+                if (itinCard && response.lockStatus !== 'LOCKED') itinCard.style.display = 'block';
             } else {
-                if (itineraryCard) itineraryCard.style.display = 'none';
+                if (itinCard) itinCard.style.display = 'none';
+            }
+
+            // Chốt chặn cuối: nếu chương trình đã về 00:00:00 thì ép sang Lệnh tập hợp khẩn cấp ngay
+            if (isEndgameTriggered) {
+                triggerEndgameProtocol();
             }
         }
 
@@ -2342,28 +2373,66 @@
 
         function triggerEndgameProtocol() {
             try {
-                targetLat = 10.7554; targetLng = 106.6663;
+                targetLat = 10.7554;
+                targetLng = 106.6663;
+
+                // Ẩn triệt để ổ khóa mật thư, màn hình chờ chuyển trạm, dừng đồng hồ mật thư và ẩn bản đồ
+                var lockCard = document.getElementById('passwordLockCard');
+                if (lockCard) lockCard.style.display = 'none';
+
+                var challengeCard = document.getElementById('challengeCard');
+                if (challengeCard) challengeCard.style.display = 'none';
+
+                if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+
                 var card = document.getElementById('itineraryCard');
                 if (card) {
-                    card.style.display = 'block'; card.classList.add('endgame');
+                    card.style.display = 'block';
+                    card.classList.add('endgame');
+
                     var badge = document.getElementById('ui-station-badge');
-                    if (badge) { badge.textContent = "🚨 LỆNH TẬP HỢP KHẨN CẤP"; badge.classList.add('endgame'); }
+                    if (badge) {
+                        badge.textContent = "🚨 LỆNH TẬP HỢP KHẨN CẤP";
+                        badge.classList.add('endgame');
+                    }
+
                     var targetName = document.getElementById('ui-target-name');
                     if (targetName) targetName.textContent = "Sân chính ĐH Y Dược TP.HCM (217 Hồng Bàng)";
+
                     var navBox = document.getElementById('text-nav-box');
-                    if (navBox) { navBox.style.background = "#fef2f2"; navBox.style.borderColor = "#ef4444"; }
+                    if (navBox) {
+                        navBox.style.background = "#fef2f2";
+                        navBox.style.borderColor = "#ef4444";
+                    }
+
                     var navDist = document.getElementById('nav-distance');
-                    if (navDist) { navDist.style.color = "#ef4444"; }
+                    if (navDist) navDist.style.color = "#ef4444";
+
                     var navInst = document.getElementById('nav-instruction');
-                    if (navInst) { navInst.textContent = "Trò chơi đã kết thúc. Hãy nhanh chóng di chuyển!"; navInst.style.color = "#991b1b"; }
+                    if (navInst) {
+                        navInst.textContent = "Trò chơi đã kết thúc. Hãy nhanh chóng di chuyển!";
+                        navInst.style.color = "#991b1b";
+                    }
+
+                    // Tính ngay khoảng cách về UMP nếu đã có tọa độ GPS gần nhất
+                    if (studentLastLat && studentLastLng && typeof getDistanceFromLatLonInKm === 'function' && typeof updateNavDistanceUI === 'function') {
+                        var distToUmp = getDistanceFromLatLonInKm(studentLastLat, studentLastLng, targetLat, targetLng);
+                        updateNavDistanceUI(distToUmp);
+                    }
+
                     var stepList = document.getElementById('ui-step-list');
-                    if (stepList) stepList.innerHTML = '<li style="color: #ef4444; font-weight: 700; font-size: 14px;">⚠️ THÔNG BÁO TỪ BAN TỔ CHỨC:</li><li>Thời gian chương trình đã khép lại. Dù bạn đang ở trạm nào, hãy di chuyển ngay về Điểm tập kết.</li>';
+                    if (stepList) {
+                        stepList.innerHTML = '<li style="color: #ef4444; font-weight: 700; font-size: 14px;">⚠️ THÔNG BÁO TỪ BAN TỔ CHỨC:</li><li>Thời gian chương trình đã khép lại. Dù bạn đang ở trạm nào, hãy di chuyển ngay về Điểm tập kết.</li>';
+                    }
+
                     var actionBtns = document.getElementById('ui-action-btns');
-                    if (actionBtns) actionBtns.innerHTML = '<a href="https://maps.google.com/?q=217+Hồng+Bàng,+Quận+5,+TP.HCM" target="_blank" class="btn-map" style="background: #ef4444; padding: 12px; font-size: 14px; width: 100%; text-align: center;">🗺️ Chỉ đường về UMP</a>';
+                    if (actionBtns) {
+                        actionBtns.innerHTML = '<a href="https://maps.google.com/?q=217+Hồng+Bàng,+Quận+5,+TP.HCM" target="_blank" class="btn-map" style="background: #ef4444; padding: 12px; font-size: 14px; width: 100%; text-align: center;">🗺️ Chỉ đường về UMP</a>';
+                    }
+
                     var btnReload = document.getElementById('btn-reload-station');
                     if (btnReload) btnReload.style.display = 'none';
-                    var mapEl = document.getElementById('map');
-                    if (mapEl) mapEl.style.display = 'none';
                 }
             } catch (e) {}
         }
