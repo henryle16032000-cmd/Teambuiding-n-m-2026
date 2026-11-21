@@ -301,6 +301,16 @@
         .rank-medal { font-size: 16px; font-weight: 900; font-family: 'Space Mono', monospace; }
         .qtv-search-input { padding: 8px 14px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 12.5px; outline: none; min-width: 220px; }
         .qtv-search-input:focus { border-color: #0284c7; }
+
+        /* --- BẢN ĐỒ NÂNG CẤP CHO SINH VIÊN --- */
+        .sv-map-wrapper { width: 100%; margin-bottom: 12px; display: none; flex-direction: column; gap: 8px; }
+        .sv-map-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px 12px; font-size: 11px; font-weight: 700; color: #475569; }
+        .sv-map-legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .sv-map-btn-fit { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; padding: 5px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        .sv-map-btn-fit:hover { background: #bae6fd; }
+        #map { width: 100%; height: 280px; border-radius: 16px; border: 2px solid #cbd5e1; z-index: 1; background-color: #f8fafc; overflow: hidden; }
+        .sv-gps-dot { width: 18px; height: 18px; background: #0284c7; border: 3px solid white; border-radius: 50%; box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.3); animation: pulseBlue 1.6s infinite; }
+        @keyframes pulseBlue { 0% { box-shadow: 0 0 0 0 rgba(2,132,199,0.65); } 70% { box-shadow: 0 0 0 12px rgba(2,132,199,0); } 100% { box-shadow: 0 0 0 0 rgba(2,132,199,0); } }
     </style>
 </head>
 <body>
@@ -453,8 +463,16 @@
                         </div>
                     </div>
                    
-                    <div id="map" style="width: 100%; height: 160px; border-radius: 16px; border: 2px solid #e2e8f0; z-index: 1; background-color: #f8fafc; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 12px; font-weight: 600; text-align: center; padding: 10px; margin-bottom: 10px;">
-                        📍 Đang yêu cầu quyền vị trí GPS...
+                    <div class="sv-map-wrapper" id="svMapWrapper">
+                        <div class="sv-map-toolbar">
+                            <div class="sv-map-legend">
+                                <span class="legend-item"><span class="legend-dot" style="background:#0284c7;"></span> Vị trí đội bạn</span>
+                                <span class="legend-item"><span class="legend-dot" style="background:#6366f1;"></span> Trạm đích</span>
+                                <span id="sv-gps-status-pill" style="color:#d97706;">📡 Đang dò GPS...</span>
+                            </div>
+                            <button type="button" class="sv-map-btn-fit" onclick="fitStudentMapBounds()">🎯 Xem cả 2 điểm</button>
+                        </div>
+                        <div id="map"></div>
                     </div>
 
                     <!-- MÀN HÌNH Ổ KHÓA MẬT THƯ -->
@@ -1283,7 +1301,6 @@
                         var itinCard = document.getElementById('itineraryCard');
                         var lockCard = document.getElementById('passwordLockCard');
                         var challengeCard = document.getElementById('challengeCard');
-                        var mapEl = document.getElementById('map');
                         
                         if (!swEl || !stEl) return;
                         
@@ -1308,19 +1325,26 @@
 
                         if (res.lockStatus === 'LOCKED') {
                             if (itinCard) itinCard.style.display = 'none';
-                            if (mapEl) mapEl.style.display = 'none';
                             if (challengeCard) challengeCard.style.display = 'none';
                             if (lockCard) lockCard.style.display = 'block';
+                            setStudentMapVisible(false);
                         } else if (res.status === 'finished') {
                             if (lockCard) lockCard.style.display = 'none';
-                            if (mapEl) mapEl.style.display = 'none';
                             if (itinCard) itinCard.style.display = 'none';
                             if (challengeCard) challengeCard.style.display = 'block';
+                            setStudentMapVisible(false);
                         } else {
                             if (lockCard) lockCard.style.display = 'none';
                             if (challengeCard) challengeCard.style.display = 'none';
                             if (itinCard) itinCard.style.display = 'block';
-                            if (mapEl && !isEndgameTriggered) mapEl.style.display = 'flex';
+                            if (!isEndgameTriggered) {
+                                var svWrap = document.getElementById('svMapWrapper');
+                                if (svWrap && svWrap.style.display !== 'flex') {
+                                    setStudentMapVisible(true);
+                                }
+                            } else {
+                                setStudentMapVisible(false);
+                            }
                         }
                     }
                 }).getStudentTimerStatus(currentTeamId, currentStationCode);
@@ -1549,12 +1573,186 @@
                 try { map.remove(); } catch (e) {}
                 map = null;
                 marker = null;
+                studentStationMarker = null;
+                studentRouteLayer = null;
             }
+            studentLastLat = 0;
+            studentLastLng = 0;
+            hasStudentMapFitted = false;
+            currentStationDisplayName = "";
+            setStudentMapVisible(false);
+
             if (qtvBattleMap) {
                 try { qtvBattleMap.remove(); } catch (e) {}
                 qtvBattleMap = null;
                 qtvMapLayerGroup = null;
             }
+        }   
+        
+        // =========================================================================
+        // BẢN ĐỒ SINH VIÊN (3 CHẾ ĐỘ + 2 ĐIỂM + KHUNG LỘ TRÌNH ĐA PHƯƠNG TIỆN)
+        // =========================================================================
+        var studentStationMarker = null;
+        var studentRouteLayer = null;
+        var studentLastLat = 0, studentLastLng = 0;
+        var hasStudentMapFitted = false;
+        var currentStationDisplayName = "";
+
+        // Bảng màu & ký hiệu sẵn cho bước vẽ lộ trình thực địa sau này
+        var TRANSPORT_STYLES = {
+            walk:  { color: '#10b981', dashArray: '6, 8', weight: 4, label: '🚶 Đi bộ' },
+            bus:   { color: '#f59e0b', dashArray: null,   weight: 5, label: '🚌 Xe buýt' },
+            metro: { color: '#2563eb', dashArray: null,   weight: 6, label: '🚇 Tàu điện ngầm' },
+            bike:  { color: '#8b5cf6', dashArray: '10, 6', weight: 4, label: '🚲 Xe đạp công cộng' }
+        };
+
+        function setStudentMapVisible(isVisible) {
+            var wrap = document.getElementById('svMapWrapper');
+            if (!wrap) return;
+            wrap.style.display = isVisible ? 'flex' : 'none';
+            if (isVisible) {
+                initStudentMap();
+                setTimeout(function() {
+                    if (map) map.invalidateSize(true);
+                }, 220);
+            }
+        }
+
+        function initStudentMap() {
+            var mapEl = document.getElementById('map');
+            if (!mapEl) return;
+
+            if (map) {
+                setTimeout(function() { map.invalidateSize(true); }, 200);
+                return;
+            }
+
+            var centerLat = targetLat || studentLastLat || 10.757;
+            var centerLng = targetLng || studentLastLng || 106.662;
+
+            map = L.map('map').setView([centerLat, centerLng], 15);
+
+            var googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: '&copy; Google Maps'
+            });
+            var osmStandard = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; OpenStreetMap'
+            });
+            var googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: '&copy; Google Maps'
+            });
+
+            googleStreets.addTo(map);
+            L.control.layers({
+                "🗺️ Đường phố": googleStreets,
+                "🌐 OpenStreetMap": osmStandard,
+                "🛰️ Vệ tinh": googleSatellite
+            }, null, { position: 'topright' }).addTo(map);
+
+            studentRouteLayer = L.layerGroup().addTo(map);
+
+            if (typeof ResizeObserver !== 'undefined') {
+                var roSV = new ResizeObserver(function() {
+                    window.requestAnimationFrame(function() { if (map) map.invalidateSize(true); });
+                });
+                roSV.observe(mapEl);
+            }
+
+            updateStudentMapMarkers();
+        }
+
+        function updateStudentMapMarkers() {
+            if (!map) return;
+
+            // 1. Vẽ / cập nhật Marker vị trí Đội chơi
+            if (studentLastLat && studentLastLng) {
+                var svIcon = L.divIcon({
+                    html: '<div class="sv-gps-dot" title="Vị trí đội bạn"></div>',
+                    className: '',
+                    iconSize: [18, 18],
+                    iconAnchor: [9, 9]
+                });
+                if (!marker) {
+                    marker = L.marker([studentLastLat, studentLastLng], { icon: svIcon, zIndexOffset: 500 })
+                        .bindPopup('<b>📍 Đội ' + (currentTeamId || 'bạn') + '</b><br>Vị trí hiện tại của bạn')
+                        .addTo(map);
+                } else {
+                    marker.setLatLng([studentLastLat, studentLastLng]);
+                }
+            }
+
+            // 2. Vẽ / cập nhật Marker Trạm giải mã đích
+            if (targetLat && targetLng) {
+                var stColor = isEndgameTriggered ? '#ef4444' : '#6366f1';
+                var stCodeLabel = isEndgameTriggered ? '🚨 TẬP KẾT UMP' : ('🏛️ ' + (currentStationCode || 'TRẠM ĐÍCH'));
+                var stIcon = L.divIcon({
+                    html: '<div style="background:' + stColor + '; color:white; border-radius:10px; padding:4px 8px; font-weight:900; font-size:10.5px; border:2px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.28); white-space:nowrap;">' + stCodeLabel + '</div>',
+                    className: '',
+                    iconSize: [96, 26],
+                    iconAnchor: [48, 13]
+                });
+
+                var popupText = '<b>' + stCodeLabel + '</b><br>' + (currentStationDisplayName || 'Điểm đến trạm giải mã');
+                if (!studentStationMarker) {
+                    studentStationMarker = L.marker([targetLat, targetLng], { icon: stIcon, zIndexOffset: 400 })
+                        .bindPopup(popupText)
+                        .addTo(map);
+                } else {
+                    studentStationMarker.setLatLng([targetLat, targetLng]).setIcon(stIcon).setPopupContent(popupText);
+                }
+            }
+
+            // 3. Vẽ đường nối hướng dẫn tạm thời (khi chưa nạp lộ trình đa chặng chi tiết)
+            if (studentRouteLayer && studentLastLat && studentLastLng && targetLat && targetLng) {
+                studentRouteLayer.clearLayers();
+                L.polyline([[studentLastLat, studentLastLng], [targetLat, targetLng]], {
+                    color: isEndgameTriggered ? '#ef4444' : '#0284c7',
+                    weight: 3,
+                    opacity: 0.75,
+                    dashArray: '8, 8'
+                }).addTo(studentRouteLayer);
+            }
+
+            // 4. Tự động căn khung nhìn chứa cả 2 điểm ở lần đầu tiên
+            if (!hasStudentMapFitted && studentLastLat && targetLat) {
+                fitStudentMapBounds();
+                hasStudentMapFitted = true;
+            }
+        }
+
+        function fitStudentMapBounds() {
+            if (!map) return;
+            var pts = [];
+            if (studentLastLat && studentLastLng) pts.push([studentLastLat, studentLastLng]);
+            if (targetLat && targetLng) pts.push([targetLat, targetLng]);
+
+            if (pts.length === 2) {
+                map.fitBounds(pts, { padding: [45, 45], maxZoom: 17 });
+            } else if (pts.length === 1) {
+                map.setView(pts[0], 16);
+            }
+        }
+
+        // Hàm dựng sẵn cho giai đoạn 2: chỉ cần truyền mảng chặng [{ mode: 'walk'|'bus'|'metro'|'bike', points: [[lat,lng], ...], note: '...' }]
+        function renderStudentRouteSegments(segments) {
+            if (!map || !studentRouteLayer || !Array.isArray(segments)) return;
+            studentRouteLayer.clearLayers();
+            segments.forEach(function(seg) {
+                var cfg = TRANSPORT_STYLES[seg.mode] || TRANSPORT_STYLES.walk;
+                if (!seg.points || seg.points.length < 2) return;
+                L.polyline(seg.points, {
+                    color: cfg.color,
+                    weight: cfg.weight,
+                    dashArray: cfg.dashArray,
+                    opacity: 0.9
+                }).bindPopup('<b>' + cfg.label + '</b>' + (seg.note ? '<br>' + seg.note : ''))
+                  .addTo(studentRouteLayer);
+            });
         }
 
         function renderStationData(response) {
@@ -1585,6 +1783,12 @@
             if (response.station) {
                 targetLat = response.station.lat; targetLng = response.station.lng;
                 currentStationCode = response.station.code;
+                currentStationDisplayName = response.station.name || "";
+                hasStudentMapFitted = false;
+                if (response.lockStatus !== 'LOCKED') {
+                    setStudentMapVisible(true);
+                    updateStudentMapMarkers();
+                }
                 var badgeEl = document.getElementById('ui-station-badge');
                 if (badgeEl) badgeEl.textContent = "ĐIỂM ĐẾN: " + response.station.code;
                 var targetNameEl = document.getElementById('ui-target-name');
@@ -1703,33 +1907,25 @@
                 var isFirstUpdate = true;
                 watchId = navigator.geolocation.watchPosition(
                     function(position) {
-                        var lat = position.coords.latitude; var lng = position.coords.longitude;
+                        var lat = position.coords.latitude;
+                        var lng = position.coords.longitude;
                         var currentGpsInfo = 'Lat: ' + lat.toFixed(6) + ', Lon: ' + lng.toFixed(6);
                         sessionStorage.setItem('currentGPS', currentGpsInfo);
 
                         if (rType === 'student') {
-                            var mapEl = document.getElementById('map');
-                            if (isFirstUpdate && mapEl) mapEl.innerHTML = '';
-                            if (!map) {
-                                var checkSizeSV = setInterval(function() {
-                                    if (mapEl && mapEl.clientWidth > 0 && mapEl.clientHeight > 0) {
-                                        clearInterval(checkSizeSV);
-                                        if (!map) {
-                                            map = L.map('map').setView([lat, lng], 16);
-                                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSMap' }).addTo(map);
-                                            marker = L.marker([lat, lng]).addTo(map).bindPopup('📍 Bạn đang ở đây').openPopup();
-                                            if (typeof ResizeObserver !== 'undefined') {
-                                                var roSV = new ResizeObserver(function() {
-                                                    window.requestAnimationFrame(function() { if (map) map.invalidateSize(true); });
-                                                });
-                                                roSV.observe(mapEl);
-                                            }
-                                        }
-                                    }
-                                }, 100);
-                            } else {
-                                map.setView([lat, lng], 16); marker.setLatLng([lat, lng]);
+                            studentLastLat = lat;
+                            studentLastLng = lng;
+
+                            var gpsPill = document.getElementById('sv-gps-status-pill');
+                            if (gpsPill) {
+                                gpsPill.textContent = '● GPS đã kết nối';
+                                gpsPill.style.color = '#15803d';
                             }
+
+                            if (map) {
+                                updateStudentMapMarkers();
+                            }
+
                             if (targetLat !== 0 && targetLng !== 0) {
                                 var distKm = getDistanceFromLatLonInKm(lat, lng, targetLat, targetLng);
                                 updateNavDistanceUI(distKm);
@@ -1742,14 +1938,23 @@
                             isFirstUpdate = false;
                         }
                     },
-                    function() { if (rType === 'student') { var m = document.getElementById('map'); if (m) m.innerHTML = '❌ Máy không bật GPS!'; } },
+                    function() {
+                        if (rType === 'student') {
+                            var gpsPill = document.getElementById('sv-gps-status-pill');
+                            if (gpsPill) {
+                                gpsPill.textContent = '❌ Máy chưa bật GPS!';
+                                gpsPill.style.color = '#ef4444';
+                            }
+                        }
+                    },
                     { enableHighAccuracy: true, maximumAge: 0 }
                 );
 
                 if (!isSOSMode) {
                     var intervalMs = 300000;
                     if (rType === 'student') { intervalMs = isLeader ? 60000 : 180000; }
-                    
+
+                    if (gpsIntervalId) clearInterval(gpsIntervalId);
                     gpsIntervalId = setInterval(function() {
                         var latestGps = sessionStorage.getItem('currentGPS');
                         if (latestGps) {
@@ -1759,7 +1964,13 @@
                     }, intervalMs);
                 }
             } else {
-                if (rType === 'student') { var m = document.getElementById('map'); if (m) m.innerHTML = '❌ Trình duyệt không hỗ trợ GPS!'; }
+                if (rType === 'student') {
+                    var gpsPill = document.getElementById('sv-gps-status-pill');
+                    if (gpsPill) {
+                        gpsPill.textContent = '❌ Trình duyệt không hỗ trợ GPS!';
+                        gpsPill.style.color = '#ef4444';
+                    }
+                }
             }
         }
         
