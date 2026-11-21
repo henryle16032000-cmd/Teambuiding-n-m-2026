@@ -605,7 +605,13 @@
                     <div class="stat-cards-compact-grid">
                         <!-- KHUNG ĐỘNG 3 GIAI ĐOẠN -->
                         <div class="stat-card-compact">
-                            
+
+                            <!-- TRẠNG THÁI CHỜ ĐỒNG BỘ BAN ĐẦU (CHỐNG NHÁY LỘ GIAO DIỆN) -->
+                            <div id="lp-phase-loading" style="width: 100%; padding: 38px 12px; text-align: center; animation: pulseOpacity 1.5s infinite;">
+                                <div style="font-size: 24px; margin-bottom: 6px;">⏳</div>
+                                <div style="font-size: 12px; font-weight: 800; color: #0369a1; text-transform: uppercase; letter-spacing: 0.3px;">Đang đồng bộ trạng thái chương trình...</div>
+                            </div>
+
                             <!-- GIAI ĐOẠN 1: TRƯỚC GIỜ KHAI MẠC (BẢN MẪU DẶN DÒ) -->
                             <div id="lp-phase-pre" class="lp-stage-box" style="display: none;">
                                 <div class="stat-compact-title-row" style="margin-bottom: 10px;">
@@ -639,8 +645,8 @@
                                 </div>
                             </div>
 
-                            <!-- GIAI ĐOẠN 2: TRONG GIỜ CHƠI (GIỮ NGUYÊN CỦA BẠN) -->
-                            <div id="lp-phase-live" style="width: 100%;">
+                            <!-- GIAI ĐOẠN 2: TRONG GIỜ CHƠI (ẨN MẶC ĐỊNH ĐỂ KHÔNG BỊ NHÁY) -->
+                            <div id="lp-phase-live" style="width: 100%; display: none;">
                                 <div class="stat-compact-title-row">
                                     <span class="stat-compact-icon">🔥</span>
                                     <span class="stat-compact-title">VỊ TRÍ CÁC ĐỘI ĐANG GIẢI MÃ</span>
@@ -3272,15 +3278,69 @@
                 .qtvSetResultsPublished(currentTeamId, targetState);
         }
 
+        var PUBLIC_BOARD_CACHE_KEY = 'ump_tb2026_event_phase_cache';
+
         function applyLeftPanelPhaseUI(phase) {
+            var loadEl = document.getElementById('lp-phase-loading');
             var preEl = document.getElementById('lp-phase-pre');
             var liveEl = document.getElementById('lp-phase-live');
             var postEl = document.getElementById('lp-phase-post');
             if (!preEl || !liveEl || !postEl) return;
 
+            if (loadEl) loadEl.style.display = 'none';
             preEl.style.display = (phase === 'pre') ? 'block' : 'none';
             liveEl.style.display = (phase === 'live') ? 'block' : 'none';
             postEl.style.display = (phase === 'post') ? 'block' : 'none';
+        }
+
+        function computePhaseByTime(estNow, startMs, durMs) {
+            if (startMs > 0 && estNow < startMs) return 'pre';
+            if (startMs > 0 && durMs > 0 && estNow >= (startMs + durMs)) return 'post';
+            return 'live';
+        }
+
+        function savePublicBoardCache(res) {
+            try {
+                var payload = {
+                    startTimeMs: res.startTimeMs || 0,
+                    durationMs: res.durationMs || 0,
+                    serverOffset: (res.serverNow || Date.now()) - Date.now(),
+                    teamCount: res.teamCount || 6,
+                    savedAt: Date.now()
+                };
+                localStorage.setItem(PUBLIC_BOARD_CACHE_KEY, JSON.stringify(payload));
+            } catch (e) {}
+        }
+
+        function tryApplyCachedEventPhase() {
+            try {
+                var raw = localStorage.getItem(PUBLIC_BOARD_CACHE_KEY);
+                if (!raw) return false;
+                var cached = JSON.parse(raw);
+                if (!cached || !cached.startTimeMs) return false;
+
+                var estNow = Date.now() + (cached.serverOffset || 0);
+                var phase = computePhaseByTime(estNow, cached.startTimeMs, cached.durationMs);
+
+                publicBoardState.loaded = true;
+                publicBoardState.serverOffset = cached.serverOffset || 0;
+                publicBoardState.startTimeMs = cached.startTimeMs;
+                publicBoardState.durationMs = cached.durationMs || 0;
+                publicBoardState.phase = phase;
+                publicBoardState.teamCount = cached.teamCount || 6;
+
+                applyLeftPanelPhaseUI(phase);
+
+                // Nếu đang ở giai đoạn kết thúc, luôn tạm phủ kính niêm phong cho tới khi máy chủ xác nhận công bố
+                if (phase === 'post') {
+                    renderSealedDummyRows(publicBoardState.teamCount);
+                    var overlayEl = document.getElementById('lp-frost-overlay');
+                    if (overlayEl) overlayEl.classList.remove('revealed');
+                }
+                return true;
+            } catch (e) {
+                return false;
+            }
         }
 
         function renderSealedDummyRows(count) {
@@ -3331,8 +3391,7 @@
             listEl.innerHTML = html;
         }
 
-        function fetchPublicEventBoardState() {
-            // Chỉ tải khi đang ở màn hình đăng nhập (chưa login) để tiết kiệm băng thông
+                function fetchPublicEventBoardState() {
             var appCard = document.getElementById('appCard');
             if (appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-ctv') || appCard.classList.contains('logged-in-qtv'))) {
                 return;
@@ -3340,6 +3399,8 @@
 
             google.script.run.withSuccessHandler(function(res) {
                 if (!res || !res.success) return;
+
+                savePublicBoardCache(res);
 
                 var wasPublished = publicBoardState.published;
                 publicBoardState.loaded = true;
@@ -3376,19 +3437,17 @@
         }
 
         function startPublicEventBoardWatcher() {
+            // 1. Khôi phục tức thì giai đoạn từ bộ nhớ tạm (0ms, không nháy)
+            tryApplyCachedEventPhase();
+
+            // 2. Đồng bộ ngầm lại từ máy chủ để chắc chắn chuẩn xác tuyệt đối
             fetchPublicEventBoardState();
 
-            // Kiểm tra từng giây để chuyển giai đoạn chính xác ngay mốc giờ khai mạc & 00:00:00
             if (publicPhaseTickId) clearInterval(publicPhaseTickId);
             publicPhaseTickId = setInterval(function() {
                 if (!publicBoardState.loaded || !publicBoardState.startTimeMs) return;
                 var estNow = Date.now() + publicBoardState.serverOffset;
-                var computedPhase = 'live';
-                if (estNow < publicBoardState.startTimeMs) {
-                    computedPhase = 'pre';
-                } else if (publicBoardState.durationMs > 0 && estNow >= (publicBoardState.startTimeMs + publicBoardState.durationMs)) {
-                    computedPhase = 'post';
-                }
+                var computedPhase = computePhaseByTime(estNow, publicBoardState.startTimeMs, publicBoardState.durationMs);
 
                 if (computedPhase !== publicBoardState.phase) {
                     publicBoardState.phase = computedPhase;
@@ -3400,13 +3459,19 @@
                 }
             }, 1000);
 
-            // Khi đang ở giai đoạn chờ công bố (post): tự kiểm tra lệnh công bố mỗi 5 giây
             if (publicBoardPollId) clearInterval(publicBoardPollId);
             publicBoardPollId = setInterval(function() {
                 if (publicBoardState.phase === 'post') {
                     fetchPublicEventBoardState();
                 }
             }, 5000);
+        }
+
+        // Khởi chạy sớm ngay khi khung HTML sẵn sàng (không đợi tải hết ảnh)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startPublicEventBoardWatcher);
+        } else {
+            startPublicEventBoardWatcher();
         }
 
         // --- HIỆU ỨNG PHÁO GIẤY (CANVAS THUẦN, MƯỢT & KHÔNG PHỤ THUỘC THƯ VIỆN NGOÀI) ---
