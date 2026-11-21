@@ -440,6 +440,138 @@
             color: #14532d;
             line-height: 1.45;
         }
+
+        /* --- PANEL TRÁI: GIAI ĐOẠN 1 (DẶN DÒ TRƯỚC GIỜ G) --- */
+        .lp-stage-box { width: 100%; text-align: left; }
+        .lp-stage-title {
+            font-size: 13px; font-weight: 900; color: #0369a1; text-transform: uppercase;
+            display: flex; align-items: center; gap: 6px; margin-bottom: 10px;
+            letter-spacing: 0.3px;
+        }
+        .lp-briefing-stack { display: flex; flex-direction: column; gap: 8px; }
+        .lp-info-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid #e0f2fe;
+            border-radius: 14px;
+            padding: 10px 12px;
+            box-shadow: 0 3px 10px rgba(2, 132, 199, 0.06);
+        }
+        .lp-info-head {
+            font-size: 11.5px; font-weight: 800; color: #0284c7;
+            text-transform: uppercase; margin-bottom: 5px;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .lp-info-body { font-size: 12px; color: #334155; line-height: 1.5; font-weight: 500; }
+        .lp-checklist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+        .lp-checklist li { font-size: 12px; color: #334155; font-weight: 600; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+        .lp-notice-pill {
+            background: #fffbeb; border: 1px solid #fde68a; color: #92400e;
+            border-radius: 12px; padding: 8px 11px; font-size: 11.5px; font-weight: 700; line-height: 1.4;
+        }
+
+        /* --- PANEL TRÁI: GIAI ĐOẠN 3 (XẾP HẠNG & LỚP KÍNH TRẮNG MỜ) --- */
+        .lp-result-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 230px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1.5px solid #e2e8f0;
+            padding: 10px;
+        }
+        .lp-result-list { display: flex; flex-direction: column; gap: 7px; max-height: 280px; overflow-y: auto; padding-right: 2px; }
+        .lp-rank-row {
+            display: flex; align-items: center; justify-content: space-between; gap: 8px;
+            background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 8px 11px; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+        }
+        .lp-rank-row.top-1 { background: linear-gradient(135deg, #fefce8 0%, #fef08a 100%); border-color: #facc15; }
+        .lp-rank-row.top-2 { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-color: #cbd5e1; }
+        .lp-rank-row.top-3 { background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-color: #fb923c; }
+        .lp-rank-left { display: flex; align-items: center; gap: 8px; min-width: 0; }
+        .lp-rank-medal { font-size: 15px; font-weight: 900; min-width: 28px; text-align: center; color: #475569; }
+        .lp-rank-team { font-size: 13px; font-weight: 900; color: #0f172a; font-family: 'Space Mono', monospace; }
+        .lp-rank-sub { font-size: 10.5px; font-weight: 700; color: #64748b; }
+        .lp-rank-score { font-size: 12.5px; font-weight: 900; color: #0369a1; font-family: 'Space Mono', monospace; text-align: right; white-space: nowrap; }
+
+        /* Thanh giả giữ chỗ dưới lớp kính mờ khi chưa công bố */
+        .lp-dummy-bar { height: 11px; border-radius: 6px; background: #cbd5e1; }
+        .lp-dummy-bar.gold { background: #eab308; }
+        .lp-dummy-bar.blue { background: #38bdf8; }
+
+        /* Lớp kính trắng mờ che kết quả */
+        .lp-frost-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 6;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 18px;
+            opacity: 1;
+            transition: opacity 0.95s ease, backdrop-filter 0.95s ease, transform 0.95s ease;
+        }
+        .lp-frost-overlay.revealed {
+            opacity: 0;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            transform: scale(1.04);
+            pointer-events: none;
+        }
+        .lp-seal-icon {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            border: 2px solid #ffffff;
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.18);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; margin-bottom: 10px;
+        }
+        .lp-seal-title { font-size: 13.5px; font-weight: 900; color: #0f172a; text-transform: uppercase; margin-bottom: 4px; }
+        .lp-seal-sub { font-size: 11.5px; font-weight: 600; color: #475569; line-height: 1.45; max-width: 260px; }
+        .lp-seal-pulse {
+            margin-top: 10px; font-size: 10.5px; font-weight: 800; color: #0284c7;
+            background: #e0f2fe; padding: 4px 10px; border-radius: 20px;
+            animation: pulseOpacity 1.8s infinite;
+        }
+        @keyframes pulseOpacity { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+        /* --- NÚT CÔNG BỐ KẾT QUẢ (CHỈ QTV-001) --- */
+        .qtv-publish-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.28);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .qtv-publish-btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+        .qtv-publish-btn.published {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.28);
+        }
+
+        /* --- CANVAS PHÁO GIẤY TOÀN MÀN HÌNH --- */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99999;
+        }
     </style>
 </head>
 <body>
@@ -471,14 +603,71 @@
                     </div>
                    
                     <div class="stat-cards-compact-grid">
+                        <!-- KHUNG ĐỘNG 3 GIAI ĐOẠN -->
                         <div class="stat-card-compact">
-                            <div class="stat-compact-title-row">
-                                <span class="stat-compact-icon">🔥</span>
-                                <span class="stat-compact-title">VỊ TRÍ CÁC ĐỘI ĐANG GIẢI MÃ</span>
+                            
+                            <!-- GIAI ĐOẠN 1: TRƯỚC GIỜ KHAI MẠC (BẢN MẪU DẶN DÒ) -->
+                            <div id="lp-phase-pre" class="lp-stage-box" style="display: none;">
+                                <div class="stat-compact-title-row" style="margin-bottom: 10px;">
+                                    <span class="stat-compact-icon">📋</span>
+                                    <span class="stat-compact-title">THÔNG TIN TẬP TRUNG & DẶN DÒ</span>
+                                </div>
+                                <div class="lp-briefing-stack">
+                                    <!-- SỬA VỊ TRÍ TẬP TRUNG TẠI ĐÂY -->
+                                    <div class="lp-info-card">
+                                        <div class="lp-info-head">📍 Điểm tập trung & Thời gian</div>
+                                        <div class="lp-info-body">
+                                            <strong>Sân chính ĐH Y Dược TP.HCM (217 Hồng Bàng)</strong><br>
+                                            Có mặt điểm danh trước giờ xuất phát <strong>15 phút</strong> để nhận vật phẩm đội.
+                                        </div>
+                                    </div>
+
+                                    <!-- SỬA ĐỒ DÙNG CẦN CHUẨN BỊ TẠI ĐÂY -->
+                                    <div class="lp-info-card">
+                                        <div class="lp-info-head">🎒 Vật dụng cần chuẩn bị</div>
+                                        <ul class="lp-checklist">
+                                            <li><span>🔋</span><span>Điện thoại sạc đầy pin, sạc dự phòng & bật sẵn <strong>4G + GPS</strong>.</span></li>
+                                            <li><span>👟</span><span>Trang phục gọn gàng, giày thể thao, nón và bình nước cá nhân.</span></li>
+                                            <li><span>🎫</span><span>Tiền lẻ / thẻ đi xe buýt, Metro và thẻ sinh viên (nếu cần).</span></li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- SỬA LƯU Ý NHANH TẠI ĐÂY -->
+                                    <div class="lp-notice-pill">
+                                        ⚡ Lưu ý: Cổng giải mật thư Trạm 1 sẽ tự động mở và tính giờ ngay khi đồng hồ đếm ngược khai mạc!
+                                    </div>
+                                </div>
                             </div>
-                            <div class="global-pie-charts-wrapper" id="global-pies-container">
-                                <div style="font-size: 11px; color:#64748b; width: 100%; text-align: center;">Đang tải dữ liệu chiến sự...</div>
+
+                            <!-- GIAI ĐOẠN 2: TRONG GIỜ CHƠI (GIỮ NGUYÊN CỦA BẠN) -->
+                            <div id="lp-phase-live" style="width: 100%;">
+                                <div class="stat-compact-title-row">
+                                    <span class="stat-compact-icon">🔥</span>
+                                    <span class="stat-compact-title">VỊ TRÍ CÁC ĐỘI ĐANG GIẢI MÃ</span>
+                                </div>
+                                <div class="global-pie-charts-wrapper" id="global-pies-container">
+                                    <div style="font-size: 11px; color:#64748b; width: 100%; text-align: center;">Đang tải dữ liệu chiến sự...</div>
+                                </div>
                             </div>
+
+                            <!-- GIAI ĐOẠN 3: SAU KHI VỀ 00:00:00 (XẾP HẠNG + LỚP TRẮNG MỜ NIÊM PHONG) -->
+                            <div id="lp-phase-post" class="lp-stage-box" style="display: none;">
+                                <div class="stat-compact-title-row" style="margin-bottom: 10px;">
+                                    <span class="stat-compact-title" id="lp-post-title">🏆 BẢNG XẾP HẠNG CHUNG CUỘC</span>
+                                </div>
+                                <div class="lp-result-wrapper">
+                                    <div class="lp-result-list" id="lp-result-list"></div>
+
+                                    <!-- LỚP KÍNH TRẮNG MỜ CHE KẾT QUẢ -->
+                                    <div class="lp-frost-overlay" id="lp-frost-overlay">
+                                        <div class="lp-seal-icon">🔒</div>
+                                        <div class="lp-seal-title">KẾT QUẢ ĐANG ĐƯỢC NIÊM PHONG</div>
+                                        <div class="lp-seal-sub">Ban Tổ chức đang kiểm duyệt thành tích cuối cùng. Kết quả sẽ tự động hé lộ ngay khi có hiệu lệnh công bố!</div>
+                                        <div class="lp-seal-pulse">⏳ Đang chờ Ban Tổ chức công bố...</div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="stat-card-compact" style="flex-direction: row; align-items: center; justify-content: center; gap: 15px;">
@@ -786,6 +975,7 @@
                                     <div class="qtv-tab-title">⏱️ BẢNG THÀNH TÍCH TỔNG HỢP</div>
                                     <div class="qtv-meta-bar">
                                         <span class="qtv-badge badge-blue">Trạm → Mật thư → Giờ quy đổi → Ít gợi ý</span>
+                                        <button id="qtv-publish-results-btn" class="qtv-publish-btn" onclick="handleQtvTogglePublish()" style="display: none;">📢 Công bố kết quả</button>
                                     </div>
                                 </div>
                                 <div class="qtv-table-wrap">
@@ -1863,6 +2053,10 @@
                                     if (settingsBtn) {
                                         settingsBtn.style.display = (maAdmin.trim().toUpperCase() === 'QTV-001') ? 'flex' : 'none';
                                     }
+                                    var publishBtn = document.getElementById('qtv-publish-results-btn');
+                                    if (publishBtn) {
+                                        publishBtn.style.display = (maAdmin.trim().toUpperCase() === 'QTV-001') ? 'inline-flex' : 'none';
+                                    }
 
                                     document.getElementById('qtvDashboardContainer').style.display = 'flex';
                                     
@@ -2844,6 +3038,8 @@
         }
 
         function renderQtvLeaderboard(data) {
+            if (typeof updateQtvPublishBtnUI === 'function') updateQtvPublishBtnUI(!!data.resultsPublished);
+
             var tbody = document.getElementById('qtv-leaderboard-tbody');
             if (!tbody || !data.leaderboard) return;
 
@@ -2922,6 +3118,274 @@
                 if (res.success) fetchQtvDashboardData(false);
             }).qtvResolveSOS(teamId, mssv);
         }
+
+        // =========================================================================
+        // PANEL TRÁI 3 GIAI ĐOẠN, LỚP KÍNH MỜ CÔNG BỐ & PHÁO GIẤY
+        // =========================================================================
+        var qtvCurrentPublishedState = false;
+        var publicBoardState = {
+            loaded: false,
+            serverOffset: 0,
+            startTimeMs: 0,
+            durationMs: 0,
+            phase: 'live',
+            published: false,
+            teamCount: 6,
+            confettiFired: false
+        };
+        var publicPhaseTickId = null;
+        var publicBoardPollId = null;
+
+        function updateQtvPublishBtnUI(isPublished) {
+            qtvCurrentPublishedState = !!isPublished;
+            var btn = document.getElementById('qtv-publish-results-btn');
+            if (!btn) return;
+            if (qtvCurrentPublishedState) {
+                btn.classList.add('published');
+                btn.innerHTML = '🔒 Ẩn lại kết quả';
+            } else {
+                btn.classList.remove('published');
+                btn.innerHTML = '📢 Công bố kết quả';
+            }
+        }
+
+        function handleQtvTogglePublish() {
+            if (!currentTeamId || currentTeamId.trim().toUpperCase() !== 'QTV-001') {
+                alert("Chỉ tài khoản QTV-001 mới được phép thao tác tính năng này!");
+                return;
+            }
+            var targetState = !qtvCurrentPublishedState;
+            var confirmMsg = targetState
+                ? "📢 XÁC NHẬN CÔNG BỐ KẾT QUẢ?\n\nLớp trắng mờ trên màn hình trang chủ sẽ tan ra và hiển thị Bảng xếp hạng chính thức kèm pháo giấy cho toàn bộ sinh viên!"
+                : "🔒 XÁC NHẬN ẨN LẠI KẾT QUẢ?\n\nMàn hình trang chủ sẽ phủ lại lớp trắng mờ niêm phong.";
+
+            if (!confirm(confirmMsg)) return;
+
+            var btn = document.getElementById('qtv-publish-results-btn');
+            if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+                    if (res && res.success) {
+                        updateQtvPublishBtnUI(res.published);
+                        if (typeof showToast === 'function') showToast(res.message, false);
+                        else alert(res.message);
+                    } else {
+                        alert(res ? res.message : "Không thể cập nhật trạng thái công bố!");
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+                    alert("❌ Lỗi kết nối: " + err.message);
+                })
+                .qtvSetResultsPublished(currentTeamId, targetState);
+        }
+
+        function applyLeftPanelPhaseUI(phase) {
+            var preEl = document.getElementById('lp-phase-pre');
+            var liveEl = document.getElementById('lp-phase-live');
+            var postEl = document.getElementById('lp-phase-post');
+            if (!preEl || !liveEl || !postEl) return;
+
+            preEl.style.display = (phase === 'pre') ? 'block' : 'none';
+            liveEl.style.display = (phase === 'live') ? 'block' : 'none';
+            postEl.style.display = (phase === 'post') ? 'block' : 'none';
+        }
+
+        function renderSealedDummyRows(count) {
+            var listEl = document.getElementById('lp-result-list');
+            if (!listEl) return;
+            var total = Math.max(4, Math.min(8, count || 6));
+            var html = '';
+            for (var i = 0; i < total; i++) {
+                var topCls = i === 0 ? 'top-1' : (i === 1 ? 'top-2' : (i === 2 ? 'top-3' : ''));
+                var medal = i === 0 ? '🥇' : (i === 1 ? '🥈' : (i === 2 ? '🥉' : '#' + (i + 1)));
+                html += '<div class="lp-rank-row ' + topCls + '">' +
+                    '<div class="lp-rank-left">' +
+                        '<div class="lp-rank-medal">' + medal + '</div>' +
+                        '<div style="display:flex; flex-direction:column; gap:5px;">' +
+                            '<div class="lp-dummy-bar ' + (i === 0 ? 'gold' : '') + '" style="width:' + (78 + (i % 3) * 18) + 'px;"></div>' +
+                            '<div class="lp-dummy-bar" style="width:' + (55 + (i % 2) * 20) + 'px; height:8px; opacity:0.6;"></div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="lp-dummy-bar blue" style="width:54px;"></div>' +
+                '</div>';
+            }
+            listEl.innerHTML = html;
+        }
+
+        function renderPublicFinalLeaderboard(rows) {
+            var listEl = document.getElementById('lp-result-list');
+            if (!listEl) return;
+            if (!rows || rows.length === 0) {
+                listEl.innerHTML = '<div style="text-align:center; padding:24px; color:#64748b; font-size:12px; font-weight:700;">Chưa có dữ liệu xếp hạng.</div>';
+                return;
+            }
+            var html = '';
+            rows.forEach(function(t, idx) {
+                var topCls = idx === 0 ? 'top-1' : (idx === 1 ? 'top-2' : (idx === 2 ? 'top-3' : ''));
+                var medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : '#' + (idx + 1)));
+                var hintBadge = t.hintsUsedCount > 0 ? (' • 💡' + t.hintsUsedCount) : '';
+                html += '<div class="lp-rank-row ' + topCls + '">' +
+                    '<div class="lp-rank-left">' +
+                        '<div class="lp-rank-medal">' + medal + '</div>' +
+                        '<div>' +
+                            '<div class="lp-rank-team">' + t.id + '</div>' +
+                            '<div class="lp-rank-sub">🏆 ' + t.progress + '/5 Trạm • 🔑 ' + t.ciphersSolved + '/5 MT' + hintBadge + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="lp-rank-score">' + t.rankingScoreStr + '</div>' +
+                '</div>';
+            });
+            listEl.innerHTML = html;
+        }
+
+        function fetchPublicEventBoardState() {
+            // Chỉ tải khi đang ở màn hình đăng nhập (chưa login) để tiết kiệm băng thông
+            var appCard = document.getElementById('appCard');
+            if (appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-ctv') || appCard.classList.contains('logged-in-qtv'))) {
+                return;
+            }
+
+            google.script.run.withSuccessHandler(function(res) {
+                if (!res || !res.success) return;
+
+                var wasPublished = publicBoardState.published;
+                publicBoardState.loaded = true;
+                publicBoardState.serverOffset = res.serverNow - Date.now();
+                publicBoardState.startTimeMs = res.startTimeMs || 0;
+                publicBoardState.durationMs = res.durationMs || 0;
+                publicBoardState.phase = res.phase;
+                publicBoardState.published = !!res.published;
+                publicBoardState.teamCount = res.teamCount || 6;
+
+                applyLeftPanelPhaseUI(res.phase);
+
+                var overlayEl = document.getElementById('lp-frost-overlay');
+                var titleEl = document.getElementById('lp-post-title');
+
+                if (res.phase === 'post') {
+                    if (res.published) {
+                        renderPublicFinalLeaderboard(res.leaderboard);
+                        if (titleEl) titleEl.textContent = '🎉 BẢNG XẾP HẠNG CHÍNH THỨC';
+                        if (overlayEl) overlayEl.classList.add('revealed');
+
+                        if (!publicBoardState.confettiFired || !wasPublished) {
+                            publicBoardState.confettiFired = true;
+                            launchCelebrationConfetti();
+                        }
+                    } else {
+                        renderSealedDummyRows(res.teamCount);
+                        if (titleEl) titleEl.textContent = '🏆 BẢNG XẾP HẠNG CHUNG CUỘC';
+                        if (overlayEl) overlayEl.classList.remove('revealed');
+                        publicBoardState.confettiFired = false;
+                    }
+                }
+            }).getPublicEventBoard();
+        }
+
+        function startPublicEventBoardWatcher() {
+            fetchPublicEventBoardState();
+
+            // Kiểm tra từng giây để chuyển giai đoạn chính xác ngay mốc giờ khai mạc & 00:00:00
+            if (publicPhaseTickId) clearInterval(publicPhaseTickId);
+            publicPhaseTickId = setInterval(function() {
+                if (!publicBoardState.loaded || !publicBoardState.startTimeMs) return;
+                var estNow = Date.now() + publicBoardState.serverOffset;
+                var computedPhase = 'live';
+                if (estNow < publicBoardState.startTimeMs) {
+                    computedPhase = 'pre';
+                } else if (publicBoardState.durationMs > 0 && estNow >= (publicBoardState.startTimeMs + publicBoardState.durationMs)) {
+                    computedPhase = 'post';
+                }
+
+                if (computedPhase !== publicBoardState.phase) {
+                    publicBoardState.phase = computedPhase;
+                    applyLeftPanelPhaseUI(computedPhase);
+                    if (computedPhase === 'post') {
+                        renderSealedDummyRows(publicBoardState.teamCount);
+                        fetchPublicEventBoardState();
+                    }
+                }
+            }, 1000);
+
+            // Khi đang ở giai đoạn chờ công bố (post): tự kiểm tra lệnh công bố mỗi 5 giây
+            if (publicBoardPollId) clearInterval(publicBoardPollId);
+            publicBoardPollId = setInterval(function() {
+                if (publicBoardState.phase === 'post') {
+                    fetchPublicEventBoardState();
+                }
+            }, 5000);
+        }
+
+        // --- HIỆU ỨNG PHÁO GIẤY (CANVAS THUẦN, MƯỢT & KHÔNG PHỤ THUỘC THƯ VIỆN NGOÀI) ---
+        function launchCelebrationConfetti() {
+            var canvas = document.getElementById('confetti-canvas');
+            if (!canvas) return;
+            var ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            var colors = ['#facc15', '#ef4444', '#0ea5e9', '#10b981', '#a855f7', '#f97316', '#ec4899'];
+            var pieces = [];
+            var count = 150;
+
+            for (var i = 0; i < count; i++) {
+                var fromLeft = i < count / 3;
+                var fromRight = i >= count / 3 && i < (2 * count) / 3;
+                pieces.push({
+                    x: fromLeft ? 20 : (fromRight ? canvas.width - 20 : Math.random() * canvas.width),
+                    y: (fromLeft || fromRight) ? canvas.height * 0.45 : -20 - Math.random() * 140,
+                    vx: fromLeft ? (4 + Math.random() * 7) : (fromRight ? -(4 + Math.random() * 7) : (Math.random() - 0.5) * 4),
+                    vy: (fromLeft || fromRight) ? -(6 + Math.random() * 7) : (2 + Math.random() * 3.5),
+                    size: 6 + Math.random() * 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    angle: Math.random() * 360,
+                    spin: (Math.random() - 0.5) * 12,
+                    gravity: 0.16 + Math.random() * 0.08,
+                    drag: 0.99
+                });
+            }
+
+            var startTime = performance.now();
+            var duration = 4800;
+
+            function draw(now) {
+                var elapsed = now - startTime;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                var alpha = elapsed > (duration - 900) ? Math.max(0, (duration - elapsed) / 900) : 1;
+                ctx.globalAlpha = alpha;
+
+                pieces.forEach(function(p) {
+                    p.vx *= p.drag;
+                    p.vy += p.gravity;
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.angle += p.spin;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.angle * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size * 0.35, p.size, p.size * 0.7);
+                    ctx.restore();
+                });
+
+                if (elapsed < duration) {
+                    requestAnimationFrame(draw);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.globalAlpha = 1;
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('load', function() {
+            startPublicEventBoardWatcher();
+        });
     </script>
+    <canvas id="confetti-canvas"></canvas>
 </body>
 </html>
