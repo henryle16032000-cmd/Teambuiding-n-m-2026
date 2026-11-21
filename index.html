@@ -242,6 +242,65 @@
         #app-toast { position: fixed; top: 20px; right: 20px; z-index: 10000; padding: 12px 18px; border-radius: 12px; font-size: 13px; font-weight: 700; color: white; background: #0f172a; box-shadow: 0 10px 25px rgba(0,0,0,0.18); display: none; animation: fadeIn 0.25s ease; }
         #app-toast.error { background: #ef4444; }
         #app-toast.success { background: #10b981; }
+
+                /* --- CSS CHO 5 PHÂN HỆ QTV --- */
+        .qtv-tab-header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 10px; }
+        .qtv-tab-header-row .qtv-tab-title { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+        .qtv-meta-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 12px; color: #64748b; font-weight: 700; }
+        .qtv-chip-btn { background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 6px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 800; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+        .qtv-chip-btn:hover { background: #e2e8f0; }
+        .qtv-chip-btn.active-filter { background: #e0f2fe; border-color: #38bdf8; color: #0369a1; }
+
+        /* 1. Bản đồ chiến sự */
+        .qtv-map-legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 11.5px; font-weight: 700; color: #475569; margin-bottom: 12px; background: #f8fafc; padding: 10px 14px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+        .legend-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+        #qtv-battle-map { width: 100%; height: 470px; border-radius: 14px; border: 2px solid #e2e8f0; z-index: 1; }
+        .sos-marker-pulse { animation: pulseSOS 1.3s infinite; }
+
+        /* 2. Bảng Quản lý Đội chơi & Bảng thành tích */
+        .qtv-table-wrap { width: 100%; overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .qtv-table { width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left; }
+        .qtv-table th { background: #f8fafc; color: #475569; font-weight: 800; text-transform: uppercase; font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+        .qtv-table td { padding: 12px 14px; border-bottom: 1px solid #f1f5f9; color: #0f172a; vertical-align: middle; }
+        .qtv-table tr:hover td { background: #f8fafc; }
+        .qtv-table tr.row-sos td { background: #fef2f2; }
+
+        .qtv-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+        .badge-green { background: #dcfce7; color: #15803d; }
+        .badge-blue { background: #e0f2fe; color: #0369a1; }
+        .badge-amber { background: #fef3c7; color: #b45309; }
+        .badge-red { background: #fee2e2; color: #b91c1c; }
+        .badge-slate { background: #f1f5f9; color: #475569; }
+
+        .qtv-action-group { display: flex; gap: 6px; flex-wrap: nowrap; }
+        .qtv-mini-btn { border: none; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+        .btn-unlock { background: #fef3c7; color: #b45309; }
+        .btn-unlock:hover { background: #fde68a; }
+        .btn-next { background: #e0f2fe; color: #0369a1; }
+        .btn-next:hover { background: #bae6fd; }
+        .btn-reset { background: #fee2e2; color: #b91c1c; }
+        .btn-reset:hover { background: #fecaca; }
+
+        /* 3. Quản lý Trạm & CTV */
+        .qtv-station-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .qtv-station-card { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .qtv-station-card.crowded { border-color: #f59e0b; background: #fffbeb; }
+        .qtv-station-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+        .qtv-station-name { font-size: 14px; font-weight: 900; color: #0f172a; }
+        .qtv-station-sub { font-size: 11px; color: #64748b; font-weight: 700; margin-top: 2px; }
+        .qtv-ctv-row { background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+        .qtv-team-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        /* 4. Trung tâm SOS */
+        .qtv-sos-list { display: flex; flex-direction: column; gap: 12px; }
+        .qtv-sos-card { background: #fef2f2; border: 2px solid #ef4444; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .qtv-bell-btn.has-sos { animation: pulseSOS 1.5s infinite; background: #fee2e2; border-color: #ef4444; }
+
+        /* 5. Bảng thành tích */
+        .rank-medal { font-size: 16px; font-weight: 900; font-family: 'Space Mono', monospace; }
+        .qtv-search-input { padding: 8px 14px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 12.5px; outline: none; min-width: 220px; }
+        .qtv-search-input:focus { border-color: #0284c7; }
     </style>
 </head>
 <body>
@@ -465,11 +524,14 @@
                             </div>
                             
                             <div class="qtv-header-right">
+                                <span id="qtv-last-sync" style="font-size: 11px; font-weight: 700; color: #64748b; font-family: 'Space Mono', monospace;">--:--:--</span>
+                                <button class="qtv-bell-btn" id="qtv-refresh-btn" onclick="fetchQtvDashboardData(true)" title="Làm mới toàn bộ dữ liệu QTV" style="background: #f0f9ff; border-color: #bae6fd; color: #0284c7;">
+                                    🔄
+                                </button>
                                 <button class="qtv-bell-btn" id="qtv-settings-btn" onclick="openTimeSettingsModal()" title="Cài đặt thời gian" style="display: none; background: #f8fafc; border-color: #cbd5e1; color: #475569;">
                                     ⚙️
                                 </button>
-                                
-                                <button class="qtv-bell-btn" onclick="qtvSwitchTab('sos', document.querySelectorAll('.qtv-menu li')[3])" title="Trung tâm SOS">
+                                <button class="qtv-bell-btn" id="qtv-bell-alert-btn" onclick="qtvSwitchTab('sos', document.querySelectorAll('.qtv-menu li')[3])" title="Trung tâm SOS">
                                     🔔 <span class="qtv-bell-badge" id="qtv-sos-count">0</span>
                                 </button>
                                 <button class="qtv-exit-btn" onclick="handleLogout()">🚪 Thoát</button>
@@ -477,29 +539,108 @@
                         </div>
 
                         <div class="qtv-content-area">
+                            <!-- TAB 1: BẢN ĐỒ CHIẾN SỰ -->
                             <div id="qtv-tab-map" class="qtv-tab-content active">
-                                <div class="qtv-tab-title">🗺️ BẢN ĐỒ TỔNG QUAN CHIẾN SỰ</div>
-                                <div style="color: #64748b; font-size: 14px;">(Bản đồ Leaflet sẽ được load vào đây ở bước tiếp theo)</div>
+                                <div class="qtv-tab-header-row">
+                                    <div class="qtv-tab-title">🗺️ BẢN ĐỒ TỔNG QUAN CHIẾN SỰ</div>
+                                    <div class="qtv-meta-bar">
+                                        <span id="qtv-map-gps-summary" class="qtv-badge badge-blue">Đang tải GPS...</span>
+                                        <button class="qtv-chip-btn active-filter" id="filter-show-stations" onclick="toggleQtvMapLayer('stations', this)">🏛️ Trạm</button>
+                                        <button class="qtv-chip-btn active-filter" id="filter-show-teams" onclick="toggleQtvMapLayer('teams', this)">👥 Đội chơi</button>
+                                        <button class="qtv-chip-btn active-filter" id="filter-show-ctvs" onclick="toggleQtvMapLayer('ctvs', this)">🚩 CTV</button>
+                                    </div>
+                                </div>
+                                <div class="qtv-map-legend">
+                                    <span class="legend-item"><span class="legend-dot" style="background:#22c55e;"></span> Đang giải mã</span>
+                                    <span class="legend-item"><span class="legend-dot" style="background:#0284c7;"></span> Đang di chuyển</span>
+                                    <span class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span> Khóa mật thư / Tạm dừng</span>
+                                    <span class="legend-item"><span class="legend-dot" style="background:#ef4444;"></span> Báo động SOS</span>
+                                    <span class="legend-item"><span class="legend-dot" style="background:#6366f1;"></span> Trạm cố định</span>
+                                    <span class="legend-item"><span class="legend-dot" style="background:#ec4899;"></span> CTV trực trạm</span>
+                                </div>
+                                <div id="qtv-battle-map"></div>
                             </div>
+
+                            <!-- TAB 2: QUẢN LÝ ĐỘI CHƠI -->
                             <div id="qtv-tab-teams" class="qtv-tab-content">
-                                <div class="qtv-tab-title">👥 KIỂM SOÁT TIẾN ĐỘ ĐỘI CHƠI</div>
-                                <div style="color: #64748b; font-size: 14px;">(Bảng danh sách đội chơi sẽ hiển thị ở đây)</div>
+                                <div class="qtv-tab-header-row">
+                                    <div class="qtv-tab-title">👥 KIỂM SOÁT TIẾN ĐỘ ĐỘI CHƠI</div>
+                                    <div class="qtv-meta-bar">
+                                        <input type="text" id="qtv-team-search" class="qtv-search-input" placeholder="🔍 Tìm mã đội hoặc trạm..." oninput="renderQtvTeamsTable()">
+                                    </div>
+                                </div>
+                                <div class="qtv-table-wrap">
+                                    <table class="qtv-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã đội</th>
+                                                <th>Trạm hiện tại</th>
+                                                <th>Tiến độ</th>
+                                                <th>Mật thư</th>
+                                                <th>Trạng thái</th>
+                                                <th>Can thiệp nhanh (QTV)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="qtv-teams-tbody">
+                                            <tr><td colspan="6" style="text-align:center; color:#64748b; padding:30px;">Đang tải dữ liệu đội chơi...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
+                            <!-- TAB 3: QUẢN LÝ TRẠM & CTV -->
                             <div id="qtv-tab-stations" class="qtv-tab-content">
-                                <div class="qtv-tab-title">🏛️ KIỂM SOÁT TRẠM & CỘNG TÁC VIÊN</div>
-                                <div style="color: #64748b; font-size: 14px;">(Trạng thái các trạm sẽ hiển thị ở đây)</div>
+                                <div class="qtv-tab-header-row">
+                                    <div class="qtv-tab-title">🏛️ KIỂM SOÁT TRẠM & CỘNG TÁC VIÊN</div>
+                                    <div class="qtv-meta-bar">
+                                        <span class="qtv-badge badge-amber">⚠️ Cảnh báo ùn tắc khi ≥ 3 đội/trạm</span>
+                                    </div>
+                                </div>
+                                <div id="qtv-stations-grid" class="qtv-station-grid">
+                                    <div style="color:#64748b; font-size:13px;">Đang tải danh sách trạm...</div>
+                                </div>
                             </div>
+
+                            <!-- TAB 4: TRUNG TÂM SOS -->
                             <div id="qtv-tab-sos" class="qtv-tab-content">
-                                <div class="qtv-tab-title" style="color: #ef4444;">🚨 TRUNG TÂM TIẾP NHẬN SỰ CỐ (SOS)</div>
-                                <div style="color: #64748b; font-size: 14px;">(Danh sách các đội báo SOS sẽ hiển thị ở đây)</div>
+                                <div class="qtv-tab-header-row">
+                                    <div class="qtv-tab-title" style="color: #ef4444;">🚨 TRUNG TÂM TIẾP NHẬN SỰ CỐ (SOS)</div>
+                                    <div class="qtv-meta-bar">
+                                        <span id="qtv-sos-status-pill" class="qtv-badge badge-green">✅ Hệ thống bình thường</span>
+                                    </div>
+                                </div>
+                                <div id="qtv-sos-container" class="qtv-sos-list">
+                                    <div style="color:#64748b; font-size:13px; text-align:center; padding:30px;">Chưa ghi nhận tín hiệu SOS nào.</div>
+                                </div>
                             </div>
+
+                            <!-- TAB 5: BẢNG THÀNH TÍCH -->
                             <div id="qtv-tab-leaderboard" class="qtv-tab-content">
-                                <div class="qtv-tab-title">⏱️ BẢNG THÀNH TÍCH TỔNG HỢP</div>
-                                <div style="color: #64748b; font-size: 14px;">(Bảng xếp hạng thời gian sẽ hiển thị ở đây)</div>
+                                <div class="qtv-tab-header-row">
+                                    <div class="qtv-tab-title">⏱️ BẢNG THÀNH TÍCH TỔNG HỢP</div>
+                                    <div class="qtv-meta-bar">
+                                        <span class="qtv-badge badge-blue">Xếp hạng: Số trạm giảm dần → Tổng giờ tăng dần</span>
+                                    </div>
+                                </div>
+                                <div class="qtv-table-wrap">
+                                    <table class="qtv-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Hạng</th>
+                                                <th>Mã đội</th>
+                                                <th>Hoàn thành</th>
+                                                <th>Tổng thời gian</th>
+                                                <th>Chi tiết 5 trạm</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="qtv-leaderboard-tbody">
+                                            <tr><td colspan="5" style="text-align:center; color:#64748b; padding:30px;">Đang tổng hợp bảng xếp hạng...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
                 <!-- 3. DASHBOARD CTV (TRƯỞNG TRẠM) -->
                 <div class="ctv-dashboard-box" id="ctvDashboardContainer">
@@ -708,6 +849,10 @@
                 var menus = document.querySelectorAll('.qtv-menu li');
                 menus.forEach(function(m) { m.classList.remove('active'); });
                 if (element) element.classList.add('active');
+
+                if (tabId === 'map' && qtvBattleMap) {
+                   setTimeout(function() { qtvBattleMap.invalidateSize(true); }, 200);
+                }
             } catch (e) {}
         }
 
@@ -1341,6 +1486,8 @@
                                     
                                     var qtvNameEl = document.getElementById('qtv-display-name');
                                     if (qtvNameEl) qtvNameEl.textContent = response.name;
+
+                                    startQtvDashboard();
                                 }
                                 
                                 document.getElementById('sos-btn-element').style.display = 'none';
@@ -1395,11 +1542,17 @@
             if (studentTimerIntervalId) clearInterval(studentTimerIntervalId);
             if (localStudentTickInterval) clearInterval(localStudentTickInterval);
             if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+            if (qtvRefreshIntervalId) { clearInterval(qtvRefreshIntervalId); qtvRefreshIntervalId = null; }
 
             if (map) {
                 try { map.remove(); } catch (e) {}
                 map = null;
                 marker = null;
+            }
+            if (qtvBattleMap) {
+                try { qtvBattleMap.remove(); } catch (e) {}
+                qtvBattleMap = null;
+                qtvMapLayerGroup = null;
             }
         }
 
@@ -1698,6 +1851,376 @@
             loadGlobalStats();
             setInterval(loadGlobalStats, 30000);
         });
+
+                // =========================================================================
+        // LOGIC ĐIỀU HÀNH 5 PHÂN HỆ QTV
+        // =========================================================================
+        var qtvBattleMap = null;
+        var qtvMapLayerGroup = null;
+        var qtvRefreshIntervalId = null;
+        var qtvLastData = null;
+        var qtvMapFilters = { stations: true, teams: true, ctvs: true };
+
+        function startQtvDashboard() {
+            initQtvBattleMap();
+            fetchQtvDashboardData(false);
+            if (qtvRefreshIntervalId) clearInterval(qtvRefreshIntervalId);
+            qtvRefreshIntervalId = setInterval(function() {
+                fetchQtvDashboardData(false);
+            }, 15000);
+        }
+
+        function initQtvBattleMap() {
+            var mapEl = document.getElementById('qtv-battle-map');
+            if (!mapEl) return;
+
+            if (qtvBattleMap) {
+                setTimeout(function() { qtvBattleMap.invalidateSize(true); }, 250);
+                return;
+            }
+
+            qtvBattleMap = L.map('qtv-battle-map').setView([10.757, 106.662], 14);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
+                maxZoom: 19
+            }).addTo(qtvBattleMap);
+
+            qtvMapLayerGroup = L.layerGroup().addTo(qtvBattleMap);
+
+            setTimeout(function() {
+                if (qtvBattleMap) qtvBattleMap.invalidateSize(true);
+            }, 350);
+        }
+
+        function toggleQtvMapLayer(key, btnEl) {
+            qtvMapFilters[key] = !qtvMapFilters[key];
+            if (btnEl) {
+                if (qtvMapFilters[key]) btnEl.classList.add('active-filter');
+                else btnEl.classList.remove('active-filter');
+            }
+            if (qtvLastData) renderQtvMap(qtvLastData);
+        }
+
+        function fetchQtvDashboardData(isManual) {
+            var refreshBtn = document.getElementById('qtv-refresh-btn');
+            if (isManual && refreshBtn) {
+                refreshBtn.classList.add('spin-anim');
+                refreshBtn.disabled = true;
+            }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (isManual && refreshBtn) {
+                        refreshBtn.classList.remove('spin-anim');
+                        refreshBtn.disabled = false;
+                    }
+                    if (!res || !res.success) {
+                        if (isManual) showToast(res ? res.message : "Lỗi tải dữ liệu QTV", true);
+                        return;
+                    }
+                    qtvLastData = res;
+                    var syncEl = document.getElementById('qtv-last-sync');
+                    if (syncEl) syncEl.textContent = "Sync: " + res.updatedAt;
+
+                    renderQtvMap(res);
+                    renderQtvTeamsTable();
+                    renderQtvStationsGrid(res);
+                    renderQtvSosCenter(res);
+                    renderQtvLeaderboard(res);
+
+                    if (isManual) showToast("Đã làm mới dữ liệu điều hành!", false);
+                })
+                .withFailureHandler(function(err) {
+                    if (isManual && refreshBtn) {
+                        refreshBtn.classList.remove('spin-anim');
+                        refreshBtn.disabled = false;
+                    }
+                    if (isManual) showToast("Lỗi kết nối: " + err.message, true);
+                })
+                .getQTVDashboardData();
+        }
+
+        function renderQtvMap(data) {
+            if (!qtvBattleMap || !qtvMapLayerGroup) initQtvBattleMap();
+            if (!qtvMapLayerGroup) return;
+
+            qtvMapLayerGroup.clearLayers();
+            var gpsCount = 0;
+
+            // 1. Vẽ 5 Trạm cố định
+            if (qtvMapFilters.stations && data.stations) {
+                data.stations.forEach(function(st) {
+                    if (!st.lat || !st.lng) return;
+                    var stHtml = '<div style="background:#6366f1; color:white; border-radius:10px; padding:3px 7px; font-weight:900; font-size:10px; border:2px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.25); white-space:nowrap;">🏛️ ' + st.code + '</div>';
+                    var stIcon = L.divIcon({ html: stHtml, className: '', iconSize: [70, 24], iconAnchor: [35, 12] });
+                    var teamsTxt = st.teamsHere.length > 0 ? st.teamsHere.map(function(t) { return t.id; }).join(', ') : 'Chưa có đội';
+                    L.marker([st.lat, st.lng], { icon: stIcon })
+                        .bindPopup('<b>🏛️ ' + st.code + ' - ' + st.name + '</b><br>Đội đang ở đây (' + st.teamsHere.length + '): <b>' + teamsTxt + '</b><br>CTV trực: ' + st.ctvs.length)
+                        .addTo(qtvMapLayerGroup);
+                });
+            }
+
+            // 2. Vẽ CTV trực trạm (có GPS)
+            if (qtvMapFilters.ctvs && data.ctvs) {
+                data.ctvs.forEach(function(ctv) {
+                    if (!ctv.hasGps) return;
+                    var ctvHtml = '<div style="background:#ec4899; color:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:12px; border:2px solid white; box-shadow:0 3px 6px rgba(0,0,0,0.25);">🚩</div>';
+                    var ctvIcon = L.divIcon({ html: ctvHtml, className: '', iconSize: [28, 28], iconAnchor: [14, 14] });
+                    L.marker([ctv.lat, ctv.lng], { icon: ctvIcon })
+                        .bindPopup('<b>🚩 ' + ctv.id + ' - ' + ctv.name + '</b><br>Trực: <b>' + ctv.role + '</b><br>SĐT: <a href="tel:' + ctv.phone + '">' + ctv.phone + '</a>')
+                        .addTo(qtvMapLayerGroup);
+                });
+            }
+
+            // 3. Vẽ các Đội chơi
+            if (qtvMapFilters.teams && data.teams) {
+                data.teams.forEach(function(t, idx) {
+                    if (t.hasGps) gpsCount++;
+                    if (!t.lat || !t.lng) return;
+
+                    var bg = '#0284c7'; // Đang di chuyển
+                    var labelSt = 'Đang di chuyển';
+                    if (t.isSOS) { bg = '#ef4444'; labelSt = '🚨 ĐANG BÁO SOS'; }
+                    else if (t.timerStatus === 'running') { bg = '#22c55e'; labelSt = 'Đang giải mã tại trạm'; }
+                    else if (t.lockStatus === 'LOCKED' || t.timerStatus === 'paused') { bg = '#f59e0b'; labelSt = t.lockStatus === 'LOCKED' ? 'Đang khóa mật thư' : 'Đang tạm dừng'; }
+
+                    // Nếu chưa có GPS thực, rải nhẹ xung quanh trạm dự kiến và làm viền nét đứt
+                    var lat = t.lat;
+                    var lng = t.lng;
+                    var borderStyle = '3px solid white';
+                    var opacityStyle = '1';
+                    if (!t.hasGps) {
+                        var angle = (idx * 60) * (Math.PI / 180);
+                        lat += Math.cos(angle) * 0.00045;
+                        lng += Math.sin(angle) * 0.00045;
+                        borderStyle = '2px dashed #0f172a';
+                        opacityStyle = '0.78';
+                    }
+
+                    var extraClass = t.isSOS ? 'sos-marker-pulse' : '';
+                    var teamHtml = '<div class="' + extraClass + '" style="background:' + bg + '; opacity:' + opacityStyle + '; color:white; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:10px; border:' + borderStyle + '; box-shadow:0 4px 8px rgba(0,0,0,0.28);">' + t.id + '</div>';
+                    var teamIcon = L.divIcon({ html: teamHtml, className: '', iconSize: [36, 36], iconAnchor: [18, 18] });
+
+                    var gpsNote = t.hasGps ? '<span style="color:#15803d;">● GPS thực tế</span>' : '<span style="color:#b45309;">○ Chưa bật GPS (vị trí dự kiến)</span>';
+                    L.marker([lat, lng], { icon: teamIcon })
+                        .bindPopup(
+                            '<div style="min-width:160px;">' +
+                            '<b style="font-size:14px;">Đội ' + t.id + '</b> (' + t.progress + '/5 trạm)<br>' +
+                            'Trưởng đội: ' + t.leaderName + '<br>' +
+                            'Trạm hiện tại: <b>' + t.currentStation + '</b><br>' +
+                            'Trạng thái: <b>' + labelSt + '</b><br>' +
+                            gpsNote +
+                            '</div>'
+                        )
+                        .addTo(qtvMapLayerGroup);
+                });
+            }
+
+            var sumEl = document.getElementById('qtv-map-gps-summary');
+            if (sumEl) sumEl.textContent = '📡 GPS thực: ' + gpsCount + '/' + (data.teams ? data.teams.length : 0) + ' đội';
+        }
+
+        function renderQtvTeamsTable() {
+            var tbody = document.getElementById('qtv-teams-tbody');
+            if (!tbody || !qtvLastData || !qtvLastData.teams) return;
+
+            var keyword = (document.getElementById('qtv-team-search') ? document.getElementById('qtv-team-search').value : '').trim().toLowerCase();
+            var filtered = qtvLastData.teams.filter(function(t) {
+                if (!keyword) return true;
+                return t.id.toLowerCase().indexOf(keyword) !== -1 || t.currentStation.toLowerCase().indexOf(keyword) !== -1;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#64748b; padding:24px;">Không tìm thấy đội phù hợp.</td></tr>';
+                return;
+            }
+
+            var html = '';
+            filtered.forEach(function(t) {
+                var lockBadge = t.lockStatus === 'LOCKED'
+                    ? '<span class="qtv-badge badge-amber">🔒 LOCKED</span>'
+                    : '<span class="qtv-badge badge-green">🔓 UNLOCKED</span>';
+
+                var stBadge = '<span class="qtv-badge badge-blue">🏃 Đang di chuyển</span>';
+                if (t.isSOS) stBadge = '<span class="qtv-badge badge-red">🚨 SOS KHẨN</span>';
+                else if (t.progress >= 5) stBadge = '<span class="qtv-badge badge-green">🏁 Hoàn thành 5/5</span>';
+                else if (t.timerStatus === 'running') stBadge = '<span class="qtv-badge badge-green">⏱️ Đang giải mã</span>';
+                else if (t.timerStatus === 'paused') stBadge = '<span class="qtv-badge badge-amber">⏸️ Tạm dừng</span>';
+                else if (t.timerStatus === 'finished') stBadge = '<span class="qtv-badge badge-slate">✅ Chờ qua trạm</span>';
+
+                html += '<tr class="' + (t.isSOS ? 'row-sos' : '') + '">' +
+                    '<td><strong style="font-family:\'Space Mono\',monospace; font-size:13.5px;">' + t.id + '</strong><div style="font-size:11px; color:#64748b;">' + t.leaderName + '</div></td>' +
+                    '<td><strong>' + t.currentStation + '</strong><div style="font-size:11px; color:#64748b;">' + t.currentStationName + '</div></td>' +
+                    '<td><span class="qtv-badge badge-slate">🏆 ' + t.progress + '/5</span></td>' +
+                    '<td>' + lockBadge + '</td>' +
+                    '<td>' + stBadge + '</td>' +
+                    '<td><div class="qtv-action-group">' +
+                        (t.lockStatus === 'LOCKED' ? '<button class="qtv-mini-btn btn-unlock" onclick="qtvActionUnlock(\'' + t.id + '\')">🔓 Mở khóa</button>' : '') +
+                        (t.hasNextStation ? '<button class="qtv-mini-btn btn-next" onclick="qtvActionNext(\'' + t.id + '\')">⏭️ Qua trạm</button>' : '') +
+                        '<button class="qtv-mini-btn btn-reset" onclick="qtvActionResetTeam(\'' + t.id + '\')">♻️ Reset</button>' +
+                    '</div></td>' +
+                '</tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        function renderQtvStationsGrid(data) {
+            var grid = document.getElementById('qtv-stations-grid');
+            if (!grid || !data.stations) return;
+
+            var html = '';
+            data.stations.forEach(function(st) {
+                var isCrowded = st.teamsHere.length >= 3;
+                var countBadge = isCrowded
+                    ? '<span class="qtv-badge badge-red">🔥 ' + st.teamsHere.length + ' đội (Ùn tắc)</span>'
+                    : '<span class="qtv-badge badge-blue">' + st.teamsHere.length + ' đội</span>';
+
+                var teamsHtml = st.teamsHere.length > 0
+                    ? st.teamsHere.map(function(t) {
+                        var cls = t.status === 'running' ? 'badge-green' : 'badge-slate';
+                        return '<span class="qtv-badge ' + cls + '">' + t.id + '</span>';
+                    }).join('')
+                    : '<span style="font-size:11.5px; color:#94a3b8;">Hiện không có đội nào</span>';
+
+                var ctvsHtml = st.ctvs.length > 0
+                    ? st.ctvs.map(function(c) {
+                        var gpsDot = c.hasGps ? '<span style="color:#10b981;">● Có GPS</span>' : '<span style="color:#94a3b8;">○ Chưa GPS</span>';
+                        return '<div class="qtv-ctv-row">' +
+                            '<div><strong>' + c.id + '</strong> - ' + c.name + '<div style="font-size:10.5px;">' + gpsDot + '</div></div>' +
+                            '<a href="tel:' + c.phone + '" style="color:#0284c7; font-weight:800; text-decoration:none; font-size:11.5px;">📞 ' + c.phone + '</a>' +
+                        '</div>';
+                    }).join('')
+                    : '<div style="font-size:11.5px; color:#ef4444;">Chưa phân công CTV!</div>';
+
+                html += '<div class="qtv-station-card ' + (isCrowded ? 'crowded' : '') + '">' +
+                    '<div class="qtv-station-head">' +
+                        '<div>' +
+                            '<div class="qtv-station-name">' + st.code + ' • ' + st.name + '</div>' +
+                            '<div class="qtv-station-sub">' + (st.hasPassword ? '🔑 Có mật thư khóa trạm' : '🔓 Mở khóa tự do') + '</div>' +
+                        '</div>' +
+                        countBadge +
+                    '</div>' +
+                    '<div><div style="font-size:11px; font-weight:800; color:#64748b; margin-bottom:6px; text-transform:uppercase;">Các đội tại trạm:</div><div class="qtv-team-pills">' + teamsHtml + '</div></div>' +
+                    '<div><div style="font-size:11px; font-weight:800; color:#64748b; margin-bottom:6px; text-transform:uppercase;">CTV phụ trách (' + st.ctvs.length + '):</div><div style="display:flex; flex-direction:column; gap:6px;">' + ctvsHtml + '</div></div>' +
+                '</div>';
+            });
+            grid.innerHTML = html || '<div style="color:#64748b;">Chưa có dữ liệu trạm.</div>';
+        }
+
+        function renderQtvSosCenter(data) {
+            var container = document.getElementById('qtv-sos-container');
+            var badgeEl = document.getElementById('qtv-sos-count');
+            var bellBtn = document.getElementById('qtv-bell-alert-btn');
+            var pillEl = document.getElementById('qtv-sos-status-pill');
+            var list = data.sosList || [];
+
+            if (badgeEl) badgeEl.textContent = list.length;
+            if (bellBtn) {
+                if (list.length > 0) bellBtn.classList.add('has-sos');
+                else bellBtn.classList.remove('has-sos');
+            }
+
+            if (pillEl) {
+                if (list.length > 0) {
+                    pillEl.className = 'qtv-badge badge-red';
+                    pillEl.textContent = '🚨 Có ' + list.length + ' tín hiệu SOS chưa xử lý!';
+                } else {
+                    pillEl.className = 'qtv-badge badge-green';
+                    pillEl.textContent = '✅ Hệ thống bình thường';
+                }
+            }
+
+            if (!container) return;
+            if (list.length === 0) {
+                container.innerHTML = '<div style="color:#15803d; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; font-size:13px; font-weight:700; text-align:center; padding:30px;">✅ Hiện không có đội nào báo động sự cố SOS.</div>';
+                return;
+            }
+
+            var html = '';
+            list.forEach(function(item) {
+                var mapLink = item.hasGps
+                    ? '<a href="https://maps.google.com/?q=' + item.lat + ',' + item.lng + '" target="_blank" class="qtv-mini-btn btn-next" style="text-decoration:none;">🗺️ Mở Google Maps</a>'
+                    : '<span class="qtv-badge badge-amber">Chưa có tọa độ GPS</span>';
+
+                html += '<div class="qtv-sos-card">' +
+                    '<div>' +
+                        '<div style="font-size:15px; font-weight:900; color:#b91c1c;">🚨 ĐỘI ' + item.teamId + (item.isLeader ? ' (Trưởng đội)' : '') + '</div>' +
+                        '<div style="font-size:12.5px; color:#334155; font-weight:700; margin-top:4px;">Thành viên: ' + item.name + (item.mssv ? ' • MSSV: ' + item.mssv : '') + '</div>' +
+                        '<div style="font-size:11.5px; color:#64748b; margin-top:3px; font-family:\'Space Mono\',monospace;">' + item.rawGps + '</div>' +
+                    '</div>' +
+                    '<div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">' +
+                        mapLink +
+                        '<button class="qtv-mini-btn" style="background:#10b981; color:white; padding:8px 14px;" onclick="qtvActionResolveSOS(\'' + item.teamId + '\', \'' + (item.mssv || '') + '\')">✅ Xác nhận đã xử lý</button>' +
+                    '</div>' +
+                '</div>';
+            });
+            container.innerHTML = html;
+        }
+
+        function renderQtvLeaderboard(data) {
+            var tbody = document.getElementById('qtv-leaderboard-tbody');
+            if (!tbody || !data.leaderboard) return;
+
+            if (data.leaderboard.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b; padding:24px;">Chưa có dữ liệu xếp hạng.</td></tr>';
+                return;
+            }
+
+            var html = '';
+            data.leaderboard.forEach(function(t, index) {
+                var rankDisplay = '#' + (index + 1);
+                if (index === 0 && t.progress > 0) rankDisplay = '🥇 #1';
+                else if (index === 1 && t.progress > 0) rankDisplay = '🥈 #2';
+                else if (index === 2 && t.progress > 0) rankDisplay = '🥉 #3';
+
+                var routeHtml = t.route.map(function(r) {
+                    var cls = r.status === 'finished' ? 'badge-green' : (r.status === 'running' ? 'badge-amber' : 'badge-slate');
+                    return '<span class="qtv-badge ' + cls + '" style="margin:2px;">' + r.station + ': ' + r.timeStr + '</span>';
+                }).join('');
+
+                html += '<tr>' +
+                    '<td><span class="rank-medal">' + rankDisplay + '</span></td>' +
+                    '<td><strong style="font-family:\'Space Mono\',monospace; font-size:14px;">' + t.id + '</strong></td>' +
+                    '<td><span class="qtv-badge ' + (t.progress >= 5 ? 'badge-green' : 'badge-blue') + '">🏆 ' + t.progress + '/5 Trạm</span></td>' +
+                    '<td><strong style="font-family:\'Space Mono\',monospace; font-size:14px; color:#0369a1;">' + t.totalTimeStr + '</strong></td>' +
+                    '<td>' + routeHtml + '</td>' +
+                '</tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        // --- CÁC HÀM CAN THIỆP NÓNG CỦA QTV ---
+        function qtvActionUnlock(teamId) {
+            if (!confirm("Xác nhận MỞ KHÓA mật thư hộ đội " + teamId + "?")) return;
+            google.script.run.withSuccessHandler(function(res) {
+                showToast(res.message, !res.success);
+                if (res.success) fetchQtvDashboardData(false);
+            }).qtvUnlockTeam(teamId);
+        }
+
+        function qtvActionNext(teamId) {
+            if (!confirm("Xác nhận CHUYỂN THẲNG đội " + teamId + " sang trạm tiếp theo?")) return;
+            google.script.run.withSuccessHandler(function(res) {
+                showToast(res.message, !res.success);
+                if (res.success) fetchQtvDashboardData(false);
+            }).qtvForceNextStation(teamId);
+        }
+
+        function qtvActionResetTeam(teamId) {
+            if (!confirm("⚠️ CẢNH BÁO: Reset RIÊNG đội " + teamId + " về Trạm 1 và xóa sạch giờ đã bấm của đội này?")) return;
+            google.script.run.withSuccessHandler(function(res) {
+                showToast(res.message, !res.success);
+                if (res.success) fetchQtvDashboardData(false);
+            }).qtvResetSingleTeam(teamId);
+        }
+
+        function qtvActionResolveSOS(teamId, mssv) {
+            if (!confirm("Xác nhận đã hỗ trợ xong và gỡ báo động SOS của đội " + teamId + "?")) return;
+            google.script.run.withSuccessHandler(function(res) {
+                showToast(res.message, !res.success);
+                if (res.success) fetchQtvDashboardData(false);
+            }).qtvResolveSOS(teamId, mssv);
+        }
     </script>
 </body>
 </html>
