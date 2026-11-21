@@ -533,7 +533,7 @@
             font-size: 22px; margin-bottom: 10px;
         }
         .lp-seal-title { font-size: 13.5px; font-weight: 900; color: #0f172a; text-transform: uppercase; margin-bottom: 4px; }
-        .lp-seal-sub { font-size: 11.5px; font-weight: 600; color: #475569; line-height: 1.45; max-width: 260px; }
+        .lp-seal-sub { font-size: 12px; font-weight: 600; color: #475569; line-height: 1.5; max-width: 100%; width: 100%; }
         .lp-seal-pulse {
             margin-top: 10px; font-size: 10.5px; font-weight: 800; color: #0284c7;
             background: #e0f2fe; padding: 4px 10px; border-radius: 20px;
@@ -662,7 +662,7 @@
                                     <div class="lp-frost-overlay" id="lp-frost-overlay">
                                         <div class="lp-seal-icon">🔒</div>
                                         <div class="lp-seal-title">KẾT QUẢ ĐANG ĐƯỢC NIÊM PHONG</div>
-                                        <div class="lp-seal-sub">Ban Tổ chức đang kiểm duyệt thành tích cuối cùng. Kết quả sẽ tự động hé lộ ngay khi có hiệu lệnh công bố!</div>
+                                        <div class="lp-seal-sub">Ban Tổ chức đang kiểm duyệt thành tích cuối cùng.<br>Kết quả sẽ hé lộ ngay, hãy đón chờ nhé!</div>
                                         <div class="lp-seal-pulse">⏳ Đang chờ Ban Tổ chức công bố...</div>
                                     </div>
                                 </div>
@@ -792,6 +792,9 @@
                         </div>
                         <div id="map"></div>
                     </div>
+
+                    <!-- MÀN HÌNH CHỜ TRƯỚC GIỜ KHAI MẠC (SAO CHÉP Y NGUYÊN PANEL DẶN DÒ BÊN TRÁI) -->
+                    <div class="itinerary-card" id="studentPreEventCard" style="display: none; border-color: #bae6fd; background: #ffffff;"></div>
 
                     <!-- MÀN HÌNH Ổ KHÓA MẬT THƯ (CÓ ĐỒNG HỒ & GỢI Ý +180s) -->
                     <div class="itinerary-card" id="passwordLockCard" style="display: none; border-color: #f59e0b; background: #fffbeb;">
@@ -1614,6 +1617,13 @@
             if (localStudentTickInterval) clearInterval(localStudentTickInterval);
             
             localStudentTickInterval = setInterval(function() {
+                // Đúng giây đến giờ khai mạc -> chuyển lập tức sang ổ khóa giải mật thư
+                if (studentWaitingPreEvent && !isBeforeEventStartClient() && !isEndgameTriggered) {
+                    studentWaitingPreEvent = false;
+                    if (typeof showToast === 'function') showToast("🚀 Đã đến giờ khai mạc! Bắt đầu giải mật thư Trạm 1!", false);
+                    if (typeof currentStudentFetchTimer === 'function') currentStudentFetchTimer();
+                }
+
                 var swEl = document.getElementById('team-stopwatch');
                 if (!swEl) return;
                 
@@ -1627,6 +1637,7 @@
             
             var fetchTimer = function() {
                 if (isEndgameTriggered) {
+                    setStudentPreEventVisible(false);
                     var lockCardEnd = document.getElementById('passwordLockCard');
                     var chalCardEnd = document.getElementById('challengeCard');
                     var itinCardEnd = document.getElementById('itineraryCard');
@@ -1642,6 +1653,12 @@
                     if (res && res.success) {
                         if (isEndgameTriggered) return;
 
+                        if (res.eventStartTimeMs && typeof publicBoardState !== 'undefined') {
+                            publicBoardState.loaded = true;
+                            publicBoardState.startTimeMs = res.eventStartTimeMs;
+                            if (res.serverNow) publicBoardState.serverOffset = res.serverNow - Date.now();
+                        }
+
                         if (res.status === 'force_reload') {
                             silentReload();
                             return;
@@ -1655,7 +1672,27 @@
                         var challengeCard = document.getElementById('challengeCard');
                         
                         if (!swEl || !stEl) return;
-                        
+
+                        // TRƯỚC GIỜ KHAI MẠC: Hiện y nguyên giao diện Dặn dò, khóa toàn bộ giải mã & bản đồ
+                        if (res.isBeforeStart || isBeforeEventStartClient()) {
+                            localStudentTimerState = 'travel';
+                            localStudentFixedTimeStr = '00:00:00';
+                            swEl.textContent = '00:00:00';
+                            swEl.style.color = "#0284c7";
+                            stEl.style.color = "#0284c7";
+                            stEl.textContent = "CHỜ KHAI MẠC";
+                            if (boxEl) { boxEl.style.background = "#f0f9ff"; boxEl.style.borderColor = "#bae6fd"; }
+
+                            if (lockCard) lockCard.style.display = 'none';
+                            if (itinCard) itinCard.style.display = 'none';
+                            if (challengeCard) challengeCard.style.display = 'none';
+                            if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                            if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+                            setStudentPreEventVisible(true);
+                            return;
+                        }
+
+                        setStudentPreEventVisible(false);
                         localStudentTimerState = res.status;
                         localStudentFixedTimeStr = res.timeStr;
 
@@ -2123,6 +2160,7 @@
             if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
             if (qtvRefreshIntervalId) { clearInterval(qtvRefreshIntervalId); qtvRefreshIntervalId = null; }
             if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+            if (typeof setStudentPreEventVisible === 'function') setStudentPreEventVisible(false);
 
             if (map) {
                 try { map.remove(); } catch (e) {}
@@ -2142,8 +2180,10 @@
                 qtvBattleMap = null;
                 qtvMapLayerGroup = null;
             }
+
+            if (typeof fetchPublicEventBoardState === 'function') fetchPublicEventBoardState();
         }
-        
+
         // =========================================================================
         // BẢN ĐỒ SINH VIÊN (3 CHẾ ĐỘ + 2 ĐIỂM + KHUNG LỘ TRÌNH ĐA PHƯƠNG TIỆN)
         // =========================================================================
@@ -2310,6 +2350,32 @@
             });
         }
 
+        var studentWaitingPreEvent = false;
+
+        function isBeforeEventStartClient() {
+            if (typeof publicBoardState !== 'undefined' && publicBoardState.loaded && publicBoardState.startTimeMs > 0) {
+                var estNow = Date.now() + (publicBoardState.serverOffset || 0);
+                return estNow < publicBoardState.startTimeMs;
+            }
+            return false;
+        }
+
+        function setStudentPreEventVisible(show) {
+            var preCard = document.getElementById('studentPreEventCard');
+            if (!preCard) return;
+            if (show) {
+                var sourcePre = document.getElementById('lp-phase-pre');
+                if (sourcePre && preCard.innerHTML.trim() === '') {
+                    preCard.innerHTML = sourcePre.innerHTML;
+                }
+                preCard.style.display = 'block';
+                studentWaitingPreEvent = true;
+            } else {
+                preCard.style.display = 'none';
+                studentWaitingPreEvent = false;
+            }
+        }
+
         function renderStationData(response) {
             if (!response) return;
 
@@ -2391,7 +2457,18 @@
 
             // Chốt chặn cuối: nếu chương trình đã về 00:00:00 thì ép sang Lệnh tập hợp khẩn cấp ngay
             if (isEndgameTriggered) {
+                setStudentPreEventVisible(false);
                 triggerEndgameProtocol();
+            } else if (isBeforeEventStartClient()) {
+                if (lockCard) lockCard.style.display = 'none';
+                if (itinCard) itinCard.style.display = 'none';
+                var chalCardPre = document.getElementById('challengeCard');
+                if (chalCardPre) chalCardPre.style.display = 'none';
+                if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+                setStudentPreEventVisible(true);
+            } else {
+                setStudentPreEventVisible(false);
             }
         }
 
@@ -2570,7 +2647,9 @@
                 targetLat = 10.7554;
                 targetLng = 106.6663;
 
-                // Ẩn triệt để ổ khóa mật thư, màn hình chờ chuyển trạm, dừng đồng hồ mật thư và ẩn bản đồ
+                // Ẩn triệt để màn hình chờ trước giờ G, ổ khóa mật thư, màn hình chờ chuyển trạm, dừng đồng hồ mật thư và ẩn bản đồ
+                if (typeof setStudentPreEventVisible === 'function') setStudentPreEventVisible(false);
+
                 var lockCard = document.getElementById('passwordLockCard');
                 if (lockCard) lockCard.style.display = 'none';
 
@@ -3038,7 +3117,11 @@
         }
 
         function renderQtvLeaderboard(data) {
-            if (typeof updateQtvPublishBtnUI === 'function') updateQtvPublishBtnUI(!!data.resultsPublished);
+            if (typeof data.resultsPublished !== 'undefined' && (Date.now() - qtvLastPublishToggleAt > 4000)) {
+                if (typeof updateQtvPublishBtnUI === 'function') updateQtvPublishBtnUI(!!data.resultsPublished);
+            } else {
+                if (typeof updateQtvPublishBtnUI === 'function') updateQtvPublishBtnUI(qtvCurrentPublishedState);
+            }
 
             var tbody = document.getElementById('qtv-leaderboard-tbody');
             if (!tbody || !data.leaderboard) return;
@@ -3149,6 +3232,8 @@
             }
         }
 
+        var qtvLastPublishToggleAt = 0;
+
         function handleQtvTogglePublish() {
             if (!currentTeamId || currentTeamId.trim().toUpperCase() !== 'QTV-001') {
                 alert("Chỉ tài khoản QTV-001 mới được phép thao tác tính năng này!");
@@ -3168,6 +3253,11 @@
                 .withSuccessHandler(function(res) {
                     if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
                     if (res && res.success) {
+                        qtvLastPublishToggleAt = Date.now();
+                        qtvCurrentPublishedState = !!res.published;
+                        if (typeof qtvLastData !== 'undefined' && qtvLastData) {
+                            qtvLastData.resultsPublished = !!res.published;
+                        }
                         updateQtvPublishBtnUI(res.published);
                         if (typeof showToast === 'function') showToast(res.message, false);
                         else alert(res.message);
