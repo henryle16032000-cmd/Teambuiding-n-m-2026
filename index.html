@@ -709,6 +709,253 @@
         .qtv-comm-btn.danger  { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
         .qtv-comm-btn.muted   { background: #64748b; }
         .qtv-comm-btn:hover   { filter: brightness(1.06); transform: translateY(-1px); }
+
+        /* --- MODAL ĐỔI / QUÊN MẬT KHẨU --- */
+        .auth-modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 99996;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        .auth-modal-backdrop.show { display: flex; }
+        .auth-modal-box {
+            background: #ffffff;
+            width: 100%;
+            max-width: 390px;
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 24px 48px rgba(15, 23, 42, 0.28);
+            text-align: left;
+            animation: fadeIn 0.25s ease;
+        }
+        .auth-modal-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 6px;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .forgot-pass-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .forgot-pass-link:hover { color: #0284c7; }
+        .btn-pwd-header {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1.5px solid #bae6fd;
+            color: #0369a1;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .btn-pwd-header:hover { background: #e0f2fe; transform: scale(1.06); }
+
+        /* =========================================================================
+           TỐI ƯU GIAO DIỆN RIÊNG CHO ĐIỆN THOẠI (<= 767px)
+           GIỮ NGUYÊN 100% GIAO DIỆN IPAD & LAPTOP (>= 768px) VÀ Ô MẬT THƯ
+        ========================================================================= */
+        @media (max-width: 767px) {
+            html, body {
+                padding-bottom: 14px !important;
+                background-attachment: scroll;
+            }
+            .wrapper {
+                padding: 12px 10px 16px 10px;
+                gap: 12px;
+            }
+            .app-card {
+                border-radius: 22px;
+                min-height: auto;
+            }
+            .left-panel {
+                padding: 20px 14px;
+            }
+            .custom-brand-logo { width: 190px; }
+            .brand-name { font-size: 11.5px; }
+            .sys-title { font-size: 15px; }
+            .hero-stats-header { gap: 6px; flex-wrap: wrap; }
+
+            .right-panel,
+            .app-card.logged-in .right-panel,
+            .app-card.logged-in-ctv .right-panel {
+                padding: 18px 14px !important;
+            }
+
+            /* Footer đứng gọn cuối trang, không che nội dung trên điện thoại */
+            .portal-footer {
+                position: static !important;
+                margin-top: 10px;
+                padding: 10px 12px;
+                border-radius: 0;
+            }
+            .footer-title { font-size: 9.5px; line-height: 1.4; }
+
+            /* Nút SOS gọn nhẹ góc phải dưới, không đè nội dung chính */
+            .sos-btn {
+                width: 46px;
+                height: 46px;
+                font-size: 18px;
+                bottom: 16px;
+                right: 12px;
+                border-width: 2.5px;
+            }
+
+            /* Header Sinh viên & CTV: 2 tầng cân đối, không bị bóp méo chữ */
+            .dash-header {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                padding-bottom: 12px;
+                margin-bottom: 12px;
+            }
+            .dash-header-left {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 6px;
+                width: 100%;
+            }
+            .dash-logo { height: 38px; }
+            .dash-title { text-align: center; align-items: center; }
+            .uni-name { font-size: 9.5px; margin-bottom: 2px; }
+            .org-name { font-size: 13.5px; }
+            .header-badges {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 0;
+                gap: 6px;
+            }
+            .progress-pill { font-size: 12.5px; padding: 5px 12px; }
+
+            .greeting-box { font-size: 15px; margin-bottom: 12px; }
+            #display-name, #admin-display-name, #ctv-display-name { font-size: 18px; padding: 2px 8px; }
+
+            /* Khung đồng hồ đôi thẳng hàng 1 dòng nhãn */
+            .dual-timer-box { padding: 10px 12px; margin-bottom: 12px; }
+            .timer-section.left { padding-right: 10px; }
+            .timer-section.right { padding-left: 10px; }
+            .timer-label { font-size: 9px; white-space: nowrap; }
+            .timer-val { font-size: 16.5px; }
+            .timer-sub { font-size: 8.5px; }
+
+            .itinerary-card { padding: 15px; margin-bottom: 14px; }
+            .target-name { font-size: 16.5px !important; }
+            .dist-val { font-size: 21px; }
+
+            /* Thanh công cụ Bản đồ Sinh viên gọn gàng */
+            .sv-map-toolbar {
+                padding: 8px 10px;
+                font-size: 10.5px;
+                gap: 6px;
+            }
+            .sv-map-legend { gap: 8px; }
+            .sv-map-btn-fit { width: 100%; text-align: center; padding: 6px; }
+            #map { height: 260px; }
+
+            /* CTV trên điện thoại: Đẩy phần chào + đồng hồ + bấm giờ lên TRÊN, Radar xuống DƯỚI */
+            .ctv-grid {
+                flex-direction: column-reverse;
+                gap: 14px;
+            }
+            .ctv-col-left { padding: 14px; }
+            .ctv-search-box { gap: 6px; }
+            .ctv-select { font-size: 13px; padding: 9px 10px; min-width: 0; }
+            .ctv-btn-search { padding: 0 14px; font-size: 12px; white-space: nowrap; }
+            .btn-timer-main { padding: 12px 10px; font-size: 13.5px; }
+
+            /* QTV trên điện thoại: Header trên cùng -> 6 tab dạng lưới 2 cột gọn -> Nội dung */
+            .app-card.logged-in-qtv {
+                border-radius: 20px;
+                min-height: auto;
+            }
+            .app-card.logged-in-qtv .right-panel { min-height: auto; }
+            .qtv-container {
+                flex-direction: column;
+                padding: 10px;
+                gap: 10px;
+                min-height: auto;
+                border-radius: 20px;
+            }
+            .qtv-main { display: contents; }
+            .qtv-header {
+                order: 1;
+                padding: 12px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .qtv-header-left {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 6px;
+            }
+            .qtv-header-right {
+                width: 100%;
+                justify-content: space-between;
+                gap: 6px;
+                flex-wrap: nowrap;
+            }
+            #qtv-last-sync { font-size: 10px !important; }
+            .qtv-bell-btn { width: 36px; height: 36px; font-size: 15px; flex-shrink: 0; }
+            .qtv-exit-btn {
+                padding: 0 12px;
+                height: 36px;
+                font-size: 12px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .qtv-sidebar {
+                order: 2;
+                width: 100%;
+                padding: 8px;
+            }
+            .qtv-menu {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+            .qtv-menu li {
+                padding: 9px 8px;
+                font-size: 12px;
+                border-left: none;
+                border: 1.5px solid #e2e8f0;
+                border-radius: 10px;
+                justify-content: center;
+                text-align: center;
+                gap: 5px;
+            }
+            .qtv-menu li.active {
+                border-color: #0284c7;
+                background: #e0f2fe;
+            }
+            .qtv-content-area { order: 3; }
+            .qtv-tab-content { padding: 14px; min-height: auto; }
+            .qtv-tab-title { font-size: 14.5px; }
+            .qtv-map-legend { font-size: 10.5px; gap: 8px; padding: 8px 10px; }
+            #qtv-battle-map { height: 340px; }
+            .qtv-search-input { width: 100%; min-width: 0; }
+            .qtv-comm-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -847,19 +1094,18 @@
                     <div id="student-login-section">
                         <div class="user-avatar-icon">👤</div>
                         <div class="login-title">ĐĂNG NHẬP</div>
-                        <div class="login-sub">Nhập thông tin nhóm để tham gia cuộc đua</div>
+                        <div class="login-sub">Nhập thông tin cá nhân để vào đội chơi</div>
 
                         <form id="login-form-student" onsubmit="handleLogin(event, 'student')">
-                            <label class="input-label">MÃ ĐỘI</label>
-                            <input autocomplete="off" class="form-control-custom" id="team-id-input" required placeholder="Ví dụ: BĐH" type="text"/>
-                            <label class="input-label">HỌ VÀ TÊN THÀNH VIÊN</label>
-                            <input autocomplete="off" class="form-control-custom" id="name-input" required placeholder="Ví dụ: Lê Thanh H..." type="text"/>
                             <label class="input-label">MÃ SỐ SINH VIÊN (MSSV)</label>
                             <input autocomplete="off" class="form-control-custom" id="mssv-input" required placeholder="Ví dụ: 311244xxx" type="text"/>
+                            <label class="input-label">MẬT KHẨU</label>
+                            <input autocomplete="current-password" class="form-control-custom" id="student-pass-input" required placeholder="Nhập mật khẩu..." type="password"/>
                             <button type="submit" class="btn-submit-main" id="btn-login-student">
                                 <span>THAM GIA CUỘC ĐUA</span><span>→</span>
                             </button>
                         </form>
+                        <div><span class="forgot-pass-link" onclick="openForgotPasswordModal('student')">Quên mật khẩu?</span></div>
                         <span class="toggle-role-link" onclick="toggleLoginForm('admin')">Đăng nhập với vai trò khác...</span>
                     </div>
 
@@ -869,18 +1115,17 @@
                         <div class="login-sub">Dành cho Trưởng trạm / Ban Quản trị</div>
 
                         <form id="login-form-admin" onsubmit="handleLogin(event, 'admin')">
-                            <label class="input-label">MÃ</label>
+                            <label class="input-label">MÃ TÀI KHOẢN</label>
                             <input autocomplete="off" class="form-control-custom" id="admin-id-input" required placeholder="Ví dụ: CTV-001 hoặc QTV-001" type="text"/>
-                            <label class="input-label">HỌ VÀ TÊN</label>
-                            <input autocomplete="off" class="form-control-custom" id="admin-name-input" required placeholder="Ví dụ: Lê Thanh H..." type="text"/>
-                            <label class="input-label">MSSV</label>
-                            <input autocomplete="off" class="form-control-custom" id="admin-mssv-input" required placeholder="Ví dụ: 311244xxx" type="text"/>
-                            <label class="input-label">SĐT</label>
-                            <input autocomplete="off" class="form-control-custom" id="admin-phone-input" required placeholder="Ví dụ: 077xxxxxxx" type="text"/>
+                            <label class="input-label">SỐ ĐIỆN THOẠI</label>
+                            <input autocomplete="off" class="form-control-custom" id="admin-phone-input" required placeholder="Ví dụ: 077xxxxxxx" type="tel"/>
+                            <label class="input-label">MẬT KHẨU</label>
+                            <input autocomplete="current-password" class="form-control-custom" id="admin-pass-input" required placeholder="Nhập mật khẩu..." type="password"/>
                             <button type="submit" class="btn-submit-main btn-submit-admin" id="btn-login-admin">
                                 <span>ĐĂNG NHẬP VÀO HỆ THỐNG</span><span>→</span>
                             </button>
                         </form>
+                        <div><span class="forgot-pass-link" onclick="openForgotPasswordModal('admin')">Quên mật khẩu?</span></div>
                         <span class="toggle-role-link" style="color: #64748b;" onclick="toggleLoginForm('student')">← Quay lại Đăng nhập Sinh viên</span>
                     </div>
                     <div id="loadingStatus" style="display: none; font-size: 12px; color: #0284c7; margin-top: 16px; font-weight: 600;">
@@ -900,24 +1145,34 @@
                         </div>
                         <div class="header-badges">
                             <div class="progress-pill" id="team-progress">🏆 0/5 Trạm</div>
-                            <button class="btn-reload-header" id="btn-student-reload-header" onclick="silentReload()" title="Làm mới dữ liệu">🔄</button>
+                            <div style="display:flex; gap:6px; align-items:center;">
+                                <button class="btn-pwd-header" onclick="openChangePasswordModal()" title="Đổi mật khẩu">🔑</button>
+                                <button class="btn-reload-header" id="btn-student-reload-header" onclick="silentReload()" title="Làm mới dữ liệu">🔄</button>
+                            </div>
                         </div>
                     </div>
 
+                   </div>
                     <div class="greeting-box">XIN CHÀO ĐỘI <span id="display-name">...</span></div>
                        
                     <div class="dual-timer-box" id="student-dual-timer-box">
                         <div class="timer-section left">
-                            <span class="timer-label">⏳ THỜI GIAN CHƯƠNG TRÌNH</span>
+                            <span class="timer-label">⏳ GIỜ CHƯƠNG TRÌNH</span>
                             <div><span class="timer-val" id="global-countdown-dash" style="color: #0369a1;">00:00:00</span></div>
                             <span class="timer-sub" id="global-status-dash" style="color: #0284c7;">Đang đếm ngược</span>
                         </div>
                         <div class="timer-section right">
-                            <span class="timer-label">⏱️ THỜI GIAN TẠI TRẠM</span>
+                            <span class="timer-label">⏱️ GIỜ TẠI TRẠM</span>
                             <div><span class="timer-val" id="team-stopwatch" style="color: #64748b;">00:00:00</span></div>
                             <span class="timer-sub" id="team-stopwatch-status" style="color: #64748b;">ĐANG DI CHUYỂN</span>
                         </div>
                     </div>
+
+                    <!-- TRẠNG THÁI KHÓA CHỜ MỞ GIAO DIỆN ĐÚNG (CHỐNG NHÁY) -->
+                   <div class="itinerary-card" id="svLockLoadingCard" style="display: none; text-align: center; padding: 34px 16px;">
+                       <div style="font-size: 26px; margin-bottom: 6px;">⏳</div>
+                       <div style="font-size: 13px; font-weight: 800; color: #0369a1; text-transform: uppercase;">Đang mở khóa giao diện...</div>
+                   </div>
 
                     <div class="itinerary-card" id="itineraryCard" style="display: none;">
                         <div class="station-header-wrapper">
@@ -1045,6 +1300,7 @@
                                 <button class="qtv-bell-btn" id="qtv-refresh-btn" onclick="fetchQtvDashboardData(true)" title="Làm mới toàn bộ dữ liệu QTV" style="background: #f0f9ff; border-color: #bae6fd; color: #0284c7;">
                                     🔄
                                 </button>
+                                <button class="qtv-bell-btn" onclick="openChangePasswordModal()" title="Đổi mật khẩu" style="background: #f0fdf4; border-color: #bbf7d0; color: #15803d;">🔑</button>
                                 <button class="qtv-bell-btn" id="qtv-settings-btn" onclick="openTimeSettingsModal()" title="Cài đặt thời gian" style="display: none; background: #f8fafc; border-color: #cbd5e1; color: #475569;">
                                     ⚙️
                                 </button>
@@ -1225,10 +1481,32 @@
                             </div>
                         </div>
                         <div class="header-badges">
-                            <div class="progress-pill" style="background: #fef2f2; color: #991b1b; border-color: #fecaca;" id="ctv-role-pill">Phân công: TRAM_X</div>
-                            <button class="btn-reload-header" id="btn-ctv-reload-header" onclick="silentReloadCTV()" title="Làm mới dữ liệu">🔄</button>
-                        </div>
+                           <div class="progress-pill" style="background: #fef2f2; color: #991b1b; border-color: #fecaca;" id="ctv-role-pill">Phân công: TRAM_X</div>
+                           <div style="display:flex; gap:6px; align-items:center;">
+                               <button class="btn-pwd-header" onclick="openChangePasswordModal()" title="Đổi mật khẩu">🔑</button>
+                               <button class="btn-reload-header" id="btn-ctv-reload-header" onclick="silentReloadCTV()" title="Làm mới dữ liệu">🔄</button>
+                           </div>
+                       </div>
                     </div>
+
+                    <!-- LỆNH TRIỆU TẬP KHẨN CẤP CHO CTV KHI HẾT GIỜ -->
+                   <div class="itinerary-card endgame" id="ctvEndgameCard" style="display: none; text-align: center;">
+                       <div class="station-badge endgame" style="margin-bottom: 10px;">🚨 LỆNH TẬP HỢP KHẨN CẤP (CTV TRẠM)</div>
+                       <div class="target-name" style="font-size: 18px; margin-bottom: 12px;">Sân chính ĐH Y Dược TP.HCM (217 Hồng Bàng)</div>
+                       <div class="live-distance-box" style="background: #fef2f2; border-color: #ef4444;">
+                           <div class="dist-val" style="color: #ef4444; font-size: 20px;">00:00:00 — ĐÃ HẾT GIỜ</div>
+                           <div class="dist-text" style="color: #991b1b; margin-top: 4px;">Mọi thao tác bấm giờ & chuyển trạm đã tự động khóa!</div>
+                       </div>
+                       <ul class="step-list" style="text-align: left;">
+                           <li style="color: #ef4444; font-weight: 700;">⚠️ THÔNG BÁO TỪ BAN TỔ CHỨC:</li>
+                           <li>Thời gian chương trình đã khép lại. Không tiếp nhận thêm lượt chơi mới.</li>
+                           <li>Trưởng trạm vui lòng thu dọn toàn bộ vật dụng trạm, kiểm tra quân số và di chuyển ngay về Điểm tập kết UMP.</li>
+                       </ul>
+                       <div class="action-btns">
+                           <a href="https://maps.google.com/?q=217+Hồng+Bàng,+Quận+5,+TP.HCM" target="_blank" class="btn-map" style="background: #ef4444; padding: 12px; font-size: 14px;">🗺️ Chỉ đường về UMP</a>
+                       </div>
+                       <button class="btn-logout" style="width: 100%; margin-top: 14px;" onclick="handleLogout()">← Quay lại Trang chủ</button>
+                   </div>
 
                     <div class="ctv-grid">
                         <div class="ctv-col-left">
@@ -1248,7 +1526,7 @@
                             
                             <div class="dual-timer-box" style="margin-bottom: 12px; padding: 10px 12px;">
                                 <div class="timer-section left">
-                                    <span class="timer-label">⏳ THỜI GIAN CHƯƠNG TRÌNH</span>
+                                    <span class="timer-label">⏳ GIỜ CHƯƠNG TRÌNH</span>
                                     <div><span class="timer-val" id="ctv-global-countdown" style="color: #0369a1;">00:00:00</span></div>
                                 </div>
                                 <div class="timer-section right">
@@ -1300,8 +1578,8 @@
         </div>
     </div>
 
-    <div class="sos-btn" id="sos-btn-element" onclick="triggerSOS()" title="Gọi Ban Tổ chức">🆘</div>
-
+    <div class="sos-btn" id="sos-btn-element" onclick="triggerSOS()" title="Gọi Ban Tổ chức" style="display: none;">🆘</div>
+    
     <footer class="portal-footer" id="portalFooter">
         <div class="footer-title">ĐỘI CỘNG TÁC VIÊN VĂN PHÒNG ĐOÀN THANH NIÊN - HỘI SINH VIÊN ĐẠI HỌC Y DƯỢC TP. HỒ CHÍ MINH</div>
         <div class="footer-sub">The website was developed by LTH</div>
@@ -1321,6 +1599,58 @@
             <div style="display: flex; gap: 10px; justify-content: flex-end;">
                 <button onclick="closeTimeSettingsModal()" style="padding: 10px 15px; background: #f1f5f9; color: #475569; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">Hủy</button>
                 <button onclick="saveTimeSettings()" style="padding: 10px 15px; background: #0284c7; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">💾 Lưu thiết lập</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ĐỔI MẬT KHẨU (KHI ĐÃ ĐĂNG NHẬP) -->
+    <div id="change-password-modal" class="auth-modal-backdrop">
+        <div class="auth-modal-box">
+            <div class="auth-modal-title">🔑 ĐỔI MẬT KHẨU TÀI KHOẢN</div>
+            <label class="input-label" style="margin-top: 10px;">MẬT KHẨU HIỆN TẠI</label>
+            <input id="cp-old-pass" type="password" class="form-control-custom" placeholder="Nhập mật khẩu đang dùng..." style="margin-bottom: 10px;" />
+            <label class="input-label">MẬT KHẨU MỚI (Tối thiểu 4 ký tự)</label>
+            <input id="cp-new-pass" type="password" class="form-control-custom" placeholder="Nhập mật khẩu mới..." style="margin-bottom: 10px;" />
+            <label class="input-label">NHẬP LẠI MẬT KHẨU MỚI</label>
+            <input id="cp-confirm-pass" type="password" class="form-control-custom" placeholder="Nhập lại mật khẩu mới..." style="margin-bottom: 14px;" />
+            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                <button type="button" onclick="closeChangePasswordModal()" style="padding: 10px 14px; background: #f1f5f9; color: #475569; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">Hủy</button>
+                <button type="button" id="btn-submit-change-pass" onclick="submitChangePassword()" style="padding: 10px 16px; background: #0284c7; color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer;">💾 Lưu mật khẩu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL QUÊN MẬT KHẨU (GỬI OTP QUA EMAIL) -->
+    <div id="forgot-password-modal" class="auth-modal-backdrop">
+        <div class="auth-modal-box">
+            <div class="auth-modal-title" id="fp-modal-title">📧 KHÔI PHỤC MẬT KHẨU (OTP EMAIL)</div>
+            <div id="fp-step-1">
+                <label class="input-label" id="fp-id-label" style="margin-top: 10px;">MÃ SỐ SINH VIÊN (MSSV)</label>
+                <input id="fp-account-id" type="text" class="form-control-custom" placeholder="Nhập MSSV..." style="margin-bottom: 10px;" />
+                <div id="fp-phone-wrap" style="display: none;">
+                    <label class="input-label">SỐ ĐIỆN THOẠI XÁC MINH</label>
+                    <input id="fp-admin-phone" type="tel" class="form-control-custom" placeholder="Nhập SĐT đã đăng ký..." style="margin-bottom: 10px;" />
+                </div>
+                <div style="font-size: 11.5px; color: #64748b; margin-bottom: 14px; line-height: 1.4;">
+                    Mã OTP 6 số (hiệu lực 5 phút) sẽ được gửi về địa chỉ Email đã đăng ký của bạn.
+                </div>
+                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button type="button" onclick="closeForgotPasswordModal()" style="padding: 10px 14px; background: #f1f5f9; color: #475569; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">Đóng</button>
+                    <button type="button" id="btn-fp-send-otp" onclick="submitRequestOtp()" style="padding: 10px 16px; background: #0284c7; color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer;">📧 Gửi mã OTP</button>
+                </div>
+            </div>
+            <div id="fp-step-2" style="display: none;">
+                <div id="fp-otp-sent-note" style="font-size: 12px; font-weight: 700; color: #15803d; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 8px 10px; border-radius: 10px; margin: 10px 0;"></div>
+                <label class="input-label">MÃ OTP (6 SỐ TRONG EMAIL)</label>
+                <input id="fp-otp-code" type="text" maxlength="6" class="form-control-custom" placeholder="Nhập 6 chữ số OTP..." style="margin-bottom: 10px; text-align: center; font-family: 'Space Mono', monospace; letter-spacing: 3px;" />
+                <label class="input-label">MẬT KHẨU MỚI</label>
+                <input id="fp-new-pass" type="password" class="form-control-custom" placeholder="Tối thiểu 4 ký tự..." style="margin-bottom: 10px;" />
+                <label class="input-label">NHẬP LẠI MẬT KHẨU MỚI</label>
+                <input id="fp-confirm-pass" type="password" class="form-control-custom" placeholder="Nhập lại mật khẩu mới..." style="margin-bottom: 14px;" />
+                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button type="button" onclick="closeForgotPasswordModal()" style="padding: 10px 14px; background: #f1f5f9; color: #475569; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">Hủy</button>
+                    <button type="button" id="btn-fp-verify-otp" onclick="submitVerifyOtpReset()" style="padding: 10px 16px; background: #10b981; color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer;">✅ Xác nhận đổi</button>
+                </div>
             </div>
         </div>
     </div>
@@ -4139,6 +4469,720 @@
         } else {
             initSessionAutoPersistence();
             startCommBroadcastPolling();
+        }
+
+        // =========================================================================
+        // 11. Ổ KHÓA - CHÌA KHÓA GIAO DIỆN, KHÓA CTV, ĐĂNG NHẬP MẬT KHẨU & OTP
+        // =========================================================================
+        var currentUserPass = "";
+        var currentSvUiLockKey = "";
+        var currentCtvUiLockKey = "";
+        var forgotPasswordRole = "student";
+
+        function getSyncedNowMs() {
+            var offset = (typeof publicBoardState !== 'undefined' && publicBoardState.serverOffset) ? publicBoardState.serverOffset : 0;
+            return Date.now() + offset;
+        }
+
+        function getClientEventPhase() {
+            if (eventStartTime > 0) {
+                var now = getSyncedNowMs();
+                if (now < eventStartTime) return 'pre';
+                if (eventDuration > 0 && now >= (eventStartTime + eventDuration)) return 'post';
+            }
+            return 'live';
+        }
+
+        function syncTimeFromServerPayload(res) {
+            if (!res) return;
+            if (res.serverNow && typeof publicBoardState !== 'undefined') {
+                publicBoardState.serverOffset = Number(res.serverNow) - Date.now();
+            }
+            if (res.eventStartTimeMs) {
+                eventStartTime = Number(res.eventStartTimeMs);
+                if (res.eventDurationMs) {
+                    eventDuration = Number(res.eventDurationMs);
+                    eventEndTime = eventStartTime + eventDuration;
+                }
+                if (typeof publicBoardState !== 'undefined') {
+                    publicBoardState.loaded = true;
+                    publicBoardState.startTimeMs = eventStartTime;
+                    if (res.eventDurationMs) publicBoardState.durationMs = Number(res.eventDurationMs);
+                }
+            }
+        }
+
+        // --- Ổ KHÓA TRUNG TÂM SINH VIÊN (CHỈ MỞ DUY NHẤT 1 GIAO DIỆN THEO CHÌA KHÓA) ---
+        function applyStudentUiLock(lockKey) {
+            if (!lockKey || lockKey === currentSvUiLockKey) return;
+            currentSvUiLockKey = lockKey;
+
+            var loadCard = document.getElementById('svLockLoadingCard');
+            var preCard  = document.getElementById('studentPreEventCard');
+            var lockCard = document.getElementById('passwordLockCard');
+            var itinCard = document.getElementById('itineraryCard');
+            var chalCard = document.getElementById('challengeCard');
+
+            // 1. Khóa kín toàn bộ trước khi mở đúng chìa mới
+            if (loadCard) loadCard.style.display = 'none';
+            if (preCard)  preCard.style.display  = 'none';
+            if (lockCard) lockCard.style.display = 'none';
+            if (itinCard) itinCard.style.display = 'none';
+            if (chalCard) chalCard.style.display = 'none';
+            studentWaitingPreEvent = false;
+
+            // 2. Mở duy nhất khung khớp chìa khóa
+            if (lockKey === 'SV_LOCKED_LOADING') {
+                if (loadCard) loadCard.style.display = 'block';
+                if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+            } else if (lockKey === 'SV_PRE') {
+                if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+                setStudentPreEventVisible(true);
+            } else if (lockKey === 'SV_CIPHER') {
+                if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+                if (lockCard) lockCard.style.display = 'block';
+            } else if (lockKey === 'SV_WAIT_NEXT') {
+                if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+                if (chalCard) chalCard.style.display = 'block';
+            } else if (lockKey === 'SV_ENDGAME') {
+                isEndgameTriggered = true;
+                triggerEndgameProtocol();
+            } else if (lockKey === 'SV_NAV') {
+                if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                if (itinCard) itinCard.style.display = 'block';
+                if (typeof setStudentMapVisible === 'function') setStudentMapVisible(true);
+            }
+        }
+
+        // --- Ổ KHÓA TRUNG TÂM CTV (KHÓA HẾT GIỜ -> TRIỆU TẬP KHẨN CẤP) ---
+        function applyCtvUiLock(lockKey) {
+            if (!lockKey || lockKey === currentCtvUiLockKey) return;
+            currentCtvUiLockKey = lockKey;
+
+            var ctvGrid = document.querySelector('#ctvDashboardContainer .ctv-grid');
+            var endCard = document.getElementById('ctvEndgameCard');
+
+            if (lockKey === 'CTV_ENDGAME') {
+                if (ctvTimerIntervalId) { clearInterval(ctvTimerIntervalId); ctvTimerIntervalId = null; }
+                if (proximityIntervalId) { clearInterval(proximityIntervalId); proximityIntervalId = null; }
+                ctvTimerState = "idle";
+                if (ctvGrid) ctvGrid.style.display = 'none';
+                if (endCard) endCard.style.display = 'block';
+            } else {
+                if (endCard) endCard.style.display = 'none';
+                if (ctvGrid) ctvGrid.style.display = '';
+            }
+        }
+
+        // --- SỬA DẤU CHẤM TRÙNG LẶP TRƯỚC ICON Ở MỤC VẬT DỤNG ---
+        applyBriefingContent = function(br) {
+            if (!br || !br.locationTitle) return;
+            var preEl = document.getElementById('lp-phase-pre');
+            if (!preEl) return;
+
+            var itemsHtml = (br.items || []).map(function(line) {
+                var clean = line.toString().trim().replace(/^[•\-\*]\s*/, '');
+                return '<li><span>' + escapeHtmlComm(clean) + '</span></li>';
+            }).join('');
+
+            var noticeHtml = br.notice
+                ? '<div class="lp-notice-pill">' + escapeHtmlComm(br.notice) + '</div>'
+                : '';
+
+            preEl.innerHTML =
+                '<div class="stat-compact-title-row" style="margin-bottom: 10px;">' +
+                    '<span class="stat-compact-icon">📋</span>' +
+                    '<span class="stat-compact-title">THÔNG TIN TẬP TRUNG & DẶN DÒ</span>' +
+                '</div>' +
+                '<div class="lp-briefing-stack">' +
+                    '<div class="lp-info-card">' +
+                        '<div class="lp-info-head">📍 Điểm tập trung & Thời gian</div>' +
+                        '<div class="lp-info-body"><strong>' + escapeHtmlComm(br.locationTitle) + '</strong>' +
+                        (br.locationDesc ? ('<br>' + escapeHtmlComm(br.locationDesc)) : '') + '</div>' +
+                    '</div>' +
+                    '<div class="lp-info-card">' +
+                        '<div class="lp-info-head">🎒 Vật dụng cần chuẩn bị</div>' +
+                        '<ul class="lp-checklist">' + itemsHtml + '</ul>' +
+                    '</div>' +
+                    noticeHtml +
+                '</div>';
+
+            var stuPre = document.getElementById('studentPreEventCard');
+            if (stuPre) stuPre.innerHTML = preEl.innerHTML;
+        };
+
+        // --- NÂNG CẤP ĐỒNG HỒ ĐẾM NGƯỢC (CHUẨN NHÃN + TỰ KHÓA HẾT GIỜ CHO CẢ SV & CTV) ---
+        updateGlobalCountdown = function() {
+            try {
+                if (!eventStartTime || !eventEndTime) return;
+                var now = getSyncedNowMs();
+                var phase = getClientEventPhase();
+                var dist = (phase === 'pre') ? eventDuration : Math.max(0, eventEndTime - now);
+
+                var timerEl = document.getElementById('global-countdown');
+                var timerSubLogin = timerEl ? timerEl.nextElementSibling : null;
+                var timerDashEl = document.getElementById('global-countdown-dash');
+                var statusDashEl = document.getElementById('global-status-dash');
+                var ctvTimerDashEl = document.getElementById('ctv-global-countdown');
+
+                var timeStr = (phase === 'post' || dist <= 0) ? '00:00:00' : formatTimeMs(dist);
+                var statusLabel = phase === 'pre' ? 'CHỜ KHAI MẠC' : (phase === 'post' ? 'ĐÃ KẾT THÚC' : 'ĐANG ĐẾM NGƯỢC');
+
+                if (timerEl) timerEl.textContent = timeStr;
+                if (timerSubLogin) timerSubLogin.textContent = statusLabel;
+                if (timerDashEl) {
+                    timerDashEl.textContent = timeStr;
+                    timerDashEl.style.color = (phase === 'post') ? '#ef4444' : '#0369a1';
+                }
+                if (statusDashEl) {
+                    statusDashEl.textContent = statusLabel;
+                    statusDashEl.style.color = (phase === 'post') ? '#ef4444' : '#0284c7';
+                }
+                if (ctvTimerDashEl) {
+                    ctvTimerDashEl.textContent = timeStr;
+                    ctvTimerDashEl.style.color = (phase === 'post') ? '#ef4444' : '#0369a1';
+                }
+
+                var appCard = document.getElementById('appCard');
+                if (phase === 'post' && appCard) {
+                    if (appCard.classList.contains('logged-in') && currentRole === 'student') {
+                        var stEl = document.getElementById('team-stopwatch-status');
+                        if (stEl) { stEl.textContent = 'ĐÃ KẾT THÚC'; stEl.style.color = '#ef4444'; }
+                        applyStudentUiLock('SV_ENDGAME');
+                    } else if (appCard.classList.contains('logged-in-ctv')) {
+                        applyCtvUiLock('CTV_ENDGAME');
+                    }
+                }
+            } catch (e) {}
+        };
+
+        // --- NÂNG CẤP RENDER TRẠM SINH VIÊN THEO CƠ CHẾ Ổ KHÓA ---
+        renderStationData = function(response) {
+            if (!response) return;
+            syncTimeFromServerPayload(response);
+
+            var progressEl = document.getElementById('team-progress');
+            if (progressEl) {
+                progressEl.innerHTML = '🏆 ' + (response.progress ? response.progress : 0) + '/5 Trạm';
+            }
+
+            if (response.station) {
+                targetLat = response.station.lat;
+                targetLng = response.station.lng;
+                currentStationCode = response.station.code;
+                currentStationDisplayName = response.station.name || "";
+                hasStudentMapFitted = false;
+
+                var itinCard = document.getElementById('itineraryCard');
+                if (itinCard && itinCard.classList.contains('endgame') && !isEndgameTriggered && getClientEventPhase() !== 'post') {
+                    itinCard.classList.remove('endgame');
+                    var badge = document.getElementById('ui-station-badge');
+                    if (badge) badge.classList.remove('endgame');
+                    var navBox = document.getElementById('text-nav-box');
+                    if (navBox) { navBox.style.background = "#eff6ff"; navBox.style.borderColor = "#3b82f6"; }
+                    var navDist = document.getElementById('nav-distance');
+                    if (navDist) navDist.style.color = "#1d4ed8";
+                    var navInst = document.getElementById('nav-instruction');
+                    if (navInst) navInst.style.color = "#1e40af";
+                    var actionBtns = document.getElementById('ui-action-btns');
+                    if (actionBtns) {
+                        actionBtns.innerHTML = '<a href="#" target="_blank" class="btn-map" id="ui-btn-map">🗺️ Mở Bản đồ</a><a href="https://map.busmap.vn/hcm" target="_blank" class="btn-bus">🚌 Canh Xe Buýt</a>';
+                    }
+                }
+
+                var badgeEl = document.getElementById('ui-station-badge');
+                if (badgeEl) badgeEl.textContent = "ĐIỂM ĐẾN: " + response.station.code;
+                var targetNameEl = document.getElementById('ui-target-name');
+                if (targetNameEl) targetNameEl.textContent = response.station.name;
+                var btnMap = document.getElementById('ui-btn-map');
+                if (btnMap) btnMap.href = "https://maps.google.com/?q=" + encodeURIComponent(response.station.name);
+
+                var stepsHtml = "";
+                if (response.station.steps) {
+                    response.station.steps.forEach(function(step, idx) {
+                        stepsHtml += '<li>📍 <strong>Bước ' + (idx + 1) + ':</strong> ' + step + '</li>';
+                    });
+                }
+                if (response.station.prep) {
+                    stepsHtml += '<li>💰 <strong>Chuẩn bị:</strong> ' + response.station.prep + '</li>';
+                }
+                var stepListEl = document.getElementById('ui-step-list');
+                if (stepListEl) stepListEl.innerHTML = stepsHtml;
+            }
+
+            // Mở đúng 1 chìa khóa duy nhất
+            var targetKey = response.uiLockKey;
+            if (!targetKey) {
+                var ph = getClientEventPhase();
+                if (isEndgameTriggered || ph === 'post') targetKey = 'SV_ENDGAME';
+                else if (ph === 'pre') targetKey = 'SV_PRE';
+                else if (response.lockStatus === 'LOCKED') targetKey = 'SV_CIPHER';
+                else if (response.isWaitingForChallenge) targetKey = 'SV_WAIT_NEXT';
+                else targetKey = 'SV_NAV';
+            }
+            applyStudentUiLock(targetKey);
+            if (targetKey === 'SV_NAV' && typeof updateStudentMapMarkers === 'function') {
+                updateStudentMapMarkers();
+            }
+        };
+
+        // --- NÂNG CẤP POLLING SINH VIÊN DÙNG Ổ KHÓA DUY NHẤT ---
+        startStudentTimerPolling = function(teamId, stationCode) {
+            if (studentTimerIntervalId) clearInterval(studentTimerIntervalId);
+            if (localStudentTickInterval) clearInterval(localStudentTickInterval);
+
+            localStudentTickInterval = setInterval(function() {
+                var ph = getClientEventPhase();
+                if (studentWaitingPreEvent && ph === 'live' && !isEndgameTriggered) {
+                    studentWaitingPreEvent = false;
+                    showToast("🚀 Đã đến giờ khai mạc! Bắt đầu giải mật thư Trạm 1!", false);
+                    if (typeof currentStudentFetchTimer === 'function') currentStudentFetchTimer();
+                }
+                var swEl = document.getElementById('team-stopwatch');
+                if (!swEl) return;
+                if (localStudentTimerState === 'running') {
+                    swEl.textContent = formatTimeMs(localStudentElapsedMs + (Date.now() - localStudentStartTime));
+                } else {
+                    swEl.textContent = localStudentFixedTimeStr;
+                }
+            }, 1000);
+
+            var fetchTimer = function() {
+                if (isEndgameTriggered || getClientEventPhase() === 'post') {
+                    applyStudentUiLock('SV_ENDGAME');
+                    return;
+                }
+                google.script.run.withSuccessHandler(function(res) {
+                    if (!res || !res.success) return;
+                    syncTimeFromServerPayload(res);
+                    if (res.broadcast && typeof applyBroadcastBanner === 'function') applyBroadcastBanner(res.broadcast);
+
+                    if (res.eventPhase === 'post' || isEndgameTriggered) {
+                        applyStudentUiLock('SV_ENDGAME');
+                        return;
+                    }
+                    if (res.status === 'force_reload') {
+                        silentReload();
+                        return;
+                    }
+
+                    var swEl = document.getElementById('team-stopwatch');
+                    var stEl = document.getElementById('team-stopwatch-status');
+                    var boxEl = document.getElementById('student-dual-timer-box');
+                    if (!swEl || !stEl) return;
+
+                    if (res.isBeforeStart || res.eventPhase === 'pre' || getClientEventPhase() === 'pre') {
+                        localStudentTimerState = 'travel';
+                        localStudentFixedTimeStr = '00:00:00';
+                        swEl.textContent = '00:00:00';
+                        swEl.style.color = '#0284c7';
+                        stEl.style.color = '#0284c7';
+                        stEl.textContent = 'CHỜ KHAI MẠC';
+                        if (boxEl) { boxEl.style.background = '#f0f9ff'; boxEl.style.borderColor = '#bae6fd'; }
+                        applyStudentUiLock('SV_PRE');
+                        return;
+                    }
+
+                    localStudentTimerState = res.status;
+                    localStudentFixedTimeStr = res.timeStr;
+
+                    if (res.status === 'running') {
+                        localStudentStartTime = Date.now();
+                        localStudentElapsedMs = res.elapsedMs || 0;
+                        swEl.style.color = '#ef4444'; stEl.style.color = '#ef4444'; stEl.textContent = 'BẮT ĐẦU TÍNH GIỜ';
+                        if (boxEl) { boxEl.style.background = '#f8fafc'; boxEl.style.borderColor = '#cbd5e1'; }
+                    } else if (res.status === 'paused') {
+                        swEl.style.color = '#10b981'; stEl.style.color = '#10b981'; stEl.textContent = 'ĐANG TẠM DỪNG';
+                        if (boxEl) { boxEl.style.background = '#f8fafc'; boxEl.style.borderColor = '#cbd5e1'; }
+                    } else if (res.status === 'finished') {
+                        swEl.style.color = '#0284c7'; stEl.style.color = '#0284c7'; stEl.textContent = 'KẾT THÚC';
+                        if (boxEl) { boxEl.style.background = '#e0f2fe'; boxEl.style.borderColor = '#38bdf8'; }
+                    } else {
+                        swEl.style.color = '#64748b'; stEl.style.color = '#64748b'; stEl.textContent = 'ĐANG DI CHUYỂN';
+                        if (boxEl) { boxEl.style.background = '#f8fafc'; boxEl.style.borderColor = '#cbd5e1'; }
+                    }
+
+                    if (res.lockStatus === 'LOCKED') {
+                        applyStudentUiLock('SV_CIPHER');
+                        if (res.cipher && typeof syncCipherUI === 'function') syncCipherUI(res.cipher);
+                    } else if (res.status === 'finished') {
+                        applyStudentUiLock('SV_WAIT_NEXT');
+                    } else {
+                        applyStudentUiLock('SV_NAV');
+                    }
+                }).getStudentTimerStatus(currentTeamId, currentStationCode);
+            };
+
+            currentStudentFetchTimer = fetchTimer;
+            fetchTimer();
+            studentTimerIntervalId = setInterval(fetchTimer, 3000);
+        };
+
+        // --- NÂNG CẤP CTV: KHÓA BẤM GIỜ TRƯỚC GIỜ G & CHẶN KHI HẾT GIỜ ---
+        var _origCtvSearchTeam = ctvSearchTeam;
+        ctvSearchTeam = function(forceTeamId) {
+            if (getClientEventPhase() === 'post') {
+                applyCtvUiLock('CTV_ENDGAME');
+                return;
+            }
+            var selectEl = document.getElementById('ctv-search-team-id');
+            var teamId = forceTeamId ? forceTeamId : (selectEl ? selectEl.value.trim() : '');
+
+            if (teamId !== '' && getClientEventPhase() === 'pre') {
+                if (!forceTeamId && selectEl) selectEl.value = teamId;
+                ctvManagingTeam = teamId;
+                var nameEl = document.getElementById('ctv-target-team-name');
+                if (nameEl) nameEl.textContent = teamId;
+                var progEl = document.getElementById('ctv-team-progress');
+                if (progEl) progEl.textContent = '⏳ Chờ giờ G';
+                var ctrlEl = document.getElementById('ctv-timer-controls');
+                if (ctrlEl) ctrlEl.style.display = 'none';
+                var statusEl = document.getElementById('ctv-timer-status');
+                if (statusEl) {
+                    statusEl.style.display = 'block';
+                    statusEl.style.color = '#d97706';
+                    statusEl.textContent = '⏳ Hiện chưa bắt đầu chương trình, không thể tính giờ bắt đầu.';
+                }
+                showToast('⏳ Hiện chưa bắt đầu chương trình, không thể tính giờ bắt đầu.', true);
+                return;
+            }
+            _origCtvSearchTeam(forceTeamId);
+        };
+
+        var _origCtvTimerAction = ctvTimerAction;
+        ctvTimerAction = function(action) {
+            var ph = getClientEventPhase();
+            if (ph === 'pre') {
+                alert('⏳ Hiện chưa bắt đầu chương trình, không thể tính giờ bắt đầu.');
+                return;
+            }
+            if (ph === 'post') {
+                applyCtvUiLock('CTV_ENDGAME');
+                alert('🚨 Chương trình đã kết thúc! Mọi thao tác bấm giờ đã bị khóa.');
+                return;
+            }
+            _origCtvTimerAction(action);
+        };
+
+        // --- NÂNG CẤP ĐĂNG NHẬP GỌN (SV: MSSV+MK | CTV/QTV: MÃ+SĐT+MK) ---
+        handleLogin = function(e, roleType) {
+            e.preventDefault();
+            var btn, loader;
+
+            if (roleType === 'student') {
+                var mssv = (document.getElementById('mssv-input').value || '').trim();
+                var pass = (document.getElementById('student-pass-input').value || '').trim();
+
+                btn = document.getElementById('btn-login-student');
+                loader = document.getElementById('loadingStatus');
+                if (btn) { btn.disabled = true; btn.style.opacity = '0.75'; }
+                if (loader) loader.style.display = 'block';
+
+                google.script.run
+                    .withSuccessHandler(function(response) {
+                        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+                        if (loader) loader.style.display = 'none';
+
+                        if (response && response.success) {
+                            currentRole = 'student';
+                            currentTeamId = response.teamId;
+                            currentMssv = response.mssv || mssv;
+                            currentUserPass = pass;
+                            currentSvUiLockKey = '';
+                            isEndgameTriggered = (response.eventPhase === 'post');
+
+                            syncTimeFromServerPayload(response);
+                            if (response.broadcast) applyBroadcastBanner(response.broadcast);
+                            if (response.briefing) applyBriefingContent(response.briefing);
+
+                            var loginBox = document.getElementById('loginFormContainer');
+                            if (loginBox) loginBox.style.display = 'none';
+                            document.getElementById('display-name').textContent = currentTeamId;
+                            document.getElementById('appCard').classList.add('logged-in');
+                            document.getElementById('dashboardContainer').style.display = 'flex';
+                            var sosEl = document.getElementById('sos-btn-element');
+                            if (sosEl) sosEl.style.display = 'flex';
+
+                            // Mở đúng chìa khóa ngay lập tức (0ms, không nháy)
+                            applyStudentUiLock('SV_LOCKED_LOADING');
+                            renderStationData(response);
+                            updateGlobalCountdown();
+
+                            if (response.station) {
+                                currentStationCode = response.station.code;
+                                startStudentTimerPolling(currentTeamId, currentStationCode);
+                            }
+                            startRealtimeTracking(currentTeamId, currentMssv, 'student', response.isLeader);
+                        } else {
+                            if (isRestoringSession) { clearSavedLoginSession(); hideSessionRestoreOverlay(); }
+                            alert(response ? response.message : 'Lỗi đăng nhập!');
+                        }
+                    })
+                    .withFailureHandler(function(err) {
+                        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+                        if (loader) loader.style.display = 'none';
+                        if (isRestoringSession) hideSessionRestoreOverlay();
+                        alert('❌ Lỗi kết nối máy chủ: ' + err.message);
+                    })
+                    .loginStudentSecure(mssv, pass);
+
+            } else if (roleType === 'admin') {
+                var maAdmin = (document.getElementById('admin-id-input').value || '').trim();
+                var phoneAdmin = (document.getElementById('admin-phone-input').value || '').trim();
+                var passAdmin = (document.getElementById('admin-pass-input').value || '').trim();
+
+                btn = document.getElementById('btn-login-admin');
+                loader = document.getElementById('loadingStatus');
+                if (btn) { btn.disabled = true; btn.style.opacity = '0.75'; }
+                if (loader) loader.style.display = 'block';
+
+                google.script.run
+                    .withSuccessHandler(function(response) {
+                        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+                        if (loader) loader.style.display = 'none';
+
+                        if (response && response.success) {
+                            currentRole = 'admin';
+                            currentTeamId = response.maAdmin || maAdmin;
+                            currentMssv = response.mssv || '';
+                            currentRoleAssign = response.role;
+                            currentUserPass = passAdmin;
+                            currentCtvUiLockKey = '';
+
+                            syncTimeFromServerPayload(response);
+                            if (response.broadcast) applyBroadcastBanner(response.broadcast);
+                            if (response.briefing) applyBriefingContent(response.briefing);
+
+                            var loginForm = document.getElementById('loginFormContainer');
+                            if (loginForm) loginForm.style.display = 'none';
+                            var sosEl = document.getElementById('sos-btn-element');
+                            if (sosEl) sosEl.style.display = 'none';
+
+                            if (response.idType === 'CTV') {
+                                document.getElementById('appCard').classList.add('logged-in-ctv');
+                                document.getElementById('ctvDashboardContainer').style.display = 'flex';
+                                document.getElementById('ctv-display-name').textContent = response.name;
+                                document.getElementById('ctv-role-pill').textContent = 'Phân công: ' + response.role;
+
+                                applyCtvUiLock(response.uiLockKey || (response.eventPhase === 'post' ? 'CTV_ENDGAME' : 'CTV_ACTIVE'));
+                                updateGlobalCountdown();
+
+                                if (response.eventPhase !== 'post') {
+                                    loadTeamsIntoSelect();
+                                    startProximityScan();
+                                }
+                            } else {
+                                document.getElementById('appCard').classList.add('logged-in-qtv');
+                                var isSuper = (currentTeamId.trim().toUpperCase() === 'QTV-001');
+                                var settingsBtn = document.getElementById('qtv-settings-btn');
+                                if (settingsBtn) settingsBtn.style.display = isSuper ? 'flex' : 'none';
+                                var publishBtn = document.getElementById('qtv-publish-results-btn');
+                                if (publishBtn) publishBtn.style.display = isSuper ? 'inline-flex' : 'none';
+                                var commTabBtn = document.getElementById('qtv-tab-btn-comm');
+                                if (commTabBtn) commTabBtn.style.display = isSuper ? '' : 'none';
+
+                                document.getElementById('qtvDashboardContainer').style.display = 'flex';
+                                var qtvNameEl = document.getElementById('qtv-display-name');
+                                if (qtvNameEl) qtvNameEl.textContent = response.name;
+
+                                startQtvDashboard();
+                            }
+                            startRealtimeTracking(currentTeamId, currentMssv, 'admin', false);
+                        } else {
+                            if (isRestoringSession) { clearSavedLoginSession(); hideSessionRestoreOverlay(); }
+                            alert(response ? response.message : 'Lỗi đăng nhập!');
+                        }
+                    })
+                    .withFailureHandler(function(err) {
+                        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+                        if (loader) loader.style.display = 'none';
+                        if (isRestoringSession) hideSessionRestoreOverlay();
+                        alert('❌ Lỗi kết nối máy chủ: ' + err.message);
+                    })
+                    .loginAdminSecure(maAdmin, phoneAdmin, passAdmin);
+            }
+        };
+
+        // --- NÂNG CẤP SILENT RELOAD SINH VIÊN ---
+        silentReload = function() {
+            if (!currentMssv || !currentUserPass || currentRole !== 'student') return;
+            var btnStation = document.getElementById('btn-reload-station');
+            var btnHeader = document.getElementById('btn-student-reload-header');
+            if (btnStation) { btnStation.classList.add('spin-anim'); btnStation.disabled = true; }
+            if (btnHeader) { btnHeader.classList.add('spin-anim'); btnHeader.disabled = true; }
+
+            google.script.run.withSuccessHandler(function(response) {
+                if (btnStation) { btnStation.classList.remove('spin-anim'); btnStation.disabled = false; }
+                if (btnHeader) { btnHeader.classList.remove('spin-anim'); btnHeader.disabled = false; }
+
+                if (response && response.success) {
+                    if (response.station) currentStationCode = response.station.code;
+                    renderStationData(response);
+                    var latestGps = sessionStorage.getItem('currentGPS');
+                    if (latestGps && targetLat !== 0 && targetLng !== 0 && !response.isWaitingForChallenge) {
+                        var parts = latestGps.replace('Lat: ', '').replace('Lon: ', '').split(',');
+                        if (parts.length === 2) {
+                            updateNavDistanceUI(getDistanceFromLatLonInKm(parseFloat(parts[0]), parseFloat(parts[1]), targetLat, targetLng));
+                        }
+                    }
+                    loadGlobalStats();
+                    if (typeof currentStudentFetchTimer === 'function') currentStudentFetchTimer();
+                } else {
+                    showToast('Không thể tải dữ liệu mới', true);
+                }
+            }).loginStudentSecure(currentMssv, currentUserPass);
+        };
+
+        // --- BỌC HANDLE LOGOUT: ẨN SOS NGOÀI TRANG CHỦ + RESET Ổ KHÓA + XÓA Ô MẬT KHẨU ---
+        var _origHandleLogout = handleLogout;
+        handleLogout = function() {
+            _origHandleLogout();
+            currentUserPass = '';
+            currentSvUiLockKey = '';
+            currentCtvUiLockKey = '';
+            var sosEl = document.getElementById('sos-btn-element');
+            if (sosEl) sosEl.style.display = 'none';
+            var sp = document.getElementById('student-pass-input');
+            var ap = document.getElementById('admin-pass-input');
+            if (sp) sp.value = '';
+            if (ap) ap.value = '';
+            var ctvGrid = document.querySelector('#ctvDashboardContainer .ctv-grid');
+            var endCard = document.getElementById('ctvEndgameCard');
+            if (ctvGrid) ctvGrid.style.display = '';
+            if (endCard) endCard.style.display = 'none';
+        };
+
+        // --- MODAL ĐỔI MẬT KHẨU ---
+        function openChangePasswordModal() {
+            ['cp-old-pass', 'cp-new-pass', 'cp-confirm-pass'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            var m = document.getElementById('change-password-modal');
+            if (m) m.classList.add('show');
+        }
+
+        function closeChangePasswordModal() {
+            var m = document.getElementById('change-password-modal');
+            if (m) m.classList.remove('show');
+        }
+
+        function submitChangePassword() {
+            var oldP = (document.getElementById('cp-old-pass').value || '').trim();
+            var newP = (document.getElementById('cp-new-pass').value || '').trim();
+            var cfmP = (document.getElementById('cp-confirm-pass').value || '').trim();
+            if (!oldP || !newP || !cfmP) { alert('Vui lòng nhập đầy đủ các ô!'); return; }
+            if (newP.length < 4) { alert('Mật khẩu mới cần ít nhất 4 ký tự!'); return; }
+            if (newP !== cfmP) { alert('Mật khẩu nhập lại không khớp!'); return; }
+
+            var btn = document.getElementById('btn-submit-change-pass');
+            if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang lưu...'; }
+
+            var accId = (currentRole === 'student') ? currentMssv : currentTeamId;
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn) { btn.disabled = false; btn.textContent = '💾 Lưu mật khẩu'; }
+                    if (res && res.success) {
+                        currentUserPass = newP;
+                        // Cập nhật luôn mật khẩu mới vào phiên đang lưu (localStorage) để F5 không bị lỗi
+                        var passInputId = (currentRole === 'student') ? 'student-pass-input' : 'admin-pass-input';
+                        var passInp = document.getElementById(passInputId);
+                        if (passInp) passInp.value = newP;
+                        if (typeof captureAndSaveLoginSession === 'function') captureAndSaveLoginSession();
+
+                        closeChangePasswordModal();
+                        showToast(res.message, false);
+                    } else {
+                        alert(res ? res.message : 'Không thể đổi mật khẩu!');
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn) { btn.disabled = false; btn.textContent = '💾 Lưu mật khẩu'; }
+                    alert('❌ Lỗi kết nối: ' + err.message);
+                })
+                .changeUserPassword(currentRole, accId, oldP, newP);
+        }
+
+        // --- MODAL QUÊN MẬT KHẨU (GỬI OTP QUA EMAIL) ---
+        function openForgotPasswordModal(role) {
+            forgotPasswordRole = role || 'student';
+            var isAdm = (forgotPasswordRole === 'admin');
+            document.getElementById('fp-step-1').style.display = 'block';
+            document.getElementById('fp-step-2').style.display = 'none';
+            document.getElementById('fp-id-label').textContent = isAdm ? 'MÃ TÀI KHOẢN (CTV / QTV)' : 'MÃ SỐ SINH VIÊN (MSSV)';
+            var idInp = document.getElementById('fp-account-id');
+            idInp.placeholder = isAdm ? 'Ví dụ: CTV-001 hoặc QTV-001' : 'Ví dụ: 311244xxx';
+            idInp.value = '';
+            document.getElementById('fp-phone-wrap').style.display = isAdm ? 'block' : 'none';
+            document.getElementById('fp-admin-phone').value = '';
+            ['fp-otp-code', 'fp-new-pass', 'fp-confirm-pass'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            document.getElementById('forgot-password-modal').classList.add('show');
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgot-password-modal').classList.remove('show');
+        }
+
+        function submitRequestOtp() {
+            var accId = (document.getElementById('fp-account-id').value || '').trim();
+            var phone = (document.getElementById('fp-admin-phone').value || '').trim();
+            if (!accId) { alert('Vui lòng nhập MSSV / Mã tài khoản!'); return; }
+            if (forgotPasswordRole === 'admin' && !phone) { alert('Vui lòng nhập SĐT xác minh!'); return; }
+
+            var btn = document.getElementById('btn-fp-send-otp');
+            if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang gửi...'; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn) { btn.disabled = false; btn.textContent = '📧 Gửi mã OTP'; }
+                    if (res && res.success) {
+                        document.getElementById('fp-otp-sent-note').textContent = res.message;
+                        document.getElementById('fp-step-1').style.display = 'none';
+                        document.getElementById('fp-step-2').style.display = 'block';
+                    } else {
+                        alert(res ? res.message : 'Không thể gửi mã OTP!');
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn) { btn.disabled = false; btn.textContent = '📧 Gửi mã OTP'; }
+                    alert('❌ Lỗi kết nối: ' + err.message);
+                })
+                .requestPasswordOtp(forgotPasswordRole, accId, phone);
+        }
+
+        function submitVerifyOtpReset() {
+            var accId = (document.getElementById('fp-account-id').value || '').trim();
+            var otp   = (document.getElementById('fp-otp-code').value || '').trim();
+            var newP  = (document.getElementById('fp-new-pass').value || '').trim();
+            var cfmP  = (document.getElementById('fp-confirm-pass').value || '').trim();
+            if (!otp || !newP || !cfmP) { alert('Vui lòng nhập đủ OTP và mật khẩu mới!'); return; }
+            if (newP.length < 4) { alert('Mật khẩu mới cần tối thiểu 4 ký tự!'); return; }
+            if (newP !== cfmP) { alert('Mật khẩu nhập lại không khớp!'); return; }
+
+            var btn = document.getElementById('btn-fp-verify-otp');
+            if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang xác thực...'; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn) { btn.disabled = false; btn.textContent = '✅ Xác nhận đổi'; }
+                    if (res && res.success) {
+                        closeForgotPasswordModal();
+                        showToast(res.message, false);
+                    } else {
+                        alert(res ? res.message : 'Mã OTP không đúng hoặc đã hết hạn!');
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn) { btn.disabled = false; btn.textContent = '✅ Xác nhận đổi'; }
+                    alert('❌ Lỗi kết nối: ' + err.message);
+                })
+                .verifyOtpAndResetPassword(forgotPasswordRole, accId, otp, newP);
         }
     </script>
     <canvas id="confetti-canvas"></canvas>
