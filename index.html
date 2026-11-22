@@ -956,6 +956,109 @@
             .qtv-search-input { width: 100%; min-width: 0; }
             .qtv-comm-grid { grid-template-columns: 1fr; }
         }
+
+                /* --- KHUNG XÁC NHẬN ĐÃ ĐẾN TRẠM & CHỤP ẢNH LƯU NIỆM (SINH VIÊN) --- */
+        .sv-checkin-box {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1.5px dashed #0284c7;
+            background: #f0f9ff;
+            text-align: center;
+        }
+        .sv-checkin-box.done {
+            border-style: solid;
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+        .sv-checkin-title {
+            font-size: 13px;
+            font-weight: 900;
+            color: #0369a1;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .sv-checkin-box.done .sv-checkin-title { color: #15803d; }
+        .sv-checkin-sub {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #475569;
+            line-height: 1.45;
+            margin-bottom: 10px;
+        }
+        .btn-sv-camera {
+            width: 100%;
+            padding: 11px 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+        }
+        .sv-checkin-preview-img {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #bae6fd;
+            margin-bottom: 10px;
+        }
+        .sv-checkin-btn-row {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-sv-send-photo {
+            flex: 1.5;
+            padding: 11px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .btn-sv-retake {
+            flex: 1;
+            padding: 11px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #475569;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .ctv-checkin-badge {
+            display: none;
+            margin-top: 10px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .ctv-checkin-badge.ok {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #15803d;
+        }
+        .ctv-checkin-badge.warn {
+            background: #fffbeb;
+            border: 1.5px dashed #f59e0b;
+            color: #b45309;
+        }
+        .proximity-item.arrived-checked {
+            background: #f0fdf4;
+            border-color: #22c55e;
+        }
+        .prox-dist-badge.green {
+            background: #dcfce7;
+            color: #15803d;
+        }
     </style>
 </head>
 <body>
@@ -1190,6 +1293,30 @@
                         <div class="action-btns" id="ui-action-btns">
                             <a href="#" target="_blank" class="btn-map" id="ui-btn-map">🗺️ Mở Bản đồ</a>
                             <a href="https://map.busmap.vn/hcm" target="_blank" class="btn-bus">🚌 Canh Xe Buýt</a>
+                        </div>
+
+                        <!-- XÁC NHẬN ĐÃ ĐẾN TRẠM & CHỤP ẢNH LƯU NIỆM -->
+                        <div id="svCheckinBox" class="sv-checkin-box" style="display: none;">
+                            <div id="sv-checkin-pending">
+                                <div class="sv-checkin-title">📸 XÁC NHẬN ĐÃ ĐẾN TRẠM</div>
+                                <div class="sv-checkin-sub">Khi đã tới điểm trạm, hãy chụp 1 tấm ảnh lưu niệm tại trạm và gửi về hệ thống để Trạm trưởng bắt đầu tính giờ chơi nhé!</div>
+                                <input type="file" id="sv-checkin-file-input" accept="image/*" capture="environment" style="display: none;" onchange="handleCheckinPhotoSelected(event)" />
+                                <button type="button" id="btn-sv-open-camera" class="btn-sv-camera" onclick="triggerCheckinCamera()">📷 Chụp ảnh lưu niệm & Xác nhận đã tới</button>
+
+                                <div id="sv-checkin-preview-wrap" style="display: none; margin-top: 10px;">
+                                    <img id="sv-checkin-preview-img" class="sv-checkin-preview-img" alt="Ảnh lưu niệm tại trạm" />
+                                    <div class="sv-checkin-btn-row">
+                                        <button type="button" class="btn-sv-retake" onclick="triggerCheckinCamera()">🔄 Chụp lại</button>
+                                        <button type="button" id="btn-sv-confirm-checkin" class="btn-sv-send-photo" onclick="submitCheckinPhotoToServer()">✅ Gửi ảnh & Xác nhận</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="sv-checkin-done" style="display: none;">
+                                <div class="sv-checkin-title">✅ ĐÃ XÁC NHẬN ĐẾN TRẠM</div>
+                                <div class="sv-checkin-sub" id="sv-checkin-done-text" style="margin-bottom: 6px;">Ảnh lưu niệm đã được gửi về hệ thống. Hãy gặp Trạm trưởng để bắt đầu bấm giờ!</div>
+                                <a id="sv-checkin-photo-link" href="#" target="_blank" style="display: none; font-size: 12px; font-weight: 800; color: #0284c7; text-decoration: underline;">🖼️ Xem lại ảnh lưu niệm</a>
+                            </div>
                         </div>
                     </div>
                    
@@ -1489,24 +1616,24 @@
                     </div>
 
                     <!-- LỆNH TRIỆU TẬP KHẨN CẤP CHO CTV KHI HẾT GIỜ -->
-                   <div class="itinerary-card endgame" id="ctvEndgameCard" style="display: none; text-align: center;">
-                       <div class="station-badge endgame" style="margin-bottom: 10px;">🚨 LỆNH TẬP HỢP KHẨN CẤP (CTV TRẠM)</div>
-                       <div class="target-name" style="font-size: 18px; margin-bottom: 12px;">Sân chính ĐH Y Dược TP.HCM (217 Hồng Bàng)</div>
-                       <div class="live-distance-box" style="background: #fef2f2; border-color: #ef4444;">
-                           <div class="dist-val" style="color: #ef4444; font-size: 20px;">00:00:00 — ĐÃ HẾT GIỜ</div>
-                           <div class="dist-text" style="color: #991b1b; margin-top: 4px;">Mọi thao tác bấm giờ & chuyển trạm đã tự động khóa!</div>
-                       </div>
-                       <ul class="step-list" style="text-align: left;">
-                           <li style="color: #ef4444; font-weight: 700;">⚠️ THÔNG BÁO TỪ BAN TỔ CHỨC:</li>
-                           <li>Thời gian chương trình đã khép lại. Không tiếp nhận thêm lượt chơi mới.</li>
-                           <li>Trưởng trạm vui lòng thu dọn toàn bộ vật dụng trạm, kiểm tra quân số và di chuyển ngay về Điểm tập kết UMP.</li>
-                       </ul>
-                       <div class="action-btns">
-                           <a href="https://maps.google.com/?q=217+Hồng+Bàng,+Quận+5,+TP.HCM" target="_blank" class="btn-map" style="background: #ef4444; padding: 12px; font-size: 14px;">🗺️ Chỉ đường về UMP</a>
-                       </div>
-                       <button class="btn-logout" style="width: 100%; margin-top: 14px;" onclick="handleLogout()">← Quay lại Trang chủ</button>
-                   </div>
-
+                    <div class="itinerary-card endgame" id="ctvEndgameCard" style="display: none; text-align: center;">
+                        <div class="station-badge endgame" style="margin-bottom: 10px;">🚨 LỆNH TẬP HỢP KHẨN CẤP</div>
+                        <div class="target-name" style="font-size: 18px; margin-bottom: 12px;">Sân chính ĐH Y Dược TP.HCM (217 Hồng Bàng)</div>
+                        <div class="live-distance-box" style="background: #fef2f2; border-color: #ef4444;">
+                            <div class="dist-val" style="color: #ef4444; font-size: 20px;">00:00:00 — ĐÃ HẾT GIỜ</div>
+                            <div class="dist-text" style="color: #991b1b; margin-top: 4px;">Mọi thao tác bấm giờ & chuyển trạm đã tự động khóa!</div>
+                        </div>
+                        <ul class="step-list" style="text-align: left;">
+                            <li style="color: #ef4444; font-weight: 700;">⚠️ THÔNG BÁO TỪ BAN TỔ CHỨC:</li>
+                            <li>Thời gian chương trình đã khép lại. Không tiếp nhận thêm lượt chơi mới.</li>
+                            <li>Trạm vui lòng thu dọn toàn bộ vật dụng trạm, kiểm tra và di chuyển ngay về Điểm tập kết nhé.</li>
+                        </ul>
+                        <div class="action-btns">
+                            <a href="https://maps.google.com/?q=217+Hồng+Bàng,+Quận+5,+TP.HCM" target="_blank" class="btn-map" style="background: #ef4444; padding: 12px; font-size: 14px;">🗺️ Chỉ đường về UMP</a>
+                        </div>
+                        <button class="btn-logout" style="width: 100%; margin-top: 14px;" onclick="handleLogout()">← Quay lại Trang chủ</button>
+                    </div>
+                
                     <div class="ctv-grid">
                         <div class="ctv-col-left">
                             <div class="proximity-title">
@@ -1567,6 +1694,7 @@
                                     </button>
                                 </div>
                                 <div id="ctv-timer-status" style="font-size: 12px; color: #991b1b; text-align: center; margin-top: 10px; font-weight: 700;">Sẵn sàng chọn đội chơi...</div>
+                                <div id="ctv-checkin-info-box" class="ctv-checkin-badge"></div>
                             </div>
                             
                             <button class="btn-logout" style="width: 100%; margin-top: 15px;" onclick="handleLogout()">← Quay lại Trang chủ</button>
@@ -5183,6 +5311,534 @@
                 })
                 .verifyOtpAndResetPassword(forgotPasswordRole, accId, otp, newP);
         }
+
+                // =========================================================================
+        // 12. CHECK-IN ẢNH LƯU NIỆM, LỌC RADAR CTV, KHÓA BẮT ĐẦU & CHỮ ENDGAME SV
+        // =========================================================================
+        var pendingCheckinBase64 = "";
+        var currentTeamHasCheckedIn = false;
+        var currentCheckinStationCode = "";
+
+        function resetCheckinPreviewUI() {
+            pendingCheckinBase64 = "";
+            var inp = document.getElementById('sv-checkin-file-input');
+            if (inp) inp.value = "";
+            var wrap = document.getElementById('sv-checkin-preview-wrap');
+            if (wrap) wrap.style.display = 'none';
+            var openBtn = document.getElementById('btn-sv-open-camera');
+            if (openBtn) openBtn.style.display = 'block';
+        }
+
+        function updateStudentCheckinUI(hasCheckedIn, checkinTime, photoUrl, timerStatus) {
+            var box = document.getElementById('svCheckinBox');
+            var pendingEl = document.getElementById('sv-checkin-pending');
+            var doneEl = document.getElementById('sv-checkin-done');
+            var doneTxt = document.getElementById('sv-checkin-done-text');
+            var photoLink = document.getElementById('sv-checkin-photo-link');
+            if (!box || !pendingEl || !doneEl) return;
+
+            if (isEndgameTriggered || getClientEventPhase() === 'post' || currentSvUiLockKey !== 'SV_NAV') {
+                box.style.display = 'none';
+                return;
+            }
+
+            if (currentCheckinStationCode !== currentStationCode) {
+                currentCheckinStationCode = currentStationCode;
+                resetCheckinPreviewUI();
+            }
+
+            currentTeamHasCheckedIn = !!hasCheckedIn;
+            box.style.display = 'block';
+
+            if (currentTeamHasCheckedIn || timerStatus === 'running' || timerStatus === 'paused') {
+                box.classList.add('done');
+                pendingEl.style.display = 'none';
+                doneEl.style.display = 'block';
+                if (doneTxt) {
+                    if (timerStatus === 'running') {
+                        doneTxt.textContent = '⏱️ Trạm trưởng đang tính giờ thử thách tại trạm!';
+                    } else if (timerStatus === 'paused') {
+                        doneTxt.textContent = '⏸️ Đồng hồ trạm đang tạm dừng.';
+                    } else {
+                        doneTxt.textContent = 'Ảnh lưu niệm đã gửi' + (checkinTime ? (' lúc ' + checkinTime.split(' ')[0]) : '') + '. Hãy gặp Trạm trưởng để bắt đầu bấm giờ!';
+                    }
+                }
+                if (photoLink) {
+                    if (photoUrl) {
+                        photoLink.href = photoUrl;
+                        photoLink.style.display = 'inline-block';
+                    } else {
+                        photoLink.style.display = 'none';
+                    }
+                }
+            } else {
+                box.classList.remove('done');
+                pendingEl.style.display = 'block';
+                doneEl.style.display = 'none';
+            }
+        }
+
+        function triggerCheckinCamera() {
+            var inp = document.getElementById('sv-checkin-file-input');
+            if (inp) inp.click();
+        }
+
+        function handleCheckinPhotoSelected(event) {
+            var file = event && event.target && event.target.files ? event.target.files[0] : null;
+            if (!file) return;
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    // Nén nhẹ ảnh xuống max 1024px (JPEG 72%) để gửi qua 4G chỉ mất 1-2 giây
+                    var maxDim = 1024;
+                    var w = img.width;
+                    var h = img.height;
+                    if (w > maxDim || h > maxDim) {
+                        if (w >= h) { h = Math.round(h * maxDim / w); w = maxDim; }
+                        else { w = Math.round(w * maxDim / h); h = maxDim; }
+                    }
+                    var canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    var ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+
+                    pendingCheckinBase64 = canvas.toDataURL('image/jpeg', 0.72);
+                    var previewImg = document.getElementById('sv-checkin-preview-img');
+                    var previewWrap = document.getElementById('sv-checkin-preview-wrap');
+                    var openBtn = document.getElementById('btn-sv-open-camera');
+                    if (previewImg) previewImg.src = pendingCheckinBase64;
+                    if (previewWrap) previewWrap.style.display = 'block';
+                    if (openBtn) openBtn.style.display = 'none';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function submitCheckinPhotoToServer() {
+            if (!pendingCheckinBase64) {
+                alert('Vui lòng chụp ảnh lưu niệm tại trạm trước!');
+                return;
+            }
+            var btn = document.getElementById('btn-sv-confirm-checkin');
+            if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang gửi ảnh...'; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn) { btn.disabled = false; btn.textContent = '✅ Gửi ảnh & Xác nhận'; }
+                    if (res && res.success) {
+                        resetCheckinPreviewUI();
+                        updateStudentCheckinUI(true, res.checkinTime, res.photoUrl, 'travel');
+                        showToast(res.message, false);
+                    } else {
+                        alert(res ? res.message : 'Không thể gửi ảnh xác nhận!');
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn) { btn.disabled = false; btn.textContent = '✅ Gửi ảnh & Xác nhận'; }
+                    alert('❌ Lỗi kết nối khi gửi ảnh: ' + err.message);
+                })
+                .submitStationCheckinPhoto(currentTeamId, currentMssv, currentStationCode, pendingCheckinBase64);
+        }
+
+        // --- NỐI CẬP NHẬT CHECK-IN VÀO RENDER & POLLING SINH VIÊN ---
+        var _prevRenderStationData11 = renderStationData;
+        renderStationData = function(response) {
+            _prevRenderStationData11(response);
+            var stepListEl = document.getElementById('ui-step-list');
+            if (stepListEl && !isEndgameTriggered && getClientEventPhase() !== 'post') {
+                stepListEl.style.display = '';
+            }
+            if (response && typeof response.hasCheckedIn !== 'undefined') {
+                updateStudentCheckinUI(response.hasCheckedIn, response.checkinTime, response.checkinPhotoUrl, 'travel');
+            } else {
+                updateStudentCheckinUI(currentTeamHasCheckedIn, '', '', localStudentTimerState);
+            }
+        };
+
+        var _prevApplyStudentUiLock11 = applyStudentUiLock;
+        applyStudentUiLock = function(lockKey) {
+            _prevApplyStudentUiLock11(lockKey);
+            var box = document.getElementById('svCheckinBox');
+            if (box && lockKey !== 'SV_NAV') box.style.display = 'none';
+        };
+
+        startStudentTimerPolling = function(teamId, stationCode) {
+            if (studentTimerIntervalId) clearInterval(studentTimerIntervalId);
+            if (localStudentTickInterval) clearInterval(localStudentTickInterval);
+
+            localStudentTickInterval = setInterval(function() {
+                var ph = getClientEventPhase();
+                if (studentWaitingPreEvent && ph === 'live' && !isEndgameTriggered) {
+                    studentWaitingPreEvent = false;
+                    showToast('🚀 Đã đến giờ khai mạc! Bắt đầu giải mật thư Trạm 1!', false);
+                    if (typeof currentStudentFetchTimer === 'function') currentStudentFetchTimer();
+                }
+                var swEl = document.getElementById('team-stopwatch');
+                if (!swEl) return;
+                if (localStudentTimerState === 'running') {
+                    swEl.textContent = formatTimeMs(localStudentElapsedMs + (Date.now() - localStudentStartTime));
+                } else {
+                    swEl.textContent = localStudentFixedTimeStr;
+                }
+            }, 1000);
+
+            var fetchTimer = function() {
+                if (isEndgameTriggered || getClientEventPhase() === 'post') {
+                    applyStudentUiLock('SV_ENDGAME');
+                    return;
+                }
+                google.script.run.withSuccessHandler(function(res) {
+                    if (!res || !res.success) return;
+                    syncTimeFromServerPayload(res);
+                    if (res.broadcast && typeof applyBroadcastBanner === 'function') applyBroadcastBanner(res.broadcast);
+
+                    if (res.eventPhase === 'post' || isEndgameTriggered) {
+                        applyStudentUiLock('SV_ENDGAME');
+                        return;
+                    }
+                    if (res.status === 'force_reload') {
+                        silentReload();
+                        return;
+                    }
+
+                    var swEl = document.getElementById('team-stopwatch');
+                    var stEl = document.getElementById('team-stopwatch-status');
+                    var boxEl = document.getElementById('student-dual-timer-box');
+                    if (!swEl || !stEl) return;
+
+                    if (res.isBeforeStart || res.eventPhase === 'pre' || getClientEventPhase() === 'pre') {
+                        localStudentTimerState = 'travel';
+                        localStudentFixedTimeStr = '00:00:00';
+                        swEl.textContent = '00:00:00';
+                        swEl.style.color = '#0284c7';
+                        stEl.style.color = '#0284c7';
+                        stEl.textContent = 'CHỜ KHAI MẠC';
+                        if (boxEl) { boxEl.style.background = '#f0f9ff'; boxEl.style.borderColor = '#bae6fd'; }
+                        applyStudentUiLock('SV_PRE');
+                        return;
+                    }
+
+                    localStudentTimerState = res.status;
+                    localStudentFixedTimeStr = res.timeStr;
+
+                    if (res.status === 'running') {
+                        localStudentStartTime = Date.now();
+                        localStudentElapsedMs = res.elapsedMs || 0;
+                        swEl.style.color = '#ef4444'; stEl.style.color = '#ef4444'; stEl.textContent = 'BẮT ĐẦU TÍNH GIỜ';
+                        if (boxEl) { boxEl.style.background = '#f8fafc'; boxEl.style.borderColor = '#cbd5e1'; }
+                    } else if (res.status === 'paused') {
+                        swEl.style.color = '#10b981'; stEl.style.color = '#10b981'; stEl.textContent = 'ĐANG TẠM DỪNG';
+                        if (boxEl) { boxEl.style.background = '#f8fafc'; boxEl.style.borderColor = '#cbd5e1'; }
+                    } else if (res.status === 'finished') {
+                        swEl.style.color = '#0284c7'; stEl.style.color = '#0284c7'; stEl.textContent = 'KẾT THÚC';
+                        if (boxEl) { boxEl.style.background = '#e0f2fe'; boxEl.style.borderColor = '#38bdf8'; }
+                    } else {
+                        swEl.style.color = '#64748b'; stEl.style.color = '#64748b'; stEl.textContent = 'ĐANG DI CHUYỂN';
+                        if (boxEl) { boxEl.style.background = '#f8fafc'; boxEl.style.borderColor = '#cbd5e1'; }
+                    }
+
+                    if (res.lockStatus === 'LOCKED') {
+                        applyStudentUiLock('SV_CIPHER');
+                        if (res.cipher && typeof syncCipherUI === 'function') syncCipherUI(res.cipher);
+                    } else if (res.status === 'finished') {
+                        applyStudentUiLock('SV_WAIT_NEXT');
+                    } else {
+                        applyStudentUiLock('SV_NAV');
+                        updateStudentCheckinUI(res.hasCheckedIn, res.checkinTime, res.checkinPhotoUrl, res.status);
+                    }
+                }).getStudentTimerStatus(currentTeamId, currentStationCode);
+            };
+
+            currentStudentFetchTimer = fetchTimer;
+            fetchTimer();
+            studentTimerIntervalId = setInterval(fetchTimer, 3000);
+        };
+
+        // --- NÂNG CẤP RADAR CTV (CHỈ HIỆN ĐỘI ĐANG DI CHUYỂN ĐẾN / ĐANG CHƠI + TRẠNG THÁI CHECK-IN) ---
+        fetchProximityTeams = function() {
+            google.script.run.withSuccessHandler(function(res) {
+                var container = document.getElementById('ctv-proximity-container');
+                var statusEl = document.getElementById('prox-update-status');
+                if (statusEl) statusEl.textContent = 'Cập nhật: ' + padNum(new Date().getHours()) + ':' + padNum(new Date().getMinutes()) + ':' + padNum(new Date().getSeconds());
+                if (!container) return;
+                container.innerHTML = '';
+
+                if (res && res.success && res.teams && res.teams.length > 0) {
+                    res.teams.forEach(function(t) {
+                        var item = document.createElement('div');
+                        var distText = t.dist < 1 ? (t.dist * 1000).toFixed(0) + ' m' : t.dist.toFixed(2) + ' km';
+                        if (t.dist === 999) distText = 'Chưa bật GPS';
+
+                        var badgeClass = 'blue';
+                        var itemClass = 'proximity-item';
+                        var statusDesc = 'Đang di chuyển đến trạm';
+
+                        if (t.timerStatus === 'running') {
+                            badgeClass = 'green';
+                            itemClass += ' arrived-checked';
+                            statusDesc = '⏱️ ĐANG CHƠI TẠI TRẠM';
+                            distText = 'Đang chơi';
+                        } else if (t.timerStatus === 'paused') {
+                            badgeClass = 'amber';
+                            itemClass += ' approaching';
+                            statusDesc = '⏸️ ĐANG TẠM DỪNG';
+                            distText = 'Tạm dừng';
+                        } else if (t.timerStatus === 'finished') {
+                            badgeClass = 'blue';
+                            statusDesc = '✅ ĐÃ XONG — Chờ gửi mật thư';
+                            distText = 'Hoàn thành';
+                        } else if (t.hasCheckedIn) {
+                            badgeClass = 'green';
+                            itemClass += ' arrived-checked';
+                            statusDesc = '📸 ĐÃ CHECK-IN ẢNH' + (t.checkinTime ? (' (' + t.checkinTime + ')') : '') + ' • Sẵn sàng chơi';
+                            distText = 'Đã đến';
+                        } else if (t.dist <= 0.1) {
+                            badgeClass = 'red';
+                            itemClass += ' very-close';
+                            statusDesc = '🚨 RẤT GẦN TRẠM (Chưa bấm check-in ảnh)';
+                        } else if (t.dist <= 1.0) {
+                            badgeClass = 'amber';
+                            itemClass += ' approaching';
+                            statusDesc = '⚠️ Đang ở gần (< 1km)';
+                        }
+
+                        item.className = itemClass;
+                        item.innerHTML = '<div class="prox-team-info">' +
+                                         '<span class="prox-team-id">Đội: ' + t.teamId + '</span>' +
+                                         '<span class="prox-team-status">' + statusDesc + '</span>' +
+                                         '</div>' +
+                                         '<div class="prox-dist-badge ' + badgeClass + '">' + distText + '</div>';
+                        container.appendChild(item);
+                    });
+                } else {
+                    container.innerHTML = '<div style="font-size: 12px; color: #64748b; text-align: center; padding: 40px 0;">Chưa có đội nào đang di chuyển tới hoặc đang chơi tại trạm này.</div>';
+                }
+            }).getProximityTeamsForStation(currentRoleAssign);
+        };
+
+        // --- NÂNG CẤP TÌM ĐỘI CTV: KHÓA KHI ĐANG GIẢI MẬT THƯ HOẶC QUÊN CHECK-IN ẢNH ---
+        ctvSearchTeam = function(forceTeamId) {
+            if (getClientEventPhase() === 'post') {
+                applyCtvUiLock('CTV_ENDGAME');
+                return;
+            }
+            var selectEl = document.getElementById('ctv-search-team-id');
+            var btnEl = document.getElementById('ctv-btn-search-el');
+            var ckInfoEl = document.getElementById('ctv-checkin-info-box');
+            if (ckInfoEl) { ckInfoEl.style.display = 'none'; ckInfoEl.innerHTML = ''; }
+
+            var teamId = forceTeamId ? forceTeamId : (selectEl ? selectEl.value.trim() : '');
+
+            if (teamId === '') {
+                ctvManagingTeam = '';
+                document.getElementById('ctv-target-team-name').textContent = '---';
+                document.getElementById('ctv-team-progress').textContent = '🏆 ---';
+                document.getElementById('ctv-timer-controls').style.display = 'none';
+                document.getElementById('ctv-local-stopwatch').textContent = '00:00:00';
+                var statusEmpty = document.getElementById('ctv-timer-status');
+                if (statusEmpty) {
+                    statusEmpty.style.display = 'block';
+                    statusEmpty.textContent = 'Sẵn sàng chọn đội chơi...';
+                    statusEmpty.style.color = '#64748b';
+                }
+                var existingBtn = document.getElementById('btn-send-next-challenge');
+                if (existingBtn) existingBtn.style.display = 'none';
+                return;
+            }
+
+            if (getClientEventPhase() === 'pre') {
+                if (!forceTeamId && selectEl) selectEl.value = teamId;
+                ctvManagingTeam = teamId;
+                document.getElementById('ctv-target-team-name').textContent = teamId;
+                document.getElementById('ctv-team-progress').textContent = '⏳ Chờ giờ G';
+                document.getElementById('ctv-timer-controls').style.display = 'none';
+                var stPre = document.getElementById('ctv-timer-status');
+                if (stPre) {
+                    stPre.style.display = 'block';
+                    stPre.style.color = '#d97706';
+                    stPre.textContent = '⏳ Hiện chưa bắt đầu chương trình, không thể tính giờ bắt đầu.';
+                }
+                showToast('⏳ Hiện chưa bắt đầu chương trình, không thể tính giờ bắt đầu.', true);
+                return;
+            }
+
+            if (!forceTeamId && selectEl) selectEl.value = teamId;
+            if (btnEl) { btnEl.disabled = true; btnEl.textContent = '...'; }
+
+            google.script.run.withSuccessHandler(function(res) {
+                if (btnEl) { btnEl.disabled = false; btnEl.textContent = 'TÌM ĐỘI'; }
+                var statusEl = document.getElementById('ctv-timer-status');
+                if (!res || !res.success) {
+                    if (res && res.message) alert(res.message);
+                    return;
+                }
+
+                syncTimeFromServerPayload(res);
+                if (res.eventPhase === 'post') {
+                    applyCtvUiLock('CTV_ENDGAME');
+                    return;
+                }
+
+                ctvManagingTeam = res.teamId;
+                document.getElementById('ctv-target-team-name').textContent = res.teamId;
+                document.getElementById('ctv-team-progress').textContent = '🏆 ' + res.progress + '/5 Trạm';
+                if (statusEl) statusEl.style.display = 'block';
+
+                var nextBtnOld = document.getElementById('btn-send-next-challenge');
+                if (nextBtnOld) nextBtnOld.style.display = 'none';
+
+                if (!res.foundInRoute) {
+                    document.getElementById('ctv-timer-controls').style.display = 'none';
+                    if (statusEl) { statusEl.textContent = '❌ Trạm của bạn KHÔNG CÓ trong lộ trình đội này!'; statusEl.style.color = '#ef4444'; }
+                } else if (res.isWrongStation) {
+                    document.getElementById('ctv-timer-controls').style.display = 'none';
+                    if (statusEl) {
+                        statusEl.innerHTML = '⚠️ Đội này hiện đang ở <strong>' + res.currentStationText + '</strong>. Vui lòng chọn đúng đội đang ở trạm của bạn!';
+                        statusEl.style.color = '#d97706';
+                    }
+                    ctvTimerState = 'idle'; ctvElapsedTime = 0;
+                    if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                    document.getElementById('ctv-local-stopwatch').textContent = '00:00:00';
+                } else if (res.isCipherLocked) {
+                    document.getElementById('ctv-timer-controls').style.display = 'none';
+                    if (statusEl) {
+                        statusEl.innerHTML = '🔒 Đội này <strong>ĐANG GIẢI MẬT THƯ</strong> (chưa mở khóa lộ trình tới trạm), không được phép cho chơi!';
+                        statusEl.style.color = '#ef4444';
+                    }
+                    ctvTimerState = 'idle'; ctvElapsedTime = 0;
+                    if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                    document.getElementById('ctv-local-stopwatch').textContent = '00:00:00';
+                } else if (res.hasFinishedCurrent) {
+                    document.getElementById('ctv-timer-controls').style.display = 'none';
+                    if (statusEl) {
+                        statusEl.innerHTML = '✅ Đội này <strong>ĐÃ HOÀN THÀNH</strong> trạm của bạn. (Không được ghi đè)';
+                        statusEl.style.color = '#10b981';
+                    }
+                    if (res.timerState && res.timerState.elapsedMs) {
+                        ctvElapsedTime = res.timerState.elapsedMs;
+                        renderCtvTimerUI();
+                    }
+                    setTimeout(function() {
+                        if (ctvManagingTeam === res.teamId && getClientEventPhase() !== 'post') {
+                            document.getElementById('ctv-timer-controls').style.display = 'flex';
+                            document.getElementById('ctv-btn-start').style.display = 'none';
+                            document.getElementById('ctv-btn-pause').style.display = 'none';
+                            document.getElementById('ctv-btn-resume').style.display = 'none';
+                            document.getElementById('ctv-btn-finish').style.display = 'none';
+
+                            var ctrlArea = document.getElementById('ctv-timer-controls');
+                            var nextBtn = document.getElementById('btn-send-next-challenge');
+                            if (!nextBtn) {
+                                nextBtn = document.createElement('button');
+                                nextBtn.id = 'btn-send-next-challenge';
+                                nextBtn.className = 'btn-timer-main';
+                                nextBtn.style.background = 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)';
+                                nextBtn.innerHTML = '🚀 GỬI THỬ THÁCH TIẾP THEO';
+                                ctrlArea.appendChild(nextBtn);
+                            }
+                            nextBtn.onclick = function() { sendNextChallengeAction(res.teamId); };
+                            nextBtn.style.display = 'block';
+                            if (statusEl) { statusEl.textContent = 'Đội đã hoàn thành. Sẵn sàng gửi thử thách tiếp theo!'; statusEl.style.color = '#0284c7'; }
+                        }
+                    }, 5000);
+                } else {
+                    var tStatus = (res.timerState && res.timerState.status) ? res.timerState.status : 'idle';
+
+                    // KHÓA BẤM GIỜ NẾU SINH VIÊN QUÊN CHƯA XÁC NHẬN ĐÃ TỚI TRẠM + CHỤP ẢNH
+                    if (tStatus === 'idle' && !res.hasCheckedIn) {
+                        ctvTimerState = 'idle'; ctvElapsedTime = 0;
+                        if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                        document.getElementById('ctv-local-stopwatch').textContent = '00:00:00';
+                        document.getElementById('ctv-timer-controls').style.display = 'none';
+                        if (statusEl) {
+                            statusEl.textContent = '⚠️ Chưa thể bấm giờ cho đội ' + res.teamId;
+                            statusEl.style.color = '#b45309';
+                        }
+                        if (ckInfoEl) {
+                            ckInfoEl.className = 'ctv-checkin-badge warn';
+                            ckInfoEl.innerHTML = '📸 <strong>CẢNH BÁO:</strong> Đội chưa xác nhận đã tới trạm & chụp ảnh lưu niệm!<br>Vui lòng nhắc đội ấn xác nhận trên điện thoại, sau đó bấm <strong>TÌM ĐỘI</strong> lại để mở nút bấm giờ.';
+                            ckInfoEl.style.display = 'block';
+                        }
+                        return;
+                    }
+
+                    if (res.hasCheckedIn && ckInfoEl) {
+                        ckInfoEl.className = 'ctv-checkin-badge ok';
+                        var linkPart = res.checkinPhotoUrl ? (' — <a href="' + res.checkinPhotoUrl + '" target="_blank" style="color:#0369a1; text-decoration:underline;">Xem ảnh</a>') : '';
+                        ckInfoEl.innerHTML = '✅ Đã check-in ảnh lưu niệm' + (res.checkinTime ? (' (' + res.checkinTime.split(' ')[0] + ')') : '') + linkPart;
+                        ckInfoEl.style.display = 'block';
+                    }
+
+                    document.getElementById('ctv-timer-controls').style.display = 'flex';
+                    ctvElapsedTime = (res.timerState && res.timerState.elapsedMs) ? res.timerState.elapsedMs : 0;
+                    renderCtvTimerUI();
+
+                    if (tStatus === 'running') {
+                        ctvTimerState = 'running';
+                        ctvStartTime = Date.now() - ctvElapsedTime;
+                        if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                        ctvTimerIntervalId = setInterval(function() {
+                            ctvElapsedTime = Date.now() - ctvStartTime;
+                            renderCtvTimerUI();
+                        }, 1000);
+                        document.getElementById('ctv-btn-start').style.display = 'none';
+                        document.getElementById('ctv-btn-pause').style.display = 'block';
+                        document.getElementById('ctv-btn-resume').style.display = 'none';
+                        document.getElementById('ctv-btn-finish').style.display = 'none';
+                        if (statusEl) { statusEl.textContent = 'Đang tính giờ cho đội ' + res.teamId; statusEl.style.color = '#ef4444'; }
+                    } else if (tStatus === 'paused') {
+                        ctvTimerState = 'paused';
+                        if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                        document.getElementById('ctv-btn-start').style.display = 'none';
+                        document.getElementById('ctv-btn-pause').style.display = 'none';
+                        document.getElementById('ctv-btn-resume').style.display = 'block';
+                        document.getElementById('ctv-btn-finish').style.display = 'block';
+                        if (statusEl) { statusEl.textContent = 'Đã tạm dừng. Thời gian: ' + formatTimeMs(ctvElapsedTime); statusEl.style.color = '#b45309'; }
+                    } else {
+                        ctvTimerState = 'idle';
+                        if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                        document.getElementById('ctv-btn-start').style.display = 'block';
+                        document.getElementById('ctv-btn-pause').style.display = 'none';
+                        document.getElementById('ctv-btn-resume').style.display = 'none';
+                        document.getElementById('ctv-btn-finish').style.display = 'none';
+                        if (statusEl) { statusEl.textContent = 'Sẵn sàng bấm giờ cho đội ' + res.teamId; statusEl.style.color = '#15803d'; }
+                    }
+                }
+            }).getTeamProgressForCTV(teamId, currentRoleAssign);
+        };
+
+        // --- SỬA CÂU CHỮ ENDGAME CỦA SINH VIÊN (BỎ KHỐI THÔNG BÁO TỪ BAN TỔ CHỨC) ---
+        var _prevUpdateNavDist = updateNavDistanceUI;
+        updateNavDistanceUI = function(distKm) {
+            _prevUpdateNavDist(distKm);
+            if (isEndgameTriggered) {
+                var navText = document.getElementById('nav-instruction');
+                if (navText) navText.innerText = 'Trò chơi đã kết thúc. Dù bạn đang ở trạm nào, hãy di chuyển về Điểm tập kết nhé!';
+            }
+        };
+
+        var _prevTriggerEndgame = triggerEndgameProtocol;
+        triggerEndgameProtocol = function() {
+            _prevTriggerEndgame();
+            var ckBox = document.getElementById('svCheckinBox');
+            if (ckBox) ckBox.style.display = 'none';
+
+            var navInst = document.getElementById('nav-instruction');
+            if (navInst) {
+                navInst.textContent = 'Trò chơi đã kết thúc. Dù bạn đang ở trạm nào, hãy di chuyển về Điểm tập kết nhé!';
+                navInst.style.color = '#991b1b';
+            }
+
+            var stepList = document.getElementById('ui-step-list');
+            if (stepList) {
+                stepList.innerHTML = '';
+                stepList.style.display = 'none';
+            }
+        };
     </script>
     <canvas id="confetti-canvas"></canvas>
 </body>
