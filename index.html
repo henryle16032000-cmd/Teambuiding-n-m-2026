@@ -572,9 +572,161 @@
             pointer-events: none;
             z-index: 99999;
         }
+
+                /* --- BANNER PHÁT SÓNG KHẨN CHẠY NGANG (BROADCAST MARQUEE) --- */
+        .broadcast-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 38px;
+            z-index: 99990;
+            display: none;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.22);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 800;
+        }
+        .broadcast-bar.active { display: flex; }
+        .broadcast-bar.level-info   { background: linear-gradient(90deg, #0284c7 0%, #0369a1 100%); }
+        .broadcast-bar.level-warn   { background: linear-gradient(90deg, #d97706 0%, #b45309 100%); }
+        .broadcast-bar.level-urgent { background: linear-gradient(90deg, #dc2626 0%, #991b1b 100%); }
+        body.has-broadcast { padding-top: 44px !important; }
+
+        .broadcast-tag {
+            flex-shrink: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0 12px;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.22);
+            z-index: 2;
+        }
+        .broadcast-bar.level-urgent .broadcast-tag { animation: pulseOpacity 1.1s infinite; }
+        .broadcast-marquee-viewport {
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .broadcast-marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            white-space: nowrap;
+            animation: broadcastScroll 18s linear infinite;
+        }
+        @keyframes broadcastScroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- MÀN HÌNH CHỜ KHÔI PHỤC PHIÊN ĐĂNG NHẬP --- */
+        #session-restore-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99995;
+            background: rgba(248, 250, 252, 0.94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        #session-restore-overlay.show { display: flex; }
+
+        /* --- TAB 6 QTV-001: TRUNG TÂM TRUYỀN THÔNG --- */
+        .qtv-comm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .qtv-comm-card {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+        }
+        .qtv-comm-title {
+            font-size: 14px;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .qtv-comm-label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 800;
+            color: #475569;
+            margin: 10px 0 4px;
+            text-transform: uppercase;
+        }
+        .qtv-comm-input, .qtv-comm-textarea, .qtv-comm-select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1.5px solid #cbd5e1;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f172a;
+            outline: none;
+            font-family: inherit;
+        }
+        .qtv-comm-input:focus, .qtv-comm-textarea:focus, .qtv-comm-select:focus {
+            border-color: #0284c7;
+        }
+        .qtv-comm-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .qtv-comm-btn {
+            flex: 1;
+            min-width: 130px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .qtv-comm-btn.primary { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); }
+        .qtv-comm-btn.danger  { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+        .qtv-comm-btn.muted   { background: #64748b; }
+        .qtv-comm-btn:hover   { filter: brightness(1.06); transform: translateY(-1px); }
     </style>
 </head>
 <body>
+
+    <!-- BANNER PHÁT SÓNG KHẨN CHẠY NGANG (TOÀN HỆ THỐNG) -->
+    <div id="global-broadcast-bar" class="broadcast-bar level-info">
+        <div class="broadcast-tag" id="global-broadcast-tag">📢 THÔNG BÁO</div>
+        <div class="broadcast-marquee-viewport">
+            <div class="broadcast-marquee-text" id="global-broadcast-text"></div>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH CHỜ KHÔI PHỤC PHIÊN ĐĂNG NHẬP TỰ ĐỘNG -->
+    <div id="session-restore-overlay">
+        <div style="font-size: 32px; margin-bottom: 10px;">🔄</div>
+        <div style="font-size: 15px; font-weight: 900; color: #0369a1; text-transform: uppercase;">Đang khôi phục phiên đăng nhập...</div>
+        <div style="font-size: 12px; font-weight: 600; color: #64748b; margin-top: 4px;">Vui lòng chờ trong giây lát</div>
+    </div>
 
     <div class="wrapper">
         <div class="app-card" id="appCard">
@@ -1002,6 +1154,59 @@
                                             <tr><td colspan="5" style="text-align:center; color:#64748b; padding:30px;">Đang tổng hợp bảng xếp hạng...</td></tr>
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+
+                            <!-- TAB 6: TRUNG TÂM TRUYỀN THÔNG (CHỈ QTV-001) -->
+                            <div id="qtv-tab-comm" class="qtv-tab-content">
+                                <div class="qtv-tab-header-row">
+                                    <div class="qtv-tab-title">📢 TRUNG TÂM TRUYỀN THÔNG</div>
+                                </div>
+                                <div class="qtv-comm-grid">
+                                    <!-- PHÁT SÓNG KHẨN (BANNER CHẠY NGANG) -->
+                                    <div class="qtv-comm-card">
+                                        <div class="qtv-comm-title">
+                                            <span>📢 Phát sóng khẩn</span>
+                                            <span id="qtv-broadcast-status-badge" class="qtv-badge badge-slate">Đang tắt</span>
+                                        </div>
+                                        <label class="qtv-comm-label">Mức độ thông báo</label>
+                                        <select id="qtv-broadcast-level" class="qtv-comm-select">
+                                            <option value="info">🔵 Thông tin chung</option>
+                                            <option value="warn">🟡 Lưu ý / Nhắc giờ</option>
+                                            <option value="urgent">🔴 Khẩn cấp</option>
+                                        </select>
+
+                                        <label class="qtv-comm-label">Nội dung chạy ngang toàn màn hình</label>
+                                        <textarea id="qtv-broadcast-msg" class="qtv-comm-textarea" rows="3" placeholder="Ví dụ: Trời sắp mưa to, các đội tạm trú tại chỗ và giữ liên lạc với CTV trạm!"></textarea>
+
+                                        <div class="qtv-comm-actions">
+                                            <button id="btn-qtv-send-broadcast" class="qtv-comm-btn danger" onclick="handleQtvSendBroadcast()">📢 Phát sóng ngay</button>
+                                            <button id="btn-qtv-stop-broadcast" class="qtv-comm-btn muted" onclick="handleQtvStopBroadcast()">🔇 Tắt banner</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- SOẠN THẢO DẶN DÒ TRƯỚC GIỜ CHƯƠNG TRÌNH -->
+                                    <div class="qtv-comm-card">
+                                        <div class="qtv-comm-title">
+                                            <span>📋 Nội dung Dặn dò trước giờ G</span>
+                                            <span class="qtv-badge badge-blue">Đồng bộ ngoài & trong</span>
+                                        </div>
+                                        <label class="qtv-comm-label">📍 Điểm tập trung (In đậm)</label>
+                                        <input id="qtv-brief-loc-title" class="qtv-comm-input" type="text" placeholder="Sân chính ĐH Y Dược TP.HCM (217 Hồng Bàng)" />
+
+                                        <label class="qtv-comm-label">🕒 Thời gian & hướng dẫn tập trung</label>
+                                        <input id="qtv-brief-loc-desc" class="qtv-comm-input" type="text" placeholder="Có mặt điểm danh trước giờ xuất phát 15 phút..." />
+
+                                        <label class="qtv-comm-label">🎒 Vật dụng cần chuẩn bị (Mỗi dòng 1 mục)</label>
+                                        <textarea id="qtv-brief-items" class="qtv-comm-textarea" rows="4" placeholder="🔋 Điện thoại sạc đầy pin, sạc dự phòng & bật sẵn 4G + GPS."></textarea>
+
+                                        <label class="qtv-comm-label">⚡ Lưu ý nhanh (Khung vàng dưới cùng)</label>
+                                        <input id="qtv-brief-notice" class="qtv-comm-input" type="text" placeholder="⚡ Lưu ý: Cổng giải mật thư Trạm 1 sẽ tự động mở..." />
+
+                                        <div class="qtv-comm-actions">
+                                            <button id="btn-qtv-save-briefing" class="qtv-comm-btn primary" onclick="handleQtvSaveBriefing()">💾 Lưu dặn dò</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1657,6 +1862,7 @@
 
                 google.script.run.withSuccessHandler(function(res) {
                     if (res && res.success) {
+                    if (res.broadcast && typeof applyBroadcastBanner === 'function') applyBroadcastBanner(res.broadcast);
                         if (isEndgameTriggered) return;
 
                         if (res.eventStartTimeMs && typeof publicBoardState !== 'undefined') {
@@ -2100,6 +2306,10 @@
                                     if (publishBtn) {
                                         publishBtn.style.display = (maAdmin.trim().toUpperCase() === 'QTV-001') ? 'inline-flex' : 'none';
                                     }
+                                    var commTabBtn = document.getElementById('qtv-tab-btn-comm');
+                                    if (commTabBtn) {
+                                        commTabBtn.style.display = (maAdmin.trim().toUpperCase() === 'QTV-001') ? 'inline-flex' : 'none';
+                                    }
 
                                     document.getElementById('qtvDashboardContainer').style.display = 'flex';
                                     
@@ -2125,6 +2335,10 @@
         }
 
         function handleLogout() {
+            if (typeof clearSavedLoginSession === 'function') clearSavedLoginSession();
+            var commTabBtnOut = document.getElementById('qtv-tab-btn-comm');
+            if (commTabBtnOut) commTabBtnOut.style.display = 'none';
+
             var appCard = document.getElementById('appCard');
             if (appCard) {
                 appCard.classList.remove('logged-in');
@@ -3129,6 +3343,9 @@
                 if (typeof updateQtvPublishBtnUI === 'function') updateQtvPublishBtnUI(qtvCurrentPublishedState);
             }
 
+            if (data.broadcast && typeof applyBroadcastBanner === 'function') applyBroadcastBanner(data.broadcast);
+            if (data.briefing && typeof syncQtvCommForm === 'function') syncQtvCommForm(data.broadcast, data.briefing);
+
             var tbody = document.getElementById('qtv-leaderboard-tbody');
             if (!tbody || !data.leaderboard) return;
 
@@ -3391,7 +3608,7 @@
             listEl.innerHTML = html;
         }
 
-                function fetchPublicEventBoardState() {
+        function fetchPublicEventBoardState() {
             var appCard = document.getElementById('appCard');
             if (appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-ctv') || appCard.classList.contains('logged-in-qtv'))) {
                 return;
@@ -3399,6 +3616,8 @@
 
             google.script.run.withSuccessHandler(function(res) {
                 if (!res || !res.success) return;
+                if (res.broadcast && typeof applyBroadcastBanner === 'function') applyBroadcastBanner(res.broadcast);
+                if (res.briefing && typeof applyBriefingContent === 'function') applyBriefingContent(res.briefing);
 
                 savePublicBoardCache(res);
 
@@ -3540,6 +3759,370 @@
         window.addEventListener('load', function() {
             startPublicEventBoardWatcher();
         });
+
+                // =========================================================================
+        // 10. LƯU PHIÊN ĐĂNG NHẬP 12H, BANNER BROADCAST & TAB 6 TRUYỀN THÔNG
+        // =========================================================================
+        var LOGIN_SESSION_KEY = 'ump_tb2026_saved_session_v1';
+        var LOGIN_SESSION_TTL_MS = 12 * 60 * 60 * 1000; // 12 tiếng
+        var isRestoringSession = false;
+        var lastBroadcastSeenAt = 0;
+        var qtvCommFormSyncedOnce = false;
+        var commPollIntervalId = null;
+
+        function clearSavedLoginSession() {
+            try { localStorage.removeItem(LOGIN_SESSION_KEY); } catch (e) {}
+            qtvCommFormSyncedOnce = false;
+        }
+
+        function captureAndSaveLoginSession() {
+            if (isRestoringSession) return;
+            try {
+                var appCard = document.getElementById('appCard');
+                if (!appCard) return;
+                var isAdmin = appCard.classList.contains('logged-in-ctv') || appCard.classList.contains('logged-in-qtv');
+                var isStudent = appCard.classList.contains('logged-in');
+                if (!isAdmin && !isStudent) return;
+
+                var secId = isAdmin ? 'admin-login-section' : 'student-login-section';
+                var secEl = document.getElementById(secId);
+                if (!secEl) return;
+
+                var fields = [];
+                secEl.querySelectorAll('input, select').forEach(function(inp) {
+                    if (inp.id && inp.type !== 'checkbox' && inp.type !== 'radio') {
+                        fields.push({ id: inp.id, val: inp.value });
+                    }
+                });
+                if (fields.length === 0) return;
+
+                // Giữ nguyên mốc savedAt gốc nếu phiên chưa hết hạn (tránh gia hạn vô tận)
+                var originalSavedAt = Date.now();
+                try {
+                    var oldRaw = localStorage.getItem(LOGIN_SESSION_KEY);
+                    if (oldRaw) {
+                        var oldObj = JSON.parse(oldRaw);
+                        if (oldObj && oldObj.savedAt && (Date.now() - oldObj.savedAt < LOGIN_SESSION_TTL_MS)) {
+                            originalSavedAt = oldObj.savedAt;
+                        }
+                    }
+                } catch (ex) {}
+
+                localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify({
+                    savedAt: originalSavedAt,
+                    isAdmin: isAdmin,
+                    secId: secId,
+                    fields: fields
+                }));
+            } catch (e) {}
+        }
+
+        function hideSessionRestoreOverlay() {
+            var ov = document.getElementById('session-restore-overlay');
+            if (ov) ov.classList.remove('show');
+            isRestoringSession = false;
+        }
+
+        function initSessionAutoPersistence() {
+            var appCard = document.getElementById('appCard');
+            if (!appCard) return;
+
+            // Tự động ghi nhận phiên ngay khi đăng nhập thành công (appCard nhận class logged-in*)
+            var observer = new MutationObserver(function() {
+                var logged = appCard.classList.contains('logged-in') ||
+                             appCard.classList.contains('logged-in-ctv') ||
+                             appCard.classList.contains('logged-in-qtv');
+                if (logged) {
+                    if (isRestoringSession) {
+                        hideSessionRestoreOverlay();
+                    } else {
+                        captureAndSaveLoginSession();
+                    }
+                }
+            });
+            observer.observe(appCard, { attributes: true, attributeFilter: ['class'] });
+
+            // Thử khôi phục phiên nếu còn trong hạn 12 tiếng
+            try {
+                var raw = localStorage.getItem(LOGIN_SESSION_KEY);
+                if (!raw) return;
+                var session = JSON.parse(raw);
+                if (!session || !session.savedAt || (Date.now() - session.savedAt > LOGIN_SESSION_TTL_MS)) {
+                    clearSavedLoginSession();
+                    return;
+                }
+
+                var secEl = document.getElementById(session.secId);
+                if (!secEl || !Array.isArray(session.fields) || session.fields.length === 0) return;
+
+                isRestoringSession = true;
+                var ov = document.getElementById('session-restore-overlay');
+                if (ov) ov.classList.add('show');
+
+                // Chuyển đúng tab đăng nhập (SV hay CTV/QTV)
+                var stuSec = document.getElementById('student-login-section');
+                var admSec = document.getElementById('admin-login-section');
+                if (session.isAdmin) {
+                    if (stuSec) stuSec.style.display = 'none';
+                    if (admSec) admSec.style.display = 'block';
+                    if (typeof currentRole !== 'undefined') currentRole = 'admin';
+                } else {
+                    if (stuSec) stuSec.style.display = 'block';
+                    if (admSec) admSec.style.display = 'none';
+                    if (typeof currentRole !== 'undefined') currentRole = 'student';
+                }
+
+                // Điền lại thông tin và kích hoạt nút Đăng nhập của chính mục đó
+                session.fields.forEach(function(f) {
+                    var el = document.getElementById(f.id);
+                    if (el) el.value = f.val;
+                });
+
+                var loginBtn = secEl.querySelector('button[onclick*="Login"], button[onclick*="login"], button.btn-login, button');
+                if (loginBtn) {
+                    setTimeout(function() { loginBtn.click(); }, 120);
+                } else {
+                    hideSessionRestoreOverlay();
+                }
+
+                // Chốt an toàn sau 9 giây: nếu tài khoản không còn hợp lệ thì mở lại form đăng nhập
+                setTimeout(function() {
+                    if (isRestoringSession) {
+                        clearSavedLoginSession();
+                        hideSessionRestoreOverlay();
+                    }
+                }, 9000);
+            } catch (e) {
+                hideSessionRestoreOverlay();
+            }
+        }
+
+        // --- BANNER PHÁT SÓNG CHẠY NGANG ---
+        function escapeHtmlComm(str) {
+            return (str || '').toString()
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function applyBroadcastBanner(b) {
+            var bar = document.getElementById('global-broadcast-bar');
+            var tag = document.getElementById('global-broadcast-tag');
+            var txt = document.getElementById('global-broadcast-text');
+            if (!bar || !tag || !txt) return;
+
+            if (!b || !b.active || !b.message) {
+                bar.classList.remove('active');
+                document.body.classList.remove('has-broadcast');
+                return;
+            }
+
+            var lvl = (b.level === 'urgent' || b.level === 'warn') ? b.level : 'info';
+            bar.classList.remove('level-info', 'level-warn', 'level-urgent');
+            bar.classList.add('level-' + lvl, 'active');
+            document.body.classList.add('has-broadcast');
+
+            tag.textContent = lvl === 'urgent' ? '🚨 KHẨN CẤP' : (lvl === 'warn' ? '⚠️ LƯU Ý' : '📢 THÔNG BÁO');
+
+            if (txt.textContent !== b.message) {
+                txt.textContent = b.message;
+                var dur = Math.max(14, Math.min(34, Math.round(b.message.length * 0.22)));
+                txt.style.animationDuration = dur + 's';
+            }
+
+            // Báo rung nhẹ + toast nổi khi vừa có tin mới phát ra
+            if (b.updatedAt && b.updatedAt > lastBroadcastSeenAt) {
+                var isFreshUpdate = (lastBroadcastSeenAt > 0);
+                lastBroadcastSeenAt = b.updatedAt;
+                if (isFreshUpdate) {
+                    try { if (navigator.vibrate) navigator.vibrate([160, 80, 160]); } catch (e) {}
+                    if (typeof showToast === 'function') showToast('📢 BTC: ' + b.message, lvl === 'urgent');
+                }
+            }
+        }
+
+        // --- ĐỒNG BỘ NỘI DUNG DẶN DÒ TRƯỚC GIỜ G (NGOÀI & TRONG) ---
+        function applyBriefingContent(br) {
+            if (!br || !br.locationTitle) return;
+            var preEl = document.getElementById('lp-phase-pre');
+            if (!preEl) return;
+
+            var itemsHtml = (br.items || []).map(function(line) {
+                var clean = line.toString().trim();
+                return '<li><span>•</span><span>' + escapeHtmlComm(clean) + '</span></li>';
+            }).join('');
+
+            var noticeHtml = br.notice
+                ? '<div class="lp-notice-pill">' + escapeHtmlComm(br.notice) + '</div>'
+                : '';
+
+            preEl.innerHTML =
+                '<div class="stat-compact-title-row" style="margin-bottom: 10px;">' +
+                    '<span class="stat-compact-icon">📋</span>' +
+                    '<span class="stat-compact-title">THÔNG TIN TẬP TRUNG & DẶN DÒ</span>' +
+                '</div>' +
+                '<div class="lp-briefing-stack">' +
+                    '<div class="lp-info-card">' +
+                        '<div class="lp-info-head">📍 Điểm tập trung & Thời gian</div>' +
+                        '<div class="lp-info-body"><strong>' + escapeHtmlComm(br.locationTitle) + '</strong>' +
+                        (br.locationDesc ? ('<br>' + escapeHtmlComm(br.locationDesc)) : '') + '</div>' +
+                    '</div>' +
+                    '<div class="lp-info-card">' +
+                        '<div class="lp-info-head">🎒 Vật dụng cần chuẩn bị</div>' +
+                        '<ul class="lp-checklist">' + itemsHtml + '</ul>' +
+                    '</div>' +
+                    noticeHtml +
+                '</div>';
+
+            // Đồng bộ luôn sang màn hình chờ bên trong tài khoản Sinh viên nếu đang mở
+            var stuPre = document.getElementById('studentPreEventCard');
+            if (stuPre) stuPre.innerHTML = preEl.innerHTML;
+        }
+
+        // --- TAB 6 QTV-001: ĐIỀN FORM & LƯU ---
+        function syncQtvCommForm(broadcast, briefing) {
+            var badge = document.getElementById('qtv-broadcast-status-badge');
+            if (badge) {
+                if (broadcast && broadcast.active) {
+                    badge.className = 'qtv-badge badge-amber';
+                    badge.textContent = 'Đang phát sóng';
+                } else {
+                    badge.className = 'qtv-badge badge-slate';
+                    badge.textContent = 'Đang tắt';
+                }
+            }
+
+            // Chỉ tự điền form lần đầu để không ghi đè lúc QTV-001 đang gõ dở tay
+            if (qtvCommFormSyncedOnce) return;
+            qtvCommFormSyncedOnce = true;
+
+            if (broadcast) {
+                var lvEl = document.getElementById('qtv-broadcast-level');
+                var msEl = document.getElementById('qtv-broadcast-msg');
+                if (lvEl && broadcast.level) lvEl.value = broadcast.level;
+                if (msEl && broadcast.message) msEl.value = broadcast.message;
+            }
+            if (briefing) {
+                var lt = document.getElementById('qtv-brief-loc-title');
+                var ld = document.getElementById('qtv-brief-loc-desc');
+                var it = document.getElementById('qtv-brief-items');
+                var nt = document.getElementById('qtv-brief-notice');
+                if (lt) lt.value = briefing.locationTitle || '';
+                if (ld) ld.value = briefing.locationDesc || '';
+                if (it && Array.isArray(briefing.items)) it.value = briefing.items.join('\n');
+                if (nt) nt.value = briefing.notice || '';
+            }
+        }
+
+        function handleQtvSendBroadcast() {
+            var lvl = (document.getElementById('qtv-broadcast-level') || {}).value || 'info';
+            var msg = ((document.getElementById('qtv-broadcast-msg') || {}).value || '').trim();
+            if (!msg) { alert("Vui lòng nhập nội dung thông báo!"); return; }
+
+            var btn = document.getElementById('btn-qtv-send-broadcast');
+            if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang phát...'; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn) { btn.disabled = false; btn.textContent = '📢 Phát sóng ngay'; }
+                    if (res && res.success) {
+                        applyBroadcastBanner(res.broadcast);
+                        qtvCommFormSyncedOnce = false;
+                        syncQtvCommForm(res.broadcast, null);
+                        if (typeof showToast === 'function') showToast(res.message, false);
+                    } else {
+                        alert(res ? res.message : "Không thể phát sóng!");
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn) { btn.disabled = false; btn.textContent = '📢 Phát sóng ngay'; }
+                    alert("❌ Lỗi kết nối: " + err.message);
+                })
+                .qtvSaveBroadcast(currentTeamId, true, lvl, msg);
+        }
+
+        function handleQtvStopBroadcast() {
+            var btn = document.getElementById('btn-qtv-stop-broadcast');
+            if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang tắt...'; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn) { btn.disabled = false; btn.textContent = '🔇 Tắt banner'; }
+                    if (res && res.success) {
+                        applyBroadcastBanner(res.broadcast);
+                        var msEl = document.getElementById('qtv-broadcast-msg');
+                        if (msEl) msEl.value = '';
+                        syncQtvCommForm(res.broadcast, null);
+                        if (typeof showToast === 'function') showToast(res.message, false);
+                    } else {
+                        alert(res ? res.message : "Không thể tắt banner!");
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn) { btn.disabled = false; btn.textContent = '🔇 Tắt banner'; }
+                    alert("❌ Lỗi kết nối: " + err.message);
+                })
+                .qtvSaveBroadcast(currentTeamId, false, 'info', '');
+        }
+
+        function handleQtvSaveBriefing() {
+            var locTitle = ((document.getElementById('qtv-brief-loc-title') || {}).value || '').trim();
+            var locDesc  = ((document.getElementById('qtv-brief-loc-desc') || {}).value || '').trim();
+            var rawItems = ((document.getElementById('qtv-brief-items') || {}).value || '');
+            var notice   = ((document.getElementById('qtv-brief-notice') || {}).value || '').trim();
+            if (!locTitle) { alert("Vui lòng nhập Điểm tập trung!"); return; }
+
+            var items = rawItems.split('\n').map(function(s) { return s.trim(); }).filter(Boolean);
+            var btn = document.getElementById('btn-qtv-save-briefing');
+            if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang lưu...'; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn) { btn.disabled = false; btn.textContent = '💾 Lưu dặn dò'; }
+                    if (res && res.success) {
+                        applyBriefingContent(res.briefing);
+                        if (typeof showToast === 'function') showToast(res.message, false);
+                    } else {
+                        alert(res ? res.message : "Không thể lưu nội dung dặn dò!");
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn) { btn.disabled = false; btn.textContent = '💾 Lưu dặn dò'; }
+                    alert("❌ Lỗi kết nối: " + err.message);
+                })
+                .qtvSaveBriefing(currentTeamId, {
+                    locationTitle: locTitle,
+                    locationDesc: locDesc,
+                    items: items,
+                    notice: notice
+                });
+        }
+
+        // Đồng bộ nhẹ mỗi 15 giây cho màn hình Đăng nhập & CTV (SV đã có luồng 3 giây riêng)
+        function startCommBroadcastPolling() {
+            if (commPollIntervalId) clearInterval(commPollIntervalId);
+            commPollIntervalId = setInterval(function() {
+                var appCard = document.getElementById('appCard');
+                // Bỏ qua nếu đang ở màn hình SV (đã tự nhận broadcast mỗi 3s) hoặc QTV (đã có vòng làm mới riêng)
+                if (appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-qtv'))) {
+                    return;
+                }
+                google.script.run.withSuccessHandler(function(res) {
+                    if (!res || !res.success) return;
+                    if (res.broadcast) applyBroadcastBanner(res.broadcast);
+                    if (res.briefing) applyBriefingContent(res.briefing);
+                }).getPublicCommState();
+            }, 15000);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                initSessionAutoPersistence();
+                startCommBroadcastPolling();
+            });
+        } else {
+            initSessionAutoPersistence();
+            startCommBroadcastPolling();
+        }
     </script>
     <canvas id="confetti-canvas"></canvas>
 </body>
