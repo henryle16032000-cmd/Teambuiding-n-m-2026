@@ -1785,11 +1785,12 @@
     <div id="app-toast"></div>
 
     <script>
+        
         // =========================================================================
-        // CẦU NỐI TỰ ĐỘNG CHO GITHUB / VERCEL <-> GOOGLE APPS SCRIPT
+        // CẦU NỐI TỰ ĐỘNG CHO VERCEL API (/api/backend) <-> SUPABASE
         // =========================================================================
         (function initGasBridge() {
-            var GAS_API_URL = "https://script.google.com/macros/s/AKfycbwm4GEKXbZ6xcOQS9b5J_rSxbprtiTpPnG8c2mpEwRQ909QdoWg6_D7B3Ii1raNeRcs/exec";
+            var API_URL = "/api/backend";
 
             if (typeof window.google === 'undefined' || !window.google.script || !window.google.script.run) {
                 function createRunner(onSuccess, onFailure) {
@@ -1806,16 +1807,9 @@
                             }
                             return function() {
                                 var args = Array.prototype.slice.call(arguments);
-                                if (!GAS_API_URL || GAS_API_URL.indexOf('http') !== 0) {
-                                    var cfgErr = new Error("Chưa cấu hình GAS_API_URL trong index.html!");
-                                    if (typeof onFailure === 'function') onFailure(cfgErr);
-                                    else console.error(cfgErr);
-                                    return;
-                                }
-                                fetch(GAS_API_URL, {
+                                fetch(API_URL, {
                                     method: 'POST',
-                                    redirect: 'follow',
-                                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                                    headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ action: String(prop), args: args })
                                 })
                                 .then(function(response) {
@@ -1828,7 +1822,7 @@
                                     } else {
                                         var serverErr = new Error(payload && payload.error ? payload.error : "Lỗi từ Server");
                                         if (typeof onFailure === 'function') onFailure(serverErr);
-                                        else console.error("GAS API Error [" + prop + "]:", serverErr);
+                                        else console.error("API Error [" + prop + "]:", serverErr);
                                     }
                                 })
                                 .catch(function(err) {
