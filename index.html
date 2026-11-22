@@ -2347,7 +2347,7 @@
             }
             
             var loginContainer = document.getElementById('loginFormContainer');
-            if (loginContainer) loginContainer.style.display = 'block';
+            if (loginContainer) loginContainer.style.display = '';
 
             var studentLoginSec = document.getElementById('student-login-section');
             var adminLoginSec = document.getElementById('admin-login-section');
@@ -3345,6 +3345,7 @@
 
             if (data.broadcast && typeof applyBroadcastBanner === 'function') applyBroadcastBanner(data.broadcast);
             if (data.briefing && typeof syncQtvCommForm === 'function') syncQtvCommForm(data.broadcast, data.briefing);
+            if (typeof ensureQtvCommTabReady === 'function') ensureQtvCommTabReady();
 
             var tbody = document.getElementById('qtv-leaderboard-tbody');
             if (!tbody || !data.leaderboard) return;
@@ -3760,7 +3761,7 @@
             startPublicEventBoardWatcher();
         });
 
-                // =========================================================================
+        // =========================================================================
         // 10. LƯU PHIÊN ĐĂNG NHẬP 12H, BANNER BROADCAST & TAB 6 TRUYỀN THÔNG
         // =========================================================================
         var LOGIN_SESSION_KEY = 'ump_tb2026_saved_session_v1';
@@ -3821,6 +3822,167 @@
             var ov = document.getElementById('session-restore-overlay');
             if (ov) ov.classList.remove('show');
             isRestoringSession = false;
+        }
+
+                function openQtvCommTab(btn) {
+            var qtvWrap = document.getElementById('qtvDashboardContainer');
+            if (!qtvWrap) return;
+            qtvWrap.querySelectorAll('.qtv-tab-btn, button[onclick*="Tab"], button[onclick*="tab"]').forEach(function(b) {
+                b.classList.remove('active');
+            });
+            qtvWrap.querySelectorAll('.qtv-tab-content').forEach(function(c) {
+                c.classList.remove('active');
+                c.style.display = '';
+            });
+            if (btn) btn.classList.add('active');
+            var commPanel = document.getElementById('qtv-tab-comm');
+            if (commPanel) {
+                commPanel.classList.add('active');
+                if (window.getComputedStyle(commPanel).display === 'none') {
+                    commPanel.style.display = 'block';
+                }
+            }
+        }
+
+        function ensureQtvCommTabReady() {
+            var appCard = document.getElementById('appCard');
+            var isQtvLogged = !!(appCard && appCard.classList.contains('logged-in-qtv'));
+            var isQtv001 = false;
+
+            if (isQtvLogged) {
+                if (typeof currentTeamId !== 'undefined' && currentTeamId && currentTeamId.toString().trim().toUpperCase() === 'QTV-001') {
+                    isQtv001 = true;
+                } else {
+                    var admSec = document.getElementById('admin-login-section');
+                    if (admSec) {
+                        admSec.querySelectorAll('input').forEach(function(inp) {
+                            if (inp.value && inp.value.trim().toUpperCase() === 'QTV-001') isQtv001 = true;
+                        });
+                    }
+                }
+            }
+
+            var qtvWrap = document.getElementById('qtvDashboardContainer');
+            var commBtn = document.getElementById('qtv-tab-btn-comm');
+
+            // Tự tạo nút Tab 6 ngay cạnh Tab 5 nếu trong HTML chưa có
+            if (!commBtn && qtvWrap) {
+                var existingBtns = qtvWrap.querySelectorAll('.qtv-tab-btn, button[onclick*="Tab"], button[onclick*="tab"]');
+                if (existingBtns.length > 0) {
+                    var lastBtn = existingBtns[existingBtns.length - 1];
+                    commBtn = lastBtn.cloneNode(false);
+                    commBtn.id = 'qtv-tab-btn-comm';
+                    commBtn.classList.remove('active');
+                    commBtn.removeAttribute('onclick');
+                    commBtn.textContent = '📢 Truyền thông';
+                    lastBtn.parentNode.appendChild(commBtn);
+                }
+            }
+
+            if (commBtn) {
+                commBtn.style.display = isQtv001 ? 'inline-flex' : 'none';
+                commBtn.onclick = function(e) {
+                    if (e) e.preventDefault();
+                    openQtvCommTab(commBtn);
+                };
+            }
+
+            // Khi bấm chuyển sang Tab 1-5 thì tự ẩn sạch Tab 6
+            if (qtvWrap) {
+                qtvWrap.querySelectorAll('.qtv-tab-btn, button[onclick*="Tab"], button[onclick*="tab"]').forEach(function(b) {
+                    if (b.id !== 'qtv-tab-btn-comm' && !b.dataset.commBound) {
+                        b.dataset.commBound = '1';
+                        b.addEventListener('click', function() {
+                            var cp = document.getElementById('qtv-tab-comm');
+                            if (cp) {
+                                cp.classList.remove('active');
+                                cp.style.display = '';
+                            }
+                            var cb = document.getElementById('qtv-tab-btn-comm');
+                            if (cb) cb.classList.remove('active');
+                        });
+                    }
+                });
+            }
+        }
+
+        function initSessionAutoPersistence() {
+            var appCard = document.getElementById('appCard');
+            if (!appCard) return;
+
+            var observer = new MutationObserver(function() {
+                var logged = appCard.classList.contains('logged-in') ||
+                             appCard.classList.contains('logged-in-ctv') ||
+                             appCard.classList.contains('logged-in-qtv');
+                var loginBox = document.getElementById('loginFormContainer');
+
+                if (logged) {
+                    if (loginBox) loginBox.style.display = 'none';
+                    if (isRestoringSession) {
+                        hideSessionRestoreOverlay();
+                    } else {
+                        captureAndSaveLoginSession();
+                    }
+                    if (appCard.classList.contains('logged-in-qtv')) {
+                        ensureQtvCommTabReady();
+                    }
+                } else {
+                    if (loginBox) loginBox.style.display = '';
+                    ensureQtvCommTabReady();
+                }
+            });
+            observer.observe(appCard, { attributes: true, attributeFilter: ['class'] });
+
+            // Thử khôi phục phiên nếu còn trong hạn 12 tiếng
+            try {
+                var raw = localStorage.getItem(LOGIN_SESSION_KEY);
+                if (!raw) return;
+                var session = JSON.parse(raw);
+                if (!session || !session.savedAt || (Date.now() - session.savedAt > LOGIN_SESSION_TTL_MS)) {
+                    clearSavedLoginSession();
+                    return;
+                }
+
+                var secEl = document.getElementById(session.secId);
+                if (!secEl || !Array.isArray(session.fields) || session.fields.length === 0) return;
+
+                isRestoringSession = true;
+                var ov = document.getElementById('session-restore-overlay');
+                if (ov) ov.classList.add('show');
+
+                var stuSec = document.getElementById('student-login-section');
+                var admSec = document.getElementById('admin-login-section');
+                if (session.isAdmin) {
+                    if (stuSec) stuSec.style.display = 'none';
+                    if (admSec) admSec.style.display = 'block';
+                    if (typeof currentRole !== 'undefined') currentRole = 'admin';
+                } else {
+                    if (stuSec) stuSec.style.display = 'block';
+                    if (admSec) admSec.style.display = 'none';
+                    if (typeof currentRole !== 'undefined') currentRole = 'student';
+                }
+
+                session.fields.forEach(function(f) {
+                    var el = document.getElementById(f.id);
+                    if (el) el.value = f.val;
+                });
+
+                var loginBtn = secEl.querySelector('button[onclick*="Login"], button[onclick*="login"], button.btn-login, button');
+                if (loginBtn) {
+                    setTimeout(function() { loginBtn.click(); }, 120);
+                } else {
+                    hideSessionRestoreOverlay();
+                }
+
+                setTimeout(function() {
+                    if (isRestoringSession) {
+                        clearSavedLoginSession();
+                        hideSessionRestoreOverlay();
+                    }
+                }, 9000);
+            } catch (e) {
+                hideSessionRestoreOverlay();
+            }
         }
 
         function initSessionAutoPersistence() {
