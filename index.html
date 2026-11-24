@@ -6506,20 +6506,24 @@
                 var now = getSyncedNowMs();
 
                 var timerEl = document.getElementById('global-countdown');
+                var timerTitleLogin = (timerEl && timerEl.parentElement) ? timerEl.parentElement.previousElementSibling : null;
                 var timerSubLogin = timerEl ? timerEl.nextElementSibling : null;
                 var timerDashEl = document.getElementById('global-countdown-dash');
+                var timerLabelDash = (timerDashEl && timerDashEl.parentElement) ? timerDashEl.parentElement.previousElementSibling : null;
                 var statusDashEl = document.getElementById('global-status-dash');
                 var ctvTimerDashEl = document.getElementById('ctv-global-countdown');
+                var ctvTimerLabel = (ctvTimerDashEl && ctvTimerDashEl.parentElement) ? ctvTimerDashEl.parentElement.previousElementSibling : null;
 
                 var mainText = '00:00:00';
                 var subText = '';
                 var mainColor = '#ef4444';
                 var dashColor = '#0369a1';
+                var isPreOpening = (ph === 'pre_opening');
 
-                if (ph === 'pre_opening') {
+                if (isPreOpening) {
                     var remOpen = Math.max(0, eventOpeningTime - now);
                     mainText = formatTimeMs(remOpen);
-                    subText = 'SẼ KHAI MẠC SAU';
+                    subText = '';
                     mainColor = '#0284c7';
                     dashColor = '#0284c7';
                 } else if (ph === 'opening') {
@@ -6540,6 +6544,9 @@
                     dashColor = '#ef4444';
                 }
 
+                if (timerTitleLogin) {
+                    timerTitleLogin.textContent = isPreOpening ? 'SẼ KHAI MẠC SAU' : 'THỜI GIAN CHƯƠNG TRÌNH';
+                }
                 if (timerEl) {
                     timerEl.textContent = mainText;
                     timerEl.style.color = mainColor;
@@ -6548,6 +6555,10 @@
                 if (timerSubLogin) {
                     timerSubLogin.textContent = subText;
                     timerSubLogin.style.color = mainColor;
+                    timerSubLogin.style.display = isPreOpening ? 'none' : '';
+                }
+                if (timerLabelDash) {
+                    timerLabelDash.textContent = isPreOpening ? '⏳ SẼ KHAI MẠC SAU' : '⏳ GIỜ CHƯƠNG TRÌNH';
                 }
                 if (timerDashEl) {
                     timerDashEl.textContent = mainText;
@@ -6557,38 +6568,16 @@
                 if (statusDashEl) {
                     statusDashEl.textContent = subText;
                     statusDashEl.style.color = dashColor;
+                    statusDashEl.style.display = isPreOpening ? 'none' : '';
+                }
+                if (ctvTimerLabel) {
+                    ctvTimerLabel.textContent = isPreOpening ? '⏳ SẼ KHAI MẠC SAU' : '⏳ GIỜ CHƯƠNG TRÌNH';
                 }
                 if (ctvTimerDashEl) {
                     ctvTimerDashEl.textContent = mainText;
                     ctvTimerDashEl.style.color = dashColor;
                     ctvTimerDashEl.style.fontSize = (ph === 'opening') ? '14px' : '';
                 }
-
-                updateQtvStartProgramButtonUI();
-
-                // Khi đang ở màn hình chờ trang chủ và giai đoạn tự chuyển
-                var appCard = document.getElementById('appCard');
-                var isLogged = appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-ctv') || appCard.classList.contains('logged-in-qtv'));
-                if (!isLogged && publicBoardState.loaded && ph !== publicBoardState.phase) {
-                    publicBoardState.phase = ph;
-                    applyLeftPanelPhaseUI(ph);
-                    if (ph === 'post') {
-                        renderSealedDummyRows(publicBoardState.teamCount);
-                        fetchPublicEventBoardState();
-                    }
-                }
-
-                if (ph === 'post' && appCard) {
-                    if (appCard.classList.contains('logged-in') && currentRole === 'student') {
-                        var stEl = document.getElementById('team-stopwatch-status');
-                        if (stEl) { stEl.textContent = 'ĐÃ KẾT THÚC'; stEl.style.color = '#ef4444'; }
-                        applyStudentUiLock('SV_ENDGAME');
-                    } else if (appCard.classList.contains('logged-in-ctv')) {
-                        applyCtvUiLock('CTV_ENDGAME');
-                    }
-                }
-            } catch (e) {}
-        };
 
         // --- XỬ LÝ NỘI DUNG DẶN DÒ (GIỮ CHỮ MỜ "QUẢN TRỊ VIÊN ĐANG CẬP NHẬT..." NẾU TRỐNG) ---
         applyBriefingContent = function(br) {
