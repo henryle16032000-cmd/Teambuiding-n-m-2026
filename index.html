@@ -2105,7 +2105,7 @@
         // CẦU NỐI TỰ ĐỘNG CHO GITHUB / VERCEL <-> GOOGLE APPS SCRIPT
         // =========================================================================
         (function initGasBridge() {
-            var GAS_API_URL = "https://script.google.com/macros/s/AKfycbzQTA4euMhjlmxL1NbNOpMXd5Ke7i0UChinevqtnPk2fmEvyuIGsejzSWbLV0uFDdyI/exec";
+            var GAS_API_URL = "https://script.google.com/macros/s/AKfycbwm4GEKXbZ6xcOQS9b5J_rSxbprtiTpPnG8c2mpEwRQ909QdoWg6_D7B3Ii1raNeRcs/exec";
 
             if (typeof window.google === 'undefined' || !window.google.script || !window.google.script.run) {
                 function createRunner(onSuccess, onFailure) {
@@ -6579,6 +6579,32 @@
                     ctvTimerDashEl.style.fontSize = (ph === 'opening') ? '14px' : '';
                 }
 
+                updateQtvStartProgramButtonUI();
+
+                // Khi đang ở màn hình chờ trang chủ và giai đoạn tự chuyển
+                var appCard = document.getElementById('appCard');
+                var isLogged = appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-ctv') || appCard.classList.contains('logged-in-qtv'));
+                if (!isLogged && publicBoardState.loaded && ph !== publicBoardState.phase) {
+                    publicBoardState.phase = ph;
+                    applyLeftPanelPhaseUI(ph);
+                    if (ph === 'post') {
+                        renderSealedDummyRows(publicBoardState.teamCount);
+                        fetchPublicEventBoardState();
+                    }
+                }
+
+                if (ph === 'post' && appCard) {
+                    if (appCard.classList.contains('logged-in') && currentRole === 'student') {
+                        var stEl = document.getElementById('team-stopwatch-status');
+                        if (stEl) { stEl.textContent = 'ĐÃ KẾT THÚC'; stEl.style.color = '#ef4444'; }
+                        applyStudentUiLock('SV_ENDGAME');
+                    } else if (appCard.classList.contains('logged-in-ctv')) {
+                        applyCtvUiLock('CTV_ENDGAME');
+                    }
+                }
+            } catch (e) {}
+        };
+
         // --- XỬ LÝ NỘI DUNG DẶN DÒ (GIỮ CHỮ MỜ "QUẢN TRỊ VIÊN ĐANG CẬP NHẬT..." NẾU TRỐNG) ---
         applyBriefingContent = function(br) {
             var preEl = document.getElementById('lp-phase-pre');
@@ -7735,7 +7761,7 @@
             listEl.innerHTML = qtvSheetsOverviewList.map(function(s) {
                 var cls = 'qtv-sheet-pill' + (s.name === activeName ? ' active' : '');
                 var icon = s.isCore ? '🔒' : '📄';
-                return '<button type="button" class="' + cls + '" onclick="loadQtvSheetRows(\'' + escapeHtmlComm(s.name).replace(/'/g, "\\'") + '\')">' +
+                return '<button type="button" class="' + cls + '" data-sheet-name="' + escapeHtmlComm(s.name) + '" onclick="loadQtvSheetRows(this.getAttribute(\'data-sheet-name\'))">' +
                     icon + ' ' + escapeHtmlComm(s.name) + ' <span style="opacity:0.75; font-size:10.5px;">(' + s.rowCount + ')</span>' +
                 '</button>';
             }).join('');
@@ -8067,7 +8093,7 @@
 
         updateSoundButtonUI();
 
-                // --- FIX NÚT "XÁC NHẬN ĐÃ XỬ LÝ" TRUNG TÂM SOS (2 CHẠM, KHÔNG DÙNG CONFIRM, BÁO LỖI RÕ) ---
+        // --- FIX NÚT "XÁC NHẬN ĐÃ XỬ LÝ" TRUNG TÂM SOS (2 CHẠM, KHÔNG DÙNG CONFIRM, BÁO LỖI RÕ) ---
         renderQtvSosCenter = function(data) {
             var container = document.getElementById('qtv-sos-container');
             var badgeEl = document.getElementById('qtv-sos-count');
@@ -8092,7 +8118,6 @@
             }
 
             if (!container) return;
-            // Không vẽ đè nếu QTV đang chờ bấm chạm 2 hoặc đang gửi lệnh gỡ SOS
             if (container.querySelector('[data-sos-arm="1"], [data-sos-busy="1"]')) return;
 
             if (list.length === 0) {
@@ -8132,7 +8157,6 @@
                 return;
             }
 
-            // Xác nhận 2 chạm ngay trên nút (bỏ confirm() để Safari iPad không chặn)
             if (btn) {
                 if (btn.getAttribute('data-sos-busy') === '1') return;
                 if (btn.getAttribute('data-sos-arm') !== '1') {
@@ -8190,6 +8214,7 @@
                 })
                 .qtvResolveSOS(teamId, mssv);
         };
+
     </script>
     <canvas id="confetti-canvas"></canvas>
 </body>
