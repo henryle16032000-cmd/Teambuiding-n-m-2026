@@ -1791,7 +1791,7 @@
         // =========================================================================
         (function initGasBridge() {
             var GAS_API_URL = "https://script.google.com/macros/s/AKfycbwm4GEKXbZ6xcOQS9b5J_rSxbprtiTpPnG8c2mpEwRQ909QdoWg6_D7B3Ii1raNeRcs/exec";
-
+ 
             if (typeof window.google === 'undefined' || !window.google.script || !window.google.script.run) {
                 function createRunner(onSuccess, onFailure) {
                     return new Proxy({}, {
