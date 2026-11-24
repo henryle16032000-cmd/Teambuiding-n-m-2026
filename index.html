@@ -1059,6 +1059,199 @@
             background: #dcfce7;
             color: #15803d;
         }
+    
+        /* =========================================================================
+           CSS NÂNG CẤP TOÀN DIỆN (4 GIAI ĐOẠN, VỀ ĐÍCH TRAM_11, KHO ẢNH, TAB 7)
+        ========================================================================= */
+        .lp-placeholder-muted {
+            color: #94a3b8;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .qtv-start-program-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            padding: 9px 16px;
+            font-size: 12.5px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .qtv-start-program-btn:hover { transform: translateY(-1px); filter: brightness(1.06); }
+        .qtv-start-program-btn.pulse-ready { animation: pulseStartGreen 1.6s infinite; }
+        @keyframes pulseStartGreen {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.65); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .btn-sound-toggle {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1.5px solid #cbd5e1;
+            color: #334155;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .btn-sound-toggle.sound-on { border-color: #38bdf8; background: #e0f2fe; color: #0369a1; }
+        .btn-sound-toggle.sound-off { border-color: #cbd5e1; background: #f1f5f9; color: #94a3b8; }
+
+        /* Màn hình Về đích 5/5 trạm (SV) */
+        .sv-finish-card {
+            background: linear-gradient(180deg, #fffbeb 0%, #ffffff 35%, #f0fdf4 100%);
+            border: 2.5px solid #f59e0b;
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 14px 32px -6px rgba(245, 158, 11, 0.25);
+            margin-bottom: 18px;
+        }
+        .sv-finish-trophy { font-size: 46px; margin-bottom: 6px; }
+        .sv-finish-title { font-size: 18px; font-weight: 900; color: #b45309; text-transform: uppercase; letter-spacing: 0.4px; }
+        .sv-finish-sub { font-size: 12.5px; color: #475569; font-weight: 600; margin-top: 4px; margin-bottom: 14px; line-height: 1.45; }
+        .sv-rally-box {
+            background: #ecfdf5;
+            border: 1.5px solid #86efac;
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            text-align: left;
+        }
+        .sv-rally-label { font-size: 10.5px; font-weight: 900; color: #15803d; text-transform: uppercase; margin-bottom: 4px; }
+        .sv-rally-name { font-size: 15.5px; font-weight: 900; color: #0f172a; margin-bottom: 6px; }
+        .sv-ach-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .sv-ach-kpi {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 8px 6px;
+            text-align: center;
+        }
+        .sv-ach-kpi-label { font-size: 9.5px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+        .sv-ach-kpi-val { font-size: 14px; font-weight: 900; color: #0369a1; font-family: 'Space Mono', monospace !important; margin-top: 2px; }
+        .sv-ach-list { display: flex; flex-direction: column; gap: 6px; text-align: left; margin-top: 8px; }
+        .sv-ach-row {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 8px 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+        .sv-ach-row.final-row { background: #fffbeb; border-color: #fde68a; }
+
+        /* Kho ảnh Check-in QTV */
+        .qtv-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 14px;
+        }
+        .qtv-gallery-card {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .qtv-gallery-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08); }
+        .qtv-gallery-img-wrap {
+            width: 100%;
+            height: 155px;
+            background: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qtv-gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .qtv-gallery-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
+        .qtv-gallery-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+        .qtv-gallery-meta { font-size: 11px; color: #64748b; font-weight: 600; }
+
+        /* Tab 7: Quản trị Sheet (QTV-001) */
+        .qtv-sheet-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+        .qtv-sheet-pill {
+            padding: 7px 13px;
+            border-radius: 20px;
+            border: 1.5px solid #cbd5e1;
+            background: #f8fafc;
+            color: #334155;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .qtv-sheet-pill:hover { background: #e0f2fe; border-color: #7dd3fc; }
+        .qtv-sheet-pill.active { background: #0284c7; border-color: #0284c7; color: #ffffff; }
+        .qtv-sheet-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .qtv-sheet-cell-truncate {
+            max-width: 210px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+        }
+
+        /* Nút đếm ngược 5 giây CTV */
+        .btn-timer-countdown {
+            background: #e2e8f0 !important;
+            color: #475569 !important;
+            cursor: not-allowed !important;
+            box-shadow: none !important;
+        }
+
+        @media (max-width: 767px) {
+            .sv-ach-summary-grid { grid-template-columns: 1fr; }
+            .qtv-start-program-btn { padding: 0 11px; height: 36px; font-size: 11.5px; }
+            .qtv-gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .qtv-gallery-img-wrap { height: 120px; }
+        }
+
     </style>
 </head>
 <body>
@@ -1114,35 +1307,23 @@
                                 <div style="font-size: 12px; font-weight: 800; color: #0369a1; text-transform: uppercase; letter-spacing: 0.3px;">Đang đồng bộ trạng thái chương trình...</div>
                             </div>
 
-                            <!-- GIAI ĐOẠN 1: TRƯỚC GIỜ KHAI MẠC (BẢN MẪU DẶN DÒ) -->
+                            <!-- GIAI ĐOẠN 1: TRƯỚC GIỜ KHAI MẠC (MẶC ĐỊNH MỜ CHỜ QTV CẬP NHẬT) -->
                             <div id="lp-phase-pre" class="lp-stage-box" style="display: none;">
                                 <div class="stat-compact-title-row" style="margin-bottom: 10px;">
                                     <span class="stat-compact-icon">📋</span>
-                                    <span class="stat-compact-title">DẶN DÒ TRƯỚC CHƯƠNG TRÌNH</span>
+                                    <span class="stat-compact-title">THÔNG TIN TẬP TRUNG & DẶN DÒ</span>
                                 </div>
                                 <div class="lp-briefing-stack">
-                                    <!-- SỬA VỊ TRÍ TẬP TRUNG TẠI ĐÂY -->
                                     <div class="lp-info-card">
                                         <div class="lp-info-head">📍 Thời gian & Điểm tập trung</div>
-                                        <div class="lp-info-body">
-                                            <strong>Công viên Ba Son (cho Hải địa chỉ nha)</strong><br>
-                                            Có mặt điểm danh trước giờ xuất phát <strong>15 phút</strong> để khai mạc và hướng dẫn.
-                                        </div>
+                                        <div class="lp-info-body lp-placeholder-muted">Quản trị viên đang cập nhật...</div>
                                     </div>
-
-                                    <!-- SỬA ĐỒ DÙNG CẦN CHUẨN BỊ TẠI ĐÂY -->
                                     <div class="lp-info-card">
                                         <div class="lp-info-head">🎒 Vật dụng cần chuẩn bị</div>
-                                        <ul class="lp-checklist">
-                                            <li><span>🔋</span><span>Điện thoại sạc đầy pin, nên mang theo dây sạc nhé.<strong>Bật sẵn dịch vụ định vị nữa!</strong>.</span></li>
-                                            <li><span>👟</span><span>Trang phục thoải mái, giày thể thao, nón và bình nước cá nhân.</span></li>
-                                            <li><span>🎫</span><span>Tiền lẻ, CCCD và thẻ sinh viên.</span></li>
-                                        </ul>
+                                        <div class="lp-info-body lp-placeholder-muted">Quản trị viên đang cập nhật...</div>
                                     </div>
-
-                                    <!-- SỬA LƯU Ý NHANH TẠI ĐÂY -->
-                                    <div class="lp-notice-pill">
-                                        ⚡ Lưu ý: Cổng giải mật thư Trạm 1 sẽ tự động mở và tính giờ ngay khi bắt đầu khai mạc!
+                                    <div class="lp-notice-pill lp-placeholder-muted" style="background:#f8fafc; border-color:#e2e8f0; color:#94a3b8;">
+                                        Quản trị viên đang cập nhật lưu ý chương trình...
                                     </div>
                                 </div>
                             </div>
@@ -1249,6 +1430,7 @@
                         <div class="header-badges">
                             <div class="progress-pill" id="team-progress">🏆 0/5 Trạm</div>
                             <div style="display:flex; gap:6px; align-items:center;">
+                                <button class="btn-pwd-header" onclick="openSvAchievementModal()" title="Xem thành tích các trạm">📋</button>
                                 <button class="btn-pwd-header" onclick="openChangePasswordModal()" title="Đổi mật khẩu">🔑</button>
                                 <button class="btn-reload-header" id="btn-student-reload-header" onclick="silentReload()" title="Làm mới dữ liệu">🔄</button>
                             </div>
@@ -1338,9 +1520,9 @@
                     <!-- MÀN HÌNH Ổ KHÓA MẬT THƯ (CÓ ĐỒNG HỒ & GỢI Ý +180s) -->
                     <div class="itinerary-card" id="passwordLockCard" style="display: none; border-color: #f59e0b; background: #fffbeb;">
                         <div style="text-align: center; padding: 10px 5px;">
-                            <div style="font-size: 30px; color: #d97706; margin-bottom: 6px;">🔑</div>
-                            <div style="font-size: 16px; font-weight: 800; color: #b45309; text-transform: uppercase; margin-bottom: 4px;">MỞ KHÓA LỘ TRÌNH TRẠM</div>
-                            <div style="font-size: 12px; color: #78350f; margin-bottom: 14px; font-weight: 500; line-height: 1.4;">
+                            <div id="cipher-lock-icon" style="font-size: 30px; color: #d97706; margin-bottom: 6px;">🔑</div>
+                            <div id="cipher-lock-title" style="font-size: 16px; font-weight: 800; color: #b45309; text-transform: uppercase; margin-bottom: 4px;">MỞ KHÓA LỘ TRÌNH TRẠM</div>
+                            <div id="cipher-lock-desc" style="font-size: 12px; color: #78350f; margin-bottom: 14px; font-weight: 500; line-height: 1.4;">
                                 Giải đáp án mật thư để mở khóa tọa độ trạm tiếp theo. Bất kỳ thành viên nào nhập đúng cũng sẽ mở khóa cho cả đội!
                             </div>
 
@@ -1373,17 +1555,41 @@
                         </div>
                     </div>
 
-                    <!-- MÀN HÌNH CHỜ CHUYỂN TRẠM (KHI CTV ĐÃ BẤM KẾT THÚC TRẠM) -->
+                    <!-- MÀN HÌNH CHỜ CHUYỂN TRẠM (KHI CTV ĐÃ BẤM KẾT THÚC TRẠM - TỰ ĐỘNG CHUYỂN) -->
                     <div class="itinerary-card" id="challengeCard" style="display: none; border-color: #38bdf8; background: #f0f9ff;">
                         <div style="text-align: center; padding: 14px 8px;">
                             <div style="font-size: 36px; margin-bottom: 8px;">🎉</div>
                             <div style="font-size: 16px; font-weight: 900; color: #0369a1; text-transform: uppercase; margin-bottom: 6px;">ĐÃ HOÀN THÀNH TRẠM!</div>
-                            <div style="font-size: 13px; color: #334155; margin-bottom: 16px; font-weight: 500; line-height: 1.5;">
-                                Thành tích của đội bạn đã được lưu lại. Hãy giữ nguyên màn hình và chờ Trạm trưởng gửi thử thách trạm tiếp theo nhé!
+                            <div style="font-size: 13px; color: #334155; margin-bottom: 8px; font-weight: 500; line-height: 1.5;">
+                                Thành tích của đội bạn đã được lưu lại. Hãy giữ nguyên màn hình — hệ thống sẽ <strong>tự động chuyển sang thử thách tiếp theo</strong> ngay khi Trạm trưởng xác nhận!
                             </div>
-                            <button onclick="silentReload()" style="padding: 10px 20px; background: #0284c7; color: white; font-weight: 800; font-size: 13px; border: none; border-radius: 12px; cursor: pointer;">
-                                🔄 Kiểm tra trạm mới ngay
-                            </button>
+                            <div style="font-size: 11.5px; color: #0284c7; font-weight: 800; margin-top: 6px; animation: pulseOpacity 1.8s infinite;">
+                                ⏳ Đang tự động chờ lệnh từ Trạm trưởng...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MÀN HÌNH VỀ ĐÍCH 5/5 TRẠM (SAU KHI GIẢI XONG MẬT THƯ CHUNG TRAM_11) -->
+                    <div class="sv-finish-card" id="svFinalFinishCard" style="display: none;">
+                        <div class="sv-finish-trophy">🏆🎉</div>
+                        <div class="sv-finish-title">CHÚC MỪNG ĐỘI ĐÃ VỀ ĐÍCH!</div>
+                        <div class="sv-finish-sub">Đội bạn đã chinh phục trọn vẹn <strong>5/5 Trạm</strong> và giải mã thành công <strong>Mật thư Về đích</strong>. Hãy di chuyển ngay tới Điểm tập kết để tham gia tổng kết nhé!</div>
+
+                        <div class="sv-rally-box">
+                            <div class="sv-rally-label">📍 ĐỊA ĐIỂM TẬP KẾT CHUNG CUỘC</div>
+                            <div class="sv-rally-name" id="sv-finish-rally-name">Đang tải điểm tập kết...</div>
+                            <div style="font-size: 12px; font-weight: 700; color: #15803d; margin-bottom: 10px;" id="sv-finish-rally-dist">📡 Đang tính khoảng cách...</div>
+                            <div class="action-btns">
+                                <a href="#" target="_blank" class="btn-map" id="sv-finish-map-link" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 11px; font-size: 13px;">🗺️ Chỉ đường tới Điểm tập kết</a>
+                            </div>
+                        </div>
+
+                        <div style="text-align: left; margin-top: 12px;">
+                            <div style="font-size: 12px; font-weight: 900; color: #0f172a; text-transform: uppercase; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                <span>📊 BẢNG GHI NHẬN THÀNH TÍCH CỦA ĐỘI</span>
+                                <span style="font-size: 10.5px; color: #64748b; font-weight: 700;">🔒 Thứ hạng đang niêm phong</span>
+                            </div>
+                            <div id="sv-final-achievement-body"></div>
                         </div>
                     </div>
                     
@@ -1406,7 +1612,9 @@
                             <li onclick="qtvSwitchTab('stations', this)">🏛️ Quản lý Trạm & CTV</li>
                             <li onclick="qtvSwitchTab('sos', this)">🚨 Trung tâm SOS</li>
                             <li onclick="qtvSwitchTab('leaderboard', this)">⏱️ Bảng thành tích</li>
+                            <li onclick="qtvSwitchTab('photos', this)">📸 Kho ảnh Check-in</li>
                             <li id="qtv-tab-btn-comm" onclick="qtvSwitchTab('comm', this)" style="display: none;">📢 Truyền thông</li>
+                            <li id="qtv-tab-btn-sheets" onclick="qtvSwitchTab('sheets', this)" style="display: none;">📊 Quản trị Sheet</li>
                         </ul>
                     </div>
 
@@ -1423,6 +1631,12 @@
                             </div>
                             <div class="qtv-header-right">
                                 <span id="qtv-last-sync" style="font-size: 11px; font-weight: 700; color: #64748b; font-family: 'Space Mono', monospace;">--:--:--</span>
+                                <button class="qtv-start-program-btn" id="qtv-start-program-btn" onclick="handleQtvStartProgram()" title="Phát lệnh bắt đầu thi đấu chính thức">
+                                    🚀 Bắt đầu
+                                </button>
+                                <button class="qtv-bell-btn" id="qtv-sound-btn" onclick="toggleAlertSound()" title="Bật/tắt chuông báo SOS" style="background: #e0f2fe; border-color: #7dd3fc; color: #0369a1;">
+                                    🔊
+                                </button>
                                 <button class="qtv-bell-btn" id="qtv-refresh-btn" onclick="fetchQtvDashboardData(true)" title="Làm mới toàn bộ dữ liệu QTV" style="background: #f0f9ff; border-color: #bae6fd; color: #0284c7;">
                                     🔄
                                 </button>
@@ -1530,7 +1744,7 @@
                                                 <th>Mã đội</th>
                                                 <th>Hoàn thành</th>
                                                 <th>Giờ quy đổi</th>
-                                                <th>Chi tiết 5 trạm</th>
+                                                <th>Chi tiết 5 trạm & Về đích</th>
                                             </tr>
                                         </thead>
                                         <tbody id="qtv-leaderboard-tbody">
@@ -1575,21 +1789,73 @@
                                             <span class="qtv-badge badge-blue">Đồng bộ ngoài & trong</span>
                                         </div>
                                         <label class="qtv-comm-label">📍 Điểm tập trung (In đậm)</label>
-                                        <input id="qtv-brief-loc-title" class="qtv-comm-input" type="text" placeholder="Sân chính ĐH Y Dược TP.HCM (217 Hồng Bàng)" />
+                                        <input id="qtv-brief-loc-title" class="qtv-comm-input" type="text" placeholder="Ví dụ: Công viên Ba Son — Cổng chính đường Tôn Đức Thắng" />
 
                                         <label class="qtv-comm-label">🕒 Thời gian & hướng dẫn tập trung</label>
-                                        <input id="qtv-brief-loc-desc" class="qtv-comm-input" type="text" placeholder="Có mặt điểm danh trước giờ xuất phát 15 phút..." />
+                                        <input id="qtv-brief-loc-desc" class="qtv-comm-input" type="text" placeholder="Ví dụ: Có mặt điểm danh trước giờ khai mạc 15 phút để ổn định và nhận vật phẩm." />
 
                                         <label class="qtv-comm-label">🎒 Vật dụng cần chuẩn bị (Mỗi dòng 1 mục)</label>
-                                        <textarea id="qtv-brief-items" class="qtv-comm-textarea" rows="4" placeholder="🔋 Điện thoại sạc đầy pin, sạc dự phòng & bật sẵn 4G + GPS."></textarea>
+                                        <textarea id="qtv-brief-items" class="qtv-comm-textarea" rows="4" placeholder="Ví dụ (mỗi dòng 1 mục):&#10;🔋 Điện thoại sạc đầy pin, mang sạc dự phòng &amp; bật sẵn 4G + GPS.&#10;👟 Trang phục thoải mái, giày thể thao, nón và bình nước cá nhân.&#10;🎫 Tiền lẻ, CCCD và thẻ sinh viên."></textarea>
 
                                         <label class="qtv-comm-label">⚡ Lưu ý nhanh (Khung vàng dưới cùng)</label>
-                                        <input id="qtv-brief-notice" class="qtv-comm-input" type="text" placeholder="⚡ Lưu ý: Cổng giải mật thư Trạm 1 sẽ tự động mở..." />
+                                        <input id="qtv-brief-notice" class="qtv-comm-input" type="text" placeholder="Ví dụ: ⚡ Lưu ý: Cổng giải mật thư Trạm 1 sẽ tự động mở ngay khi Ban Tổ chức phát lệnh Bắt đầu!" />
 
                                         <div class="qtv-comm-actions">
                                             <button id="btn-qtv-save-briefing" class="qtv-comm-btn primary" onclick="handleQtvSaveBriefing()">💾 Lưu dặn dò</button>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB KHO ẢNH CHECK-IN (TẤT CẢ QTV) -->
+                            <div id="qtv-tab-photos" class="qtv-tab-content">
+                                <div class="qtv-tab-header-row">
+                                    <div class="qtv-tab-title">📸 KHO ẢNH CHECK-IN CÁC TRẠM</div>
+                                    <div class="qtv-meta-bar">
+                                        <span id="qtv-photos-count-pill" class="qtv-badge badge-blue">0 ảnh</span>
+                                        <select id="qtv-photo-filter-station" class="qtv-comm-select" style="width:auto; padding:6px 10px; font-size:12px;" onchange="renderQtvPhotosGallery()">
+                                            <option value="">Tất cả trạm</option>
+                                        </select>
+                                        <select id="qtv-photo-filter-team" class="qtv-comm-select" style="width:auto; padding:6px 10px; font-size:12px;" onchange="renderQtvPhotosGallery()">
+                                            <option value="">Tất cả đội</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="qtv-photos-grid" class="qtv-gallery-grid">
+                                    <div style="color:#64748b; font-size:13px;">Chưa có ảnh check-in nào được gửi lên.</div>
+                                </div>
+                            </div>
+
+                            <!-- TAB 7: QUẢN TRỊ DỮ LIỆU GOOGLE SHEETS (CHỈ QTV-001) -->
+                            <div id="qtv-tab-sheets" class="qtv-tab-content">
+                                <div class="qtv-tab-header-row">
+                                    <div class="qtv-tab-title">📊 QUẢN TRỊ DỮ LIỆU BẢNG TÍNH</div>
+                                    <div class="qtv-meta-bar">
+                                        <button class="qtv-chip-btn" style="background:#dcfce7; border-color:#86efac; color:#15803d;" onclick="openCreateSheetModal()">📄 Tạo Sheet mới</button>
+                                        <button class="qtv-chip-btn" onclick="loadQtvSheetsOverview(true)">🔄 Tải lại DS</button>
+                                    </div>
+                                </div>
+                                <div id="qtv-sheets-list" class="qtv-sheet-pills">
+                                    <span style="font-size:12px; color:#64748b;">Đang tải danh sách trang tính...</span>
+                                </div>
+                                <div class="qtv-sheet-toolbar" id="qtv-sheet-toolbar" style="display:none;">
+                                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                                        <strong id="qtv-active-sheet-label" style="font-size:13.5px; color:#0f172a;">---</strong>
+                                        <span id="qtv-active-sheet-badge" class="qtv-badge badge-slate"></span>
+                                        <input type="text" id="qtv-sheet-search" class="qtv-search-input" style="min-width:170px; padding:6px 10px;" placeholder="🔍 Lọc nhanh dòng..." oninput="renderQtvActiveSheetTable()">
+                                    </div>
+                                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                                        <button class="qtv-mini-btn" style="background:#0284c7; color:white; padding:7px 12px;" onclick="openSheetRowModal('add')">➕ Thêm dòng</button>
+                                        <button id="btn-qtv-delete-sheet" class="qtv-mini-btn btn-reset" style="display:none; padding:7px 12px;" onclick="handleQtvDeleteCurrentSheet()">🗑️ Xóa Sheet này</button>
+                                    </div>
+                                </div>
+                                <div class="qtv-table-wrap">
+                                    <table class="qtv-table">
+                                        <thead id="qtv-sheet-thead"></thead>
+                                        <tbody id="qtv-sheet-tbody">
+                                            <tr><td style="text-align:center; color:#64748b; padding:30px;">Chọn một trang tính phía trên để xem và chỉnh sửa dữ liệu.</td></tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -1610,6 +1876,7 @@
                            <div class="progress-pill" style="background: #fef2f2; color: #991b1b; border-color: #fecaca;" id="ctv-role-pill">Phân công: TRAM_X</div>
                            <div style="display:flex; gap:6px; align-items:center;">
                                <button class="btn-pwd-header" onclick="openChangePasswordModal()" title="Đổi mật khẩu">🔑</button>
+                               <button class="btn-sound-toggle sound-on" id="ctv-sound-btn" onclick="toggleAlertSound()" title="Bật/tắt chuông báo đội Check-in">🔊</button>
                                <button class="btn-reload-header" id="btn-ctv-reload-header" onclick="silentReloadCTV()" title="Làm mới dữ liệu">🔄</button>
                            </div>
                        </div>
@@ -1618,7 +1885,7 @@
                     <!-- LỆNH TRIỆU TẬP KHẨN CẤP CHO CTV KHI HẾT GIỜ -->
                     <div class="itinerary-card endgame" id="ctvEndgameCard" style="display: none; text-align: center;">
                         <div class="station-badge endgame" style="margin-bottom: 10px;">🚨 LỆNH TẬP HỢP KHẨN CẤP</div>
-                        <div class="target-name" style="font-size: 18px; margin-bottom: 12px;">Sân chính ĐH Y Dược TP.HCM (217 Hồng Bàng)</div>
+                        <div class="target-name" id="ctv-endgame-target-name" style="font-size: 18px; margin-bottom: 12px;">Điểm tập kết Ban Tổ chức</div>
                         <div class="live-distance-box" style="background: #fef2f2; border-color: #ef4444;">
                             <div class="dist-val" style="color: #ef4444; font-size: 20px;">00:00:00 — ĐÃ HẾT GIỜ</div>
                             <div class="dist-text" style="color: #991b1b; margin-top: 4px;">Mọi thao tác bấm giờ & chuyển trạm đã tự động khóa!</div>
@@ -1629,7 +1896,7 @@
                             <li>Trạm vui lòng thu dọn toàn bộ vật dụng trạm, kiểm tra và di chuyển ngay về Điểm tập kết nhé.</li>
                         </ul>
                         <div class="action-btns">
-                            <a href="https://maps.google.com/?q=217+Hồng+Bàng,+Quận+5,+TP.HCM" target="_blank" class="btn-map" style="background: #ef4444; padding: 12px; font-size: 14px;">🗺️ Chỉ đường về UMP</a>
+                            <a id="ctv-endgame-map-link" href="https://maps.google.com/?q=10.7554,106.6663" target="_blank" class="btn-map" style="background: #ef4444; padding: 12px; font-size: 14px;">🗺️ Chỉ đường về Điểm tập kết</a>
                         </div>
                         <button class="btn-logout" style="width: 100%; margin-top: 14px;" onclick="handleLogout()">← Quay lại Trang chủ</button>
                     </div>
@@ -1712,20 +1979,27 @@
         <div class="footer-sub">The website was developed by LTH</div>
     </footer>
 
-    <!-- Modal Cài đặt Thời gian (Dành riêng cho QTV-001) -->
-    <div id="qtv-time-settings-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
-        <div style="background: white; width: 400px; border-radius: 16px; padding: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
-            <div style="font-size: 18px; font-weight: 900; color: #0f172a; margin-bottom: 15px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 10px;">⚙️ THIẾT LẬP THỜI GIAN</div>
+    <!-- Modal Cài đặt Thời gian 4 giai đoạn (Dành riêng cho QTV-001) -->
+    <div id="qtv-time-settings-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(4px); padding: 14px;">
+        <div style="background: white; width: 100%; max-width: 430px; border-radius: 18px; padding: 22px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15); text-align: left;">
+            <div style="font-size: 17px; font-weight: 900; color: #0f172a; margin-bottom: 12px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 10px;">⚙️ THIẾT LẬP GIỜ CHƯƠNG TRÌNH</div>
+            <div id="qtv-time-phase-banner" style="font-size: 12px; font-weight: 700; color: #0369a1; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; padding: 9px 11px; margin-bottom: 14px; line-height: 1.45;">
+                Đồng hồ sẽ đếm ngược tới giờ Khai mạc → chuyển sang trạng thái <strong>ĐANG KHAI MẠC</strong> → chỉ tính giờ thi đấu khi QTV-001 bấm <strong>🚀 Bắt đầu chương trình</strong>.
+            </div>
             
-            <label style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 5px; display: block;">THỜI GIAN BẮT ĐẦU (Khai mạc):</label>
-            <input type="datetime-local" id="qtv-setting-start-time" style="width: 100%; padding: 10px; border: 2px solid #cbd5e1; border-radius: 8px; margin-bottom: 15px; font-family: inherit; font-size: 14px; outline: none;">
+            <label style="font-size: 11.5px; font-weight: 800; color: #475569; margin-bottom: 5px; display: block; text-transform: uppercase;">GIỜ KHAI MẠC (Dự kiến):</label>
+            <input type="datetime-local" id="qtv-setting-start-time" style="width: 100%; padding: 10px; border: 2px solid #cbd5e1; border-radius: 10px; margin-bottom: 14px; font-family: inherit; font-size: 14px; outline: none;">
             
-            <label style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 5px; display: block;">THỜI LƯỢNG CUỘC ĐUA (Phút):</label>
-            <input type="number" id="qtv-setting-duration" placeholder="Ví dụ: 120 (Tương đương 2 tiếng)" style="width: 100%; padding: 10px; border: 2px solid #cbd5e1; border-radius: 8px; margin-bottom: 20px; font-family: inherit; font-size: 14px; outline: none;">
+            <label style="font-size: 11.5px; font-weight: 800; color: #475569; margin-bottom: 5px; display: block; text-transform: uppercase;">THỜI LƯỢNG THI ĐẤU (Phút):</label>
+            <input type="number" id="qtv-setting-duration" placeholder="Ví dụ: 120 (Tương đương 2 tiếng)" style="width: 100%; padding: 10px; border: 2px solid #cbd5e1; border-radius: 10px; margin-bottom: 16px; font-family: inherit; font-size: 14px; outline: none;">
+
+            <button id="qtv-modal-start-program-btn" onclick="handleQtvStartProgram()" style="display: none; width: 100%; padding: 12px; margin-bottom: 14px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 12px; font-size: 13.5px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
+                🚀 BẮT ĐẦU CHƯƠNG TRÌNH NGAY (Mở Trạm 1)
+            </button>
             
             <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                <button onclick="closeTimeSettingsModal()" style="padding: 10px 15px; background: #f1f5f9; color: #475569; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">Hủy</button>
-                <button onclick="saveTimeSettings()" style="padding: 10px 15px; background: #0284c7; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">💾 Lưu thiết lập</button>
+                <button onclick="closeTimeSettingsModal()" style="padding: 10px 15px; background: #f1f5f9; color: #475569; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">Đóng</button>
+                <button onclick="saveTimeSettings()" style="padding: 10px 16px; background: #0284c7; color: white; border: none; border-radius: 10px; font-weight: 800; cursor: pointer;">💾 Lưu & Reset hệ thống</button>
             </div>
         </div>
     </div>
@@ -1782,16 +2056,57 @@
         </div>
     </div>
 
+    
+    <!-- MODAL XEM THÀNH TÍCH 5 TRẠM CỦA ĐỘI (SINH VIÊN - KHÔNG HIỆN THỨ HẠNG) -->
+    <div id="sv-achievement-modal" class="auth-modal-backdrop">
+        <div class="auth-modal-box" style="max-width: 460px; max-height: 85vh; overflow-y: auto;">
+            <div class="auth-modal-title" style="display:flex; justify-content:space-between; align-items:center;">
+                <span>📋 THÀNH TÍCH CỦA ĐỘI</span>
+                <span style="font-size:11px; color:#64748b; font-weight:700;">🔒 Ẩn thứ hạng</span>
+            </div>
+            <div id="sv-modal-achievement-body" style="margin-top: 10px;"></div>
+            <div style="display: flex; justify-content: flex-end; margin-top: 14px;">
+                <button type="button" onclick="closeSvAchievementModal()" style="padding: 9px 18px; background: #0284c7; color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer;">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL THÊM / SỬA DÒNG SHEET (TAB 7 - CHỈ QTV-001) -->
+    <div id="qtv-sheet-row-modal" class="auth-modal-backdrop">
+        <div class="auth-modal-box" style="max-width: 520px; max-height: 86vh; overflow-y: auto;">
+            <div class="auth-modal-title" id="qtv-sheet-row-modal-title">✏️ CHỈNH SỬA DÒNG DỮ LIỆU</div>
+            <div id="qtv-sheet-row-form-fields" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;"></div>
+            <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px;">
+                <button type="button" onclick="closeSheetRowModal()" style="padding: 10px 15px; background: #f1f5f9; color: #475569; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">Hủy</button>
+                <button type="button" id="btn-qtv-save-sheet-row" onclick="submitSheetRowModal()" style="padding: 10px 18px; background: #0284c7; color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer;">💾 Lưu vào Sheet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TẠO SHEET MỚI (TAB 7 - CHỈ QTV-001) -->
+    <div id="qtv-sheet-create-modal" class="auth-modal-backdrop">
+        <div class="auth-modal-box" style="max-width: 420px;">
+            <div class="auth-modal-title">📄 TẠO TRANG TÍNH (SHEET) MỚI</div>
+            <label class="input-label" style="margin-top: 10px;">TÊN TRANG TÍNH MỚI</label>
+            <input id="qtv-new-sheet-name" type="text" class="form-control-custom" placeholder="Ví dụ: Ghi_chu_BTC" style="margin-bottom: 10px;" />
+            <label class="input-label">DANH SÁCH CỘT TIÊU ĐỀ (CÁCH NHAU BẰNG DẤU PHẨY)</label>
+            <textarea id="qtv-new-sheet-headers" class="qtv-comm-textarea" rows="3" placeholder="Ví dụ: STT, Họ và tên, Nội dung, Ghi chú"></textarea>
+            <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px;">
+                <button type="button" onclick="closeCreateSheetModal()" style="padding: 10px 15px; background: #f1f5f9; color: #475569; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">Hủy</button>
+                <button type="button" id="btn-qtv-create-sheet" onclick="submitCreateSheetModal()" style="padding: 10px 18px; background: #10b981; color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer;">✅ Tạo Sheet</button>
+            </div>
+        </div>
+    </div>
+
     <div id="app-toast"></div>
 
     <script>
-
         // =========================================================================
         // CẦU NỐI TỰ ĐỘNG CHO GITHUB / VERCEL <-> GOOGLE APPS SCRIPT
         // =========================================================================
         (function initGasBridge() {
             var GAS_API_URL = "https://script.google.com/macros/s/AKfycbwm4GEKXbZ6xcOQS9b5J_rSxbprtiTpPnG8c2mpEwRQ909QdoWg6_D7B3Ii1raNeRcs/exec";
- 
+
             if (typeof window.google === 'undefined' || !window.google.script || !window.google.script.run) {
                 function createRunner(onSuccess, onFailure) {
                     return new Proxy({}, {
@@ -1813,6 +2128,7 @@
                                     else console.error(cfgErr);
                                     return;
                                 }
+                                var _reqT0 = Date.now();
                                 fetch(GAS_API_URL, {
                                     method: 'POST',
                                     redirect: 'follow',
@@ -1824,7 +2140,12 @@
                                     return response.json();
                                 })
                                 .then(function(payload) {
+                                    var _reqT1 = Date.now();
+                                    window.__lastApiRttMs = Math.max(0, _reqT1 - _reqT0);
                                     if (payload && payload.ok) {
+                                        if (payload.data && typeof payload.data === 'object' && payload.data.serverNow) {
+                                            payload.data.__clientMidMs = _reqT0 + Math.round((_reqT1 - _reqT0) / 2);
+                                        }
                                         if (typeof onSuccess === 'function') onSuccess(payload.data);
                                     } else {
                                         var serverErr = new Error(payload && payload.error ? payload.error : "Lỗi từ Server");
@@ -5840,6 +6161,1923 @@
                 stepList.style.display = 'none';
             }
         };
+
+        // =========================================================================
+        // 13. BẢN NÂNG CẤP TOÀN DIỆN:
+        //     - GIỜ TỔNG 4 GIAI ĐOẠN (TRƯỚC KHAI MẠC -> ĐANG KHAI MẠC -> QTV-001 BẮT ĐẦU -> KẾT THÚC)
+        //     - MẬT THƯ VỀ ĐÍCH TRAM_11 + MÀN HÌNH CHÚC MỪNG & BẢNG THÀNH TÍCH (ẨN THỨ HẠNG)
+        //     - ĐỒNG HỒ CHỐNG GIẬT LÙI BÙ ĐỘ TRỄ MẠNG (SV + MẬT THƯ + CTV)
+        //     - ĐẾM NGƯỢC 5 GIÂY CTV + SỬA SOS KHÔNG CẦN GPS + GIẢM TẢI APPS SCRIPT
+        //     - CHUÔNG BÁO ÂM THANH (QTV/CTV) + KHO ẢNH CHECK-IN + TAB 7 QUẢN TRỊ SHEET
+        // =========================================================================
+
+        var eventOpeningTime = 0;
+        var eventRaceStartTime = 0;
+        var eventRaceEndTime = 0;
+        var serverEventPhase = 'pre_opening';
+        var currentRallyPoint = { code: 'TRAM_11', name: 'Điểm tập kết Ban Tổ chức', lat: 10.7554, lng: 106.6663 };
+
+        var currentSvAchievement = null;
+        var finalFinishConfettiFired = false;
+
+        // Trạng thái chống giật lùi đồng hồ
+        var svStationClockKey = '';
+        var svStationRunStartServerMs = 0;
+        var svStationBaseElapsedMs = 0;
+        var svStationHighWaterMs = 0;
+
+        var cipherStartServerMs = 0;
+        var cipherPenaltyServerMs = 0;
+        var cipherHighWaterMs = 0;
+
+        var ctvServerRunStartMs = 0;
+        var ctvServerBaseElapsedMs = 0;
+        var ctvHighWaterMs = 0;
+        var ctvNextCountdownInterval = null;
+
+        // Chuông báo âm thanh (Web Audio API)
+        var SOUND_PREF_KEY = 'ump_tb2026_sound_enabled';
+        var alertSoundEnabled = true;
+        try {
+            var savedSnd = localStorage.getItem(SOUND_PREF_KEY);
+            if (savedSnd === 'false') alertSoundEnabled = false;
+        } catch (e) {}
+        var lastQtvSosCountSeen = -1;
+        var lastCtvCheckinKeys = {};
+        var ctvRadarFirstLoadDone = false;
+
+        function updateSoundButtonUI() {
+            ['qtv-sound-btn', 'ctv-sound-btn'].forEach(function(id) {
+                var btn = document.getElementById(id);
+                if (!btn) return;
+                btn.textContent = alertSoundEnabled ? '🔊' : '🔇';
+                btn.classList.toggle('sound-on', alertSoundEnabled);
+                btn.classList.toggle('sound-off', !alertSoundEnabled);
+            });
+        }
+
+        function toggleAlertSound() {
+            alertSoundEnabled = !alertSoundEnabled;
+            try { localStorage.setItem(SOUND_PREF_KEY, String(alertSoundEnabled)); } catch (e) {}
+            updateSoundButtonUI();
+            if (alertSoundEnabled) {
+                playAlertBeep('checkin');
+                showToast('🔊 Đã bật âm thanh thông báo!', false);
+            } else {
+                showToast('🔇 Đã tắt âm thanh thông báo.', false);
+            }
+        }
+
+        function playAlertBeep(kind) {
+            if (!alertSoundEnabled) return;
+            try {
+                var AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                var ctx = new AudioCtx();
+                var now = ctx.currentTime;
+
+                if (kind === 'sos') {
+                    [0, 0.22, 0.44].forEach(function(offset) {
+                        var osc = ctx.createOscillator();
+                        var gain = ctx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(880, now + offset);
+                        osc.frequency.exponentialRampToValueAtTime(520, now + offset + 0.16);
+                        gain.gain.setValueAtTime(0.14, now + offset);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.17);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + offset);
+                        osc.stop(now + offset + 0.18);
+                    });
+                } else {
+                    var osc2 = ctx.createOscillator();
+                    var gain2 = ctx.createGain();
+                    osc2.type = 'sine';
+                    osc2.frequency.setValueAtTime(784, now);
+                    osc2.frequency.exponentialRampToValueAtTime(1046.5, now + 0.15);
+                    gain2.gain.setValueAtTime(0.15, now);
+                    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                    osc2.connect(gain2);
+                    gain2.connect(ctx.destination);
+                    osc2.start(now);
+                    osc2.stop(now + 0.36);
+                }
+            } catch (e) {}
+        }
+
+        // --- ĐỒNG BỘ MỐC THỜI GIAN 4 GIAI ĐOẠN & BÙ ĐỘ TRỄ MẠNG (RTT) ---
+        syncTimeFromServerPayload = function(res) {
+            if (!res) return;
+
+            if (res.serverNow && typeof publicBoardState !== 'undefined') {
+                var clientRefMs = res.__clientMidMs || Date.now();
+                var measuredOffset = Number(res.serverNow) - clientRefMs;
+                if (!publicBoardState.offsetInit) {
+                    publicBoardState.serverOffset = measuredOffset;
+                    publicBoardState.offsetInit = true;
+                } else if (Math.abs(measuredOffset - publicBoardState.serverOffset) > 4000) {
+                    publicBoardState.serverOffset = measuredOffset;
+                } else {
+                    publicBoardState.serverOffset = Math.round(publicBoardState.serverOffset * 0.7 + measuredOffset * 0.3);
+                }
+            }
+
+            if (res.openingTimeMs) eventOpeningTime = Number(res.openingTimeMs);
+            else if (res.eventStartTimeMs && !res.raceStartTimeMs) eventOpeningTime = Number(res.eventStartTimeMs);
+
+            if (res.durationMs) eventDuration = Number(res.durationMs);
+            else if (res.eventDurationMs) eventDuration = Number(res.eventDurationMs);
+
+            if (typeof res.raceStartTimeMs !== 'undefined') {
+                eventRaceStartTime = Number(res.raceStartTimeMs) || 0;
+            }
+            if (typeof res.raceEndTimeMs !== 'undefined') {
+                eventRaceEndTime = Number(res.raceEndTimeMs) || (eventRaceStartTime > 0 && eventDuration > 0 ? eventRaceStartTime + eventDuration : 0);
+            } else if (eventRaceStartTime > 0 && eventDuration > 0) {
+                eventRaceEndTime = eventRaceStartTime + eventDuration;
+            }
+
+            if (res.eventPhase) serverEventPhase = res.eventPhase;
+            else if (res.phase) serverEventPhase = res.phase;
+
+            // Tương thích các biến cũ
+            eventStartTime = eventRaceStartTime || eventOpeningTime;
+            eventEndTime = eventRaceEndTime;
+
+            if (res.rallyPoint && res.rallyPoint.name) {
+                currentRallyPoint = res.rallyPoint;
+            }
+
+            if (typeof publicBoardState !== 'undefined') {
+                publicBoardState.loaded = true;
+                publicBoardState.openingTimeMs = eventOpeningTime;
+                publicBoardState.startTimeMs = eventOpeningTime;
+                publicBoardState.durationMs = eventDuration;
+                publicBoardState.raceStartTimeMs = eventRaceStartTime;
+                publicBoardState.raceEndTimeMs = eventRaceEndTime;
+                publicBoardState.phase = getClientEventPhase();
+            }
+
+            updateQtvStartProgramButtonUI();
+        };
+
+        getClientEventPhase = function() {
+            var now = getSyncedNowMs();
+            if (eventRaceStartTime > 0) {
+                var endMs = eventRaceEndTime || (eventRaceStartTime + eventDuration);
+                if (endMs > 0 && now >= endMs) return 'post';
+                return 'live';
+            }
+            if (eventOpeningTime > 0) {
+                return (now >= eventOpeningTime) ? 'opening' : 'pre_opening';
+            }
+            return serverEventPhase || 'pre_opening';
+        };
+
+        isBeforeEventStartClient = function() {
+            var ph = getClientEventPhase();
+            return (ph === 'pre_opening' || ph === 'opening');
+        };
+
+        computePhaseByTime = function() {
+            return getClientEventPhase();
+        };
+
+        function updateQtvStartProgramButtonUI() {
+            var appCard = document.getElementById('appCard');
+            var isSuper = !!(
+                appCard &&
+                appCard.classList.contains('logged-in-qtv') &&
+                currentTeamId &&
+                currentTeamId.toString().trim().toUpperCase() === 'QTV-001'
+            );
+            var ph = getClientEventPhase();
+            var canStart = isSuper && (ph === 'pre_opening' || ph === 'opening');
+
+            var hdrBtn = document.getElementById('qtv-start-program-btn');
+            if (hdrBtn) {
+                hdrBtn.style.display = canStart ? 'inline-flex' : 'none';
+                hdrBtn.classList.toggle('pulse-ready', ph === 'opening');
+                hdrBtn.textContent = (ph === 'opening') ? '🚀 Bắt đầu ngay' : '🚀 Bắt đầu sớm';
+            }
+            var modalBtn = document.getElementById('qtv-modal-start-program-btn');
+            if (modalBtn) {
+                modalBtn.style.display = canStart ? 'block' : 'none';
+            }
+        }
+
+        function handleQtvStartProgram() {
+            if (!currentTeamId || currentTeamId.trim().toUpperCase() !== 'QTV-001') {
+                alert('Chỉ tài khoản QTV-001 mới được phát lệnh bắt đầu chương trình!');
+                return;
+            }
+            var ph = getClientEventPhase();
+            var extraWarn = (ph === 'pre_opening')
+                ? '\n\n(Lưu ý: Hiện vẫn đang TRƯỚC giờ khai mạc dự kiến. Bấm OK để bắt đầu sớm ngay lập tức!)'
+                : '';
+            if (!confirm('🚀 XÁC NHẬN PHÁT LỆNH BẮT ĐẦU CHƯƠNG TRÌNH?\n\nĐồng hồ thi đấu sẽ bắt đầu đếm ngược và toàn bộ đội chơi sẽ tự động mở Mật thư Trạm 1!' + extraWarn)) {
+                return;
+            }
+
+            var btn1 = document.getElementById('qtv-start-program-btn');
+            var btn2 = document.getElementById('qtv-modal-start-program-btn');
+            if (btn1) { btn1.disabled = true; btn1.textContent = '⏳ Đang phát lệnh...'; }
+            if (btn2) { btn2.disabled = true; btn2.textContent = '⏳ Đang phát lệnh...'; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn1) btn1.disabled = false;
+                    if (btn2) { btn2.disabled = false; btn2.textContent = '🚀 BẮT ĐẦU CHƯƠNG TRÌNH NGAY (Mở Trạm 1)'; }
+                    if (res && res.success) {
+                        syncTimeFromServerPayload(res);
+                        updateGlobalCountdown();
+                        closeTimeSettingsModal();
+                        showToast(res.message, false);
+                        if (typeof fetchQtvDashboardData === 'function') fetchQtvDashboardData(false);
+                    } else {
+                        updateQtvStartProgramButtonUI();
+                        alert(res ? res.message : 'Không thể phát lệnh bắt đầu!');
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn1) btn1.disabled = false;
+                    if (btn2) btn2.disabled = false;
+                    updateQtvStartProgramButtonUI();
+                    alert('❌ Lỗi kết nối: ' + err.message);
+                })
+                .qtvStartProgram(currentTeamId);
+        }
+
+        // --- TỰ ĐIỀN SẴN GIỜ HIỆN TẠI KHI MỞ MODAL CÀI ĐẶT THỜI GIAN ---
+        function formatToDatetimeLocalInput(ms) {
+            if (!ms) return '';
+            var d = new Date(ms);
+            return d.getFullYear() + '-' + padNum(d.getMonth() + 1) + '-' + padNum(d.getDate()) +
+                   'T' + padNum(d.getHours()) + ':' + padNum(d.getMinutes());
+        }
+
+        openTimeSettingsModal = function() {
+            var startInp = document.getElementById('qtv-setting-start-time');
+            var durInp = document.getElementById('qtv-setting-duration');
+            if (startInp && eventOpeningTime > 0) {
+                startInp.value = formatToDatetimeLocalInput(eventOpeningTime);
+            }
+            if (durInp && eventDuration > 0) {
+                durInp.value = Math.round(eventDuration / 60000);
+            }
+            updateQtvStartProgramButtonUI();
+            var m = document.getElementById('qtv-time-settings-modal');
+            if (m) m.style.display = 'flex';
+        };
+
+        fetchSystemTimeAndStart = function(callback) {
+            google.script.run.withSuccessHandler(function(res) {
+                if (res && res.success) {
+                    syncTimeFromServerPayload(res);
+                }
+                if (typeof callback === 'function') callback();
+            }).getGlobalTimeSettings();
+        };
+
+        // --- PANEL TRÁI 4 GIAI ĐOẠN (pre_opening & opening ĐỀU HIỆN DẶN DÒ) ---
+        applyLeftPanelPhaseUI = function(phase) {
+            var loadEl = document.getElementById('lp-phase-loading');
+            var preEl = document.getElementById('lp-phase-pre');
+            var liveEl = document.getElementById('lp-phase-live');
+            var postEl = document.getElementById('lp-phase-post');
+            if (!preEl || !liveEl || !postEl) return;
+
+            if (loadEl) loadEl.style.display = 'none';
+            var isPreOrOpening = (phase === 'pre' || phase === 'pre_opening' || phase === 'opening');
+            preEl.style.display = isPreOrOpening ? 'block' : 'none';
+            liveEl.style.display = (phase === 'live') ? 'block' : 'none';
+            postEl.style.display = (phase === 'post') ? 'block' : 'none';
+        };
+
+        savePublicBoardCache = function(res) {
+            try {
+                var payload = {
+                    openingTimeMs: res.openingTimeMs || 0,
+                    durationMs: res.durationMs || 0,
+                    raceStartTimeMs: res.raceStartTimeMs || 0,
+                    raceEndTimeMs: res.raceEndTimeMs || 0,
+                    serverOffset: publicBoardState.serverOffset || 0,
+                    teamCount: res.teamCount || 6,
+                    savedAt: Date.now()
+                };
+                localStorage.setItem(PUBLIC_BOARD_CACHE_KEY, JSON.stringify(payload));
+            } catch (e) {}
+        };
+
+        tryApplyCachedEventPhase = function() {
+            try {
+                var raw = localStorage.getItem(PUBLIC_BOARD_CACHE_KEY);
+                if (!raw) return false;
+                var cached = JSON.parse(raw);
+                if (!cached || (!cached.openingTimeMs && !cached.raceStartTimeMs)) return false;
+
+                eventOpeningTime = cached.openingTimeMs || 0;
+                eventDuration = cached.durationMs || 0;
+                eventRaceStartTime = cached.raceStartTimeMs || 0;
+                eventRaceEndTime = cached.raceEndTimeMs || (eventRaceStartTime > 0 ? eventRaceStartTime + eventDuration : 0);
+                publicBoardState.serverOffset = cached.serverOffset || 0;
+                publicBoardState.loaded = true;
+                publicBoardState.teamCount = cached.teamCount || 6;
+
+                var ph = getClientEventPhase();
+                publicBoardState.phase = ph;
+                applyLeftPanelPhaseUI(ph);
+                if (ph === 'post') {
+                    renderSealedDummyRows(publicBoardState.teamCount);
+                    var ov = document.getElementById('lp-frost-overlay');
+                    if (ov) ov.classList.remove('revealed');
+                }
+                return true;
+            } catch (e) {
+                return false;
+            }
+        };
+
+        // --- CẬP NHẬT ĐỒNG HỒ TỔNG 4 GIAI ĐOẠN (TRANG CHỦ, SV, CTV) ---
+        updateGlobalCountdown = function() {
+            try {
+                var ph = getClientEventPhase();
+                var now = getSyncedNowMs();
+
+                var timerEl = document.getElementById('global-countdown');
+                var timerSubLogin = timerEl ? timerEl.nextElementSibling : null;
+                var timerDashEl = document.getElementById('global-countdown-dash');
+                var statusDashEl = document.getElementById('global-status-dash');
+                var ctvTimerDashEl = document.getElementById('ctv-global-countdown');
+
+                var mainText = '00:00:00';
+                var subText = '';
+                var mainColor = '#ef4444';
+                var dashColor = '#0369a1';
+
+                if (ph === 'pre_opening') {
+                    var remOpen = Math.max(0, eventOpeningTime - now);
+                    mainText = formatTimeMs(remOpen);
+                    subText = 'SẼ KHAI MẠC SAU';
+                    mainColor = '#0284c7';
+                    dashColor = '#0284c7';
+                } else if (ph === 'opening') {
+                    mainText = 'ĐANG KHAI MẠC';
+                    subText = 'CHỜ LỆNH BẮT ĐẦU';
+                    mainColor = '#d97706';
+                    dashColor = '#d97706';
+                } else if (ph === 'live') {
+                    var remRace = Math.max(0, (eventRaceEndTime || (eventRaceStartTime + eventDuration)) - now);
+                    mainText = formatTimeMs(remRace);
+                    subText = 'ĐANG ĐẾM NGƯỢC';
+                    mainColor = '#ef4444';
+                    dashColor = '#0369a1';
+                } else {
+                    mainText = '00:00:00';
+                    subText = 'ĐÃ KẾT THÚC';
+                    mainColor = '#ef4444';
+                    dashColor = '#ef4444';
+                }
+
+                if (timerEl) {
+                    timerEl.textContent = mainText;
+                    timerEl.style.color = mainColor;
+                    timerEl.style.fontSize = (ph === 'opening') ? '16px' : '20px';
+                }
+                if (timerSubLogin) {
+                    timerSubLogin.textContent = subText;
+                    timerSubLogin.style.color = mainColor;
+                }
+                if (timerDashEl) {
+                    timerDashEl.textContent = mainText;
+                    timerDashEl.style.color = dashColor;
+                    timerDashEl.style.fontSize = (ph === 'opening') ? '14px' : '';
+                }
+                if (statusDashEl) {
+                    statusDashEl.textContent = subText;
+                    statusDashEl.style.color = dashColor;
+                }
+                if (ctvTimerDashEl) {
+                    ctvTimerDashEl.textContent = mainText;
+                    ctvTimerDashEl.style.color = dashColor;
+                    ctvTimerDashEl.style.fontSize = (ph === 'opening') ? '14px' : '';
+                }
+
+                updateQtvStartProgramButtonUI();
+
+                // Khi đang ở màn hình chờ trang chủ và giai đoạn tự chuyển
+                var appCard = document.getElementById('appCard');
+                var isLogged = appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-ctv') || appCard.classList.contains('logged-in-qtv'));
+                if (!isLogged && publicBoardState.loaded && ph !== publicBoardState.phase) {
+                    publicBoardState.phase = ph;
+                    applyLeftPanelPhaseUI(ph);
+                    if (ph === 'post') {
+                        renderSealedDummyRows(publicBoardState.teamCount);
+                        fetchPublicEventBoardState();
+                    }
+                }
+
+                if (ph === 'post' && appCard) {
+                    if (appCard.classList.contains('logged-in') && currentRole === 'student') {
+                        var stEl = document.getElementById('team-stopwatch-status');
+                        if (stEl) { stEl.textContent = 'ĐÃ KẾT THÚC'; stEl.style.color = '#ef4444'; }
+                        applyStudentUiLock('SV_ENDGAME');
+                    } else if (appCard.classList.contains('logged-in-ctv')) {
+                        applyCtvUiLock('CTV_ENDGAME');
+                    }
+                }
+            } catch (e) {}
+        };
+
+        // --- XỬ LÝ NỘI DUNG DẶN DÒ (GIỮ CHỮ MỜ "QUẢN TRỊ VIÊN ĐANG CẬP NHẬT..." NẾU TRỐNG) ---
+        applyBriefingContent = function(br) {
+            var preEl = document.getElementById('lp-phase-pre');
+            if (!preEl) return;
+
+            var hasContent = !!(br && (br.locationTitle || (br.items && br.items.length > 0) || br.notice));
+            if (!hasContent) {
+                var stuPreEmpty = document.getElementById('studentPreEventCard');
+                if (stuPreEmpty) stuPreEmpty.innerHTML = preEl.innerHTML;
+                return;
+            }
+
+            var locHtml = br.locationTitle
+                ? ('<strong>' + escapeHtmlComm(br.locationTitle) + '</strong>' + (br.locationDesc ? ('<br>' + escapeHtmlComm(br.locationDesc)) : ''))
+                : '<span class="lp-placeholder-muted">Quản trị viên đang cập nhật...</span>';
+
+            var itemsArr = (br.items || []).filter(Boolean);
+            var itemsHtml = itemsArr.length > 0
+                ? ('<ul class="lp-checklist">' + itemsArr.map(function(line) {
+                    var clean = line.toString().trim().replace(/^[•\-\*]\s*/, '');
+                    return '<li><span>' + escapeHtmlComm(clean) + '</span></li>';
+                  }).join('') + '</ul>')
+                : '<div class="lp-info-body lp-placeholder-muted">Quản trị viên đang cập nhật...</div>';
+
+            var noticeHtml = br.notice
+                ? '<div class="lp-notice-pill">' + escapeHtmlComm(br.notice) + '</div>'
+                : '';
+
+            preEl.innerHTML =
+                '<div class="stat-compact-title-row" style="margin-bottom: 10px;">' +
+                    '<span class="stat-compact-icon">📋</span>' +
+                    '<span class="stat-compact-title">THÔNG TIN TẬP TRUNG & DẶN DÒ</span>' +
+                '</div>' +
+                '<div class="lp-briefing-stack">' +
+                    '<div class="lp-info-card">' +
+                        '<div class="lp-info-head">📍 Thời gian & Điểm tập trung</div>' +
+                        '<div class="lp-info-body">' + locHtml + '</div>' +
+                    '</div>' +
+                    '<div class="lp-info-card">' +
+                        '<div class="lp-info-head">🎒 Vật dụng cần chuẩn bị</div>' +
+                        itemsHtml +
+                    '</div>' +
+                    noticeHtml +
+                '</div>';
+
+            var stuPre = document.getElementById('studentPreEventCard');
+            if (stuPre) stuPre.innerHTML = preEl.innerHTML;
+        };
+
+        // --- DỰNG BẢNG THÀNH TÍCH RIÊNG CHO SINH VIÊN (KHÔNG HIỆN THỨ HẠNG) ---
+        function buildStudentAchievementHTML(ach) {
+            if (!ach) {
+                return '<div style="text-align:center; padding:18px; color:#64748b; font-size:12.5px;">Chưa có dữ liệu thành tích của đội.</div>';
+            }
+
+            var html = '<div class="sv-ach-summary-grid">' +
+                '<div class="sv-ach-kpi"><div class="sv-ach-kpi-label">Trạm hoàn thành</div><div class="sv-ach-kpi-val">' + ach.progress + '/5</div></div>' +
+                '<div class="sv-ach-kpi"><div class="sv-ach-kpi-label">Mật thư đã giải</div><div class="sv-ach-kpi-val">' + ach.ciphersSolved + '/6</div></div>' +
+                '<div class="sv-ach-kpi"><div class="sv-ach-kpi-label">Tổng giờ chơi</div><div class="sv-ach-kpi-val">' + (ach.totalTimeStr || '00:00:00') + '</div></div>' +
+            '</div>';
+
+            html += '<div class="sv-ach-list">';
+            (ach.route || []).forEach(function(r, idx) {
+                var badgeCls = r.status === 'finished' ? 'badge-green' : (r.status === 'running' ? 'badge-amber' : 'badge-slate');
+                var stText = r.status === 'finished' ? ('⏱️ ' + r.timeStr) : (r.status === 'running' ? 'Đang chơi' : 'Chưa xong');
+                var mtText = r.cipherSolved
+                    ? ('🔑 ' + (r.cipherActualStr || '') + ' (Δ ' + r.cipherDeltaStr + ')' + (r.cipherHintUsed ? ' 💡' : ''))
+                    : '🔒 Chưa giải mật thư';
+                html += '<div class="sv-ach-row">' +
+                    '<div><strong style="color:#0f172a;">' + (idx + 1) + '. ' + escapeHtmlComm(r.station) + '</strong>' +
+                    '<div style="font-size:11px; color:#64748b; margin-top:2px;">' + mtText + '</div></div>' +
+                    '<span class="qtv-badge ' + badgeCls + '">' + stText + '</span>' +
+                '</div>';
+            });
+
+            if (ach.finalCipher) {
+                var fc = ach.finalCipher;
+                var fcText = fc.solved
+                    ? ('🔑 ' + (fc.actualStr || '') + ' (Δ ' + fc.deltaStr + ')' + (fc.hintUsed ? ' 💡' : ''))
+                    : '🔒 Chưa mở mật thư về đích';
+                html += '<div class="sv-ach-row final-row">' +
+                    '<div><strong style="color:#b45309;">🏁 Mật thư Về đích (' + escapeHtmlComm(fc.station) + ')</strong>' +
+                    '<div style="font-size:11px; color:#78350f; margin-top:2px;">' + fcText + '</div></div>' +
+                    '<span class="qtv-badge ' + (fc.solved ? 'badge-green' : 'badge-amber') + '">' + (fc.solved ? '✅ Đã giải' : 'Chờ giải') + '</span>' +
+                '</div>';
+            }
+            html += '</div>';
+
+            if (ach.hintsUsedCount > 0) {
+                html += '<div style="font-size:11px; color:#b45309; font-weight:700; margin-top:8px; text-align:right;">💡 Đã dùng ' + ach.hintsUsedCount + ' lượt gợi ý (+' + (ach.hintsUsedCount * 180) + 's)</div>';
+            }
+            return html;
+        }
+
+        function openSvAchievementModal() {
+            var body = document.getElementById('sv-modal-achievement-body');
+            if (body) body.innerHTML = buildStudentAchievementHTML(currentSvAchievement);
+            var m = document.getElementById('sv-achievement-modal');
+            if (m) m.classList.add('show');
+        }
+
+        function closeSvAchievementModal() {
+            var m = document.getElementById('sv-achievement-modal');
+            if (m) m.classList.remove('show');
+        }
+
+        function updateFinalFinishCardUI() {
+            var rp = currentRallyPoint || { name: 'Điểm tập kết Ban Tổ chức', lat: 10.7554, lng: 106.6663 };
+            var nameEl = document.getElementById('sv-finish-rally-name');
+            if (nameEl) nameEl.textContent = rp.name || 'Điểm tập kết Ban Tổ chức';
+
+            var linkEl = document.getElementById('sv-finish-map-link');
+            if (linkEl) {
+                var q = (rp.lat && rp.lng) ? (rp.lat + ',' + rp.lng) : encodeURIComponent(rp.name || 'ĐH Y Dược TP.HCM');
+                linkEl.href = 'https://maps.google.com/?q=' + q;
+            }
+
+            var distEl = document.getElementById('sv-finish-rally-dist');
+            if (distEl) {
+                if (studentLastLat && studentLastLng && rp.lat && rp.lng) {
+                    var km = getDistanceFromLatLonInKm(studentLastLat, studentLastLng, rp.lat, rp.lng);
+                    distEl.textContent = '📍 Cách Điểm tập kết khoảng ' + (km < 1 ? (km * 1000).toFixed(0) + ' m' : km.toFixed(2) + ' km');
+                } else {
+                    distEl.textContent = '📍 Bấm nút bên dưới để mở chỉ đường Google Maps';
+                }
+            }
+
+            var bodyEl = document.getElementById('sv-final-achievement-body');
+            if (bodyEl) bodyEl.innerHTML = buildStudentAchievementHTML(currentSvAchievement);
+        }
+
+        function updateCipherHeaderForStation(stCode) {
+            var isFinal = (stCode && stCode.toString().trim().toUpperCase() === 'TRAM_11');
+            var iconEl = document.getElementById('cipher-lock-icon');
+            var titleEl = document.getElementById('cipher-lock-title');
+            var descEl = document.getElementById('cipher-lock-desc');
+            if (iconEl) iconEl.textContent = isFinal ? '🏁' : '🔑';
+            if (titleEl) titleEl.textContent = isFinal ? 'MẬT THƯ VỀ ĐÍCH (TRAM_11)' : 'MỞ KHÓA LỘ TRÌNH TRẠM';
+            if (descEl) {
+                descEl.textContent = isFinal
+                    ? 'Đội bạn đã xong đủ 5 trạm! Hãy giải Mật thư chung cuối cùng để tìm tọa độ Điểm tập kết và chốt thành tích (có tính vào xếp hạng)!'
+                    : 'Giải đáp án mật thư để mở khóa tọa độ trạm tiếp theo. Bất kỳ thành viên nào nhập đúng cũng sẽ mở khóa cho cả đội!';
+            }
+        }
+
+        // --- MỞ RỘNG Ổ KHÓA GIAO DIỆN SINH VIÊN (HỖ TRỢ SV_FINAL_FINISH) ---
+        var _prevApplyStudentUiLock12 = applyStudentUiLock;
+        applyStudentUiLock = function(lockKey) {
+            var finCard = document.getElementById('svFinalFinishCard');
+            if (lockKey === 'SV_FINAL_FINISH') {
+                if (currentSvUiLockKey === 'SV_FINAL_FINISH') {
+                    updateFinalFinishCardUI();
+                    return;
+                }
+                currentSvUiLockKey = 'SV_FINAL_FINISH';
+                ['svLockLoadingCard', 'studentPreEventCard', 'passwordLockCard', 'itineraryCard', 'challengeCard', 'svCheckinBox'].forEach(function(id) {
+                    var el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                });
+                studentWaitingPreEvent = false;
+                if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+                if (finCard) finCard.style.display = 'block';
+                updateFinalFinishCardUI();
+                if (!finalFinishConfettiFired) {
+                    finalFinishConfettiFired = true;
+                    setTimeout(launchCelebrationConfetti, 150);
+                }
+                return;
+            }
+
+            if (finCard) finCard.style.display = 'none';
+            _prevApplyStudentUiLock12(lockKey);
+            if (lockKey === 'SV_CIPHER') {
+                updateCipherHeaderForStation(currentStationCode);
+            }
+        };
+
+        // --- ĐỒNG HỒ MẬT THƯ CHỐNG GIẬT LÙI (TÍNH TỪ MỐC CỐ ĐỊNH + CHỐT MONOTONIC) ---
+        getCurrentCipherLiveMs = function() {
+            if (localCipherIsBeforeStart) return 0;
+            if (cipherStartServerMs > 0) {
+                var raw = Math.max(0, getSyncedNowMs() - cipherStartServerMs) + cipherPenaltyServerMs;
+                if (raw > cipherHighWaterMs) cipherHighWaterMs = raw;
+                return cipherHighWaterMs;
+            }
+            var fallback = localCipherAnchorElapsedMs + Math.max(0, Date.now() - localCipherAnchorTime);
+            if (fallback > cipherHighWaterMs) cipherHighWaterMs = fallback;
+            return cipherHighWaterMs;
+        };
+
+        var _prevStopCipher13 = stopCipherLiveTicker;
+        stopCipherLiveTicker = function() {
+            _prevStopCipher13();
+            cipherStartServerMs = 0;
+            cipherPenaltyServerMs = 0;
+            cipherHighWaterMs = 0;
+        };
+
+        syncCipherUI = function(cipher) {
+            if (!cipher) return;
+
+            var isSameStation = (localCipherStationKey === cipher.stationCode);
+            var prevHintUsed = isSameStation ? localCipherHintUsed : !!cipher.hintUsed;
+            if (!isSameStation) {
+                cipherHighWaterMs = 0;
+            }
+            localCipherStationKey = cipher.stationCode;
+            localCipherActive = true;
+            localCipherIsBeforeStart = !!cipher.isBeforeStart;
+            updateCipherHeaderForStation(cipher.stationCode);
+
+            var subEl = document.getElementById('cipher-timer-sub');
+            if (subEl) {
+                if (cipher.isBeforeStart) {
+                    subEl.textContent = '⏳ Chờ Ban Tổ chức phát lệnh Bắt đầu chương trình';
+                    subEl.style.color = '#b45309';
+                    subEl.style.display = 'block';
+                } else {
+                    subEl.textContent = '';
+                    subEl.style.display = 'none';
+                }
+            }
+
+            var btnHint = document.getElementById('btn-request-hint');
+            var hintBox = document.getElementById('cipher-hint-box');
+            var hintTextEl = document.getElementById('cipher-hint-text');
+
+            if (btnHint) {
+                if (!cipher.hasHint || cipher.hintUsed) {
+                    btnHint.style.display = 'none';
+                } else {
+                    btnHint.style.display = 'block';
+                    btnHint.disabled = false;
+                    btnHint.classList.remove('used');
+                    btnHint.textContent = '💡 XIN GỢI Ý MẬT THƯ (+ 180 GIÂY)';
+                }
+            }
+
+            if (cipher.hintUsed && cipher.hintText && hintBox && hintTextEl) {
+                hintTextEl.textContent = cipher.hintText;
+                hintBox.style.display = 'block';
+            } else if (hintBox) {
+                hintBox.style.display = 'none';
+            }
+
+            if (isSameStation && !prevHintUsed && cipher.hintUsed && !isCipherAnimating) {
+                var currentDisplayMs = getCurrentCipherLiveMs();
+                localCipherHintUsed = true;
+                cipherStartServerMs = Number(cipher.startTimeMs) || cipherStartServerMs;
+                cipherPenaltyServerMs = Number(cipher.penaltyMs) || 180000;
+                playHintPenaltyAnimation(currentDisplayMs, 180000, function() {
+                    cipherHighWaterMs = Math.max(cipherHighWaterMs, currentDisplayMs + 180000);
+                });
+            } else if (!isCipherAnimating) {
+                localCipherHintUsed = !!cipher.hintUsed;
+                cipherStartServerMs = Number(cipher.startTimeMs) || 0;
+                cipherPenaltyServerMs = Number(cipher.penaltyMs) || (cipher.hintUsed ? 180000 : 0);
+
+                var computedNow = cipherStartServerMs > 0
+                    ? (Math.max(0, getSyncedNowMs() - cipherStartServerMs) + cipherPenaltyServerMs)
+                    : (Number(cipher.totalElapsedMs) || 0);
+
+                // Chống nhảy lùi: nếu cùng trạm & cùng trạng thái gợi ý, lệch < 4s thì KHÔNG bao giờ kéo lùi
+                if (isSameStation && computedNow < cipherHighWaterMs && (cipherHighWaterMs - computedNow) < 4000) {
+                    computedNow = cipherHighWaterMs;
+                } else {
+                    cipherHighWaterMs = Math.max(0, computedNow);
+                }
+
+                localCipherAnchorElapsedMs = computedNow;
+                localCipherAnchorTime = Date.now();
+                updateCipherDisplayMs(computedNow);
+            }
+
+            startCipherLiveTicker();
+        };
+
+        // --- RENDER & POLLING SINH VIÊN (7 GIÂY/LẦN + TẠM DỪNG KHI ẨN TAB + CHỐNG GIẬT ĐỒNG HỒ) ---
+        var _prevRenderStationData12 = renderStationData;
+        renderStationData = function(response) {
+            if (response && response.achievement) currentSvAchievement = response.achievement;
+            _prevRenderStationData12(response);
+            if (response && response.uiLockKey === 'SV_FINAL_FINISH') {
+                applyStudentUiLock('SV_FINAL_FINISH');
+            } else if (response && response.station && response.lockStatus === 'LOCKED') {
+                updateCipherHeaderForStation(response.station.code);
+            }
+        };
+
+        startStudentTimerPolling = function(teamId, stationCode) {
+            if (studentTimerIntervalId) clearInterval(studentTimerIntervalId);
+            if (localStudentTickInterval) clearInterval(localStudentTickInterval);
+
+            localStudentTickInterval = setInterval(function() {
+                var ph = getClientEventPhase();
+                if (studentWaitingPreEvent && ph === 'live' && !isEndgameTriggered) {
+                    studentWaitingPreEvent = false;
+                    showToast('🚀 Chương trình đã bắt đầu! Mở cổng Mật thư Trạm 1!', false);
+                    if (typeof currentStudentFetchTimer === 'function') currentStudentFetchTimer();
+                }
+
+                if (currentSvUiLockKey === 'SV_FINAL_FINISH') {
+                    updateFinalFinishCardUI();
+                }
+
+                var swEl = document.getElementById('team-stopwatch');
+                if (!swEl) return;
+                if (localStudentTimerState === 'running') {
+                    var liveMs = svStationRunStartServerMs > 0
+                        ? (svStationBaseElapsedMs + Math.max(0, getSyncedNowMs() - svStationRunStartServerMs))
+                        : (localStudentElapsedMs + Math.max(0, Date.now() - localStudentStartTime));
+                    if (liveMs > svStationHighWaterMs) svStationHighWaterMs = liveMs;
+                    swEl.textContent = formatTimeMs(svStationHighWaterMs);
+                } else {
+                    swEl.textContent = localStudentFixedTimeStr;
+                }
+            }, 500);
+
+            var fetchTimer = function(forceRun) {
+                if (!forceRun && document.hidden) return;
+                if (isEndgameTriggered || getClientEventPhase() === 'post') {
+                    applyStudentUiLock('SV_ENDGAME');
+                    return;
+                }
+                google.script.run.withSuccessHandler(function(res) {
+                    if (!res || !res.success) return;
+                    syncTimeFromServerPayload(res);
+                    if (res.broadcast && typeof applyBroadcastBanner === 'function') applyBroadcastBanner(res.broadcast);
+                    if (res.achievement) currentSvAchievement = res.achievement;
+                    if (typeof res.progress !== 'undefined') {
+                        var progEl = document.getElementById('team-progress');
+                        if (progEl) progEl.innerHTML = '🏆 ' + res.progress + '/5 Trạm';
+                    }
+
+                    if (res.eventPhase === 'post' || isEndgameTriggered) {
+                        applyStudentUiLock('SV_ENDGAME');
+                        return;
+                    }
+                    if (res.status === 'force_reload') {
+                        silentReload();
+                        return;
+                    }
+
+                    var swEl = document.getElementById('team-stopwatch');
+                    var stEl = document.getElementById('team-stopwatch-status');
+                    var boxEl = document.getElementById('student-dual-timer-box');
+                    if (!swEl || !stEl) return;
+
+                    var curPh = getClientEventPhase();
+                    if (res.isBeforeStart || curPh === 'pre_opening' || curPh === 'opening') {
+                        localStudentTimerState = 'travel';
+                        localStudentFixedTimeStr = '00:00:00';
+                        svStationHighWaterMs = 0;
+                        swEl.textContent = '00:00:00';
+                        swEl.style.color = '#0284c7';
+                        stEl.style.color = '#0284c7';
+                        stEl.textContent = (curPh === 'opening') ? 'ĐANG KHAI MẠC' : 'CHỜ KHAI MẠC';
+                        if (boxEl) { boxEl.style.background = '#f0f9ff'; boxEl.style.borderColor = '#bae6fd'; }
+                        applyStudentUiLock('SV_PRE');
+                        return;
+                    }
+
+                    if (svStationClockKey !== currentStationCode) {
+                        svStationClockKey = currentStationCode;
+                        svStationHighWaterMs = 0;
+                    }
+
+                    localStudentTimerState = res.status;
+                    localStudentFixedTimeStr = res.timeStr || '00:00:00';
+
+                    if (res.status === 'running') {
+                        svStationRunStartServerMs = Number(res.startTimeMs) || 0;
+                        svStationBaseElapsedMs = Number(res.baseElapsedMs) || 0;
+                        var calcMs = svStationRunStartServerMs > 0
+                            ? (svStationBaseElapsedMs + Math.max(0, getSyncedNowMs() - svStationRunStartServerMs))
+                            : (Number(res.elapsedMs) || 0);
+                        if (calcMs >= svStationHighWaterMs || (svStationHighWaterMs - calcMs) > 4000) {
+                            svStationHighWaterMs = Math.max(0, calcMs);
+                        }
+                        localStudentStartTime = Date.now();
+                        localStudentElapsedMs = svStationHighWaterMs;
+                        swEl.style.color = '#ef4444'; stEl.style.color = '#ef4444'; stEl.textContent = 'BẮT ĐẦU TÍNH GIỜ';
+                        if (boxEl) { boxEl.style.background = '#f8fafc'; boxEl.style.borderColor = '#cbd5e1'; }
+                    } else if (res.status === 'paused') {
+                        svStationRunStartServerMs = 0;
+                        svStationHighWaterMs = Number(res.elapsedMs) || 0;
+                        swEl.style.color = '#10b981'; stEl.style.color = '#10b981'; stEl.textContent = 'ĐANG TẠM DỪNG';
+                        if (boxEl) { boxEl.style.background = '#f8fafc'; boxEl.style.borderColor = '#cbd5e1'; }
+                    } else if (res.status === 'finished') {
+                        svStationRunStartServerMs = 0;
+                        swEl.style.color = '#0284c7'; stEl.style.color = '#0284c7'; stEl.textContent = 'KẾT THÚC';
+                        if (boxEl) { boxEl.style.background = '#e0f2fe'; boxEl.style.borderColor = '#38bdf8'; }
+                    } else if (res.isFinalStation && res.lockStatus === 'UNLOCKED') {
+                        svStationRunStartServerMs = 0;
+                        swEl.style.color = '#15803d'; stEl.style.color = '#15803d'; stEl.textContent = 'ĐÃ VỀ ĐÍCH 5/5';
+                        if (boxEl) { boxEl.style.background = '#f0fdf4'; boxEl.style.borderColor = '#86efac'; }
+                    } else {
+                        svStationRunStartServerMs = 0;
+                        svStationHighWaterMs = 0;
+                        swEl.style.color = '#64748b'; stEl.style.color = '#64748b'; stEl.textContent = 'ĐANG DI CHUYỂN';
+                        if (boxEl) { boxEl.style.background = '#f8fafc'; boxEl.style.borderColor = '#cbd5e1'; }
+                    }
+
+                    if (res.lockStatus === 'LOCKED') {
+                        applyStudentUiLock('SV_CIPHER');
+                        if (res.cipher && typeof syncCipherUI === 'function') syncCipherUI(res.cipher);
+                    } else if (res.isFinalStation && res.lockStatus === 'UNLOCKED') {
+                        applyStudentUiLock('SV_FINAL_FINISH');
+                    } else if (res.status === 'finished') {
+                        applyStudentUiLock('SV_WAIT_NEXT');
+                    } else {
+                        applyStudentUiLock('SV_NAV');
+                        updateStudentCheckinUI(res.hasCheckedIn, res.checkinTime, res.checkinPhotoUrl, res.status);
+                    }
+                }).getStudentTimerStatus(currentTeamId, currentStationCode);
+            };
+
+            currentStudentFetchTimer = function() { fetchTimer(true); };
+            fetchTimer(true);
+            // Giãn lên 7 giây/lần để giảm 60% tải Apps Script mà đồng hồ vẫn mượt từng giây
+            studentTimerIntervalId = setInterval(function() { fetchTimer(false); }, 7000);
+        };
+
+        // --- ENDGAME ĐỘNG TỪ TRAM_11 CHO CẢ SINH VIÊN VÀ CTV ---
+        triggerEndgameProtocol = function() {
+            try {
+                var rp = currentRallyPoint || { name: 'Điểm tập kết Ban Tổ chức', lat: 10.7554, lng: 106.6663 };
+                targetLat = rp.lat || 10.7554;
+                targetLng = rp.lng || 106.6663;
+
+                if (typeof setStudentPreEventVisible === 'function') setStudentPreEventVisible(false);
+                ['passwordLockCard', 'challengeCard', 'svCheckinBox', 'svFinalFinishCard'].forEach(function(id) {
+                    var el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                });
+                if (typeof stopCipherLiveTicker === 'function') stopCipherLiveTicker();
+                if (typeof setStudentMapVisible === 'function') setStudentMapVisible(false);
+
+                var card = document.getElementById('itineraryCard');
+                if (card) {
+                    card.style.display = 'block';
+                    card.classList.add('endgame');
+
+                    var badge = document.getElementById('ui-station-badge');
+                    if (badge) { badge.textContent = '🚨 LỆNH TẬP HỢP KHẨN CẤP'; badge.classList.add('endgame'); }
+
+                    var targetName = document.getElementById('ui-target-name');
+                    if (targetName) targetName.textContent = rp.name || 'Điểm tập kết Ban Tổ chức';
+
+                    var navBox = document.getElementById('text-nav-box');
+                    if (navBox) { navBox.style.background = '#fef2f2'; navBox.style.borderColor = '#ef4444'; }
+
+                    var navDist = document.getElementById('nav-distance');
+                    if (navDist) navDist.style.color = '#ef4444';
+
+                    var navInst = document.getElementById('nav-instruction');
+                    if (navInst) {
+                        navInst.textContent = 'Trò chơi đã kết thúc. Dù bạn đang ở trạm nào, hãy di chuyển về Điểm tập kết nhé!';
+                        navInst.style.color = '#991b1b';
+                    }
+
+                    if (studentLastLat && studentLastLng) {
+                        var distKm = getDistanceFromLatLonInKm(studentLastLat, studentLastLng, targetLat, targetLng);
+                        updateNavDistanceUI(distKm);
+                    }
+
+                    var stepList = document.getElementById('ui-step-list');
+                    if (stepList) { stepList.innerHTML = ''; stepList.style.display = 'none'; }
+
+                    var q = (rp.lat && rp.lng) ? (rp.lat + ',' + rp.lng) : encodeURIComponent(rp.name || '');
+                    var actionBtns = document.getElementById('ui-action-btns');
+                    if (actionBtns) {
+                        actionBtns.innerHTML = '<a href="https://maps.google.com/?q=' + q + '" target="_blank" class="btn-map" style="background: #ef4444; padding: 12px; font-size: 14px; width: 100%; text-align: center;">🗺️ Chỉ đường về Điểm tập kết</a>';
+                    }
+                }
+            } catch (e) {}
+        };
+
+        var _prevApplyCtvUiLock13 = applyCtvUiLock;
+        applyCtvUiLock = function(lockKey) {
+            if (lockKey === 'CTV_ENDGAME') {
+                var rp = currentRallyPoint || { name: 'Điểm tập kết Ban Tổ chức', lat: 10.7554, lng: 106.6663 };
+                var ctvEndName = document.getElementById('ctv-endgame-target-name');
+                if (ctvEndName) ctvEndName.textContent = rp.name || 'Điểm tập kết Ban Tổ chức';
+                var ctvEndLink = document.getElementById('ctv-endgame-map-link');
+                if (ctvEndLink) {
+                    var q = (rp.lat && rp.lng) ? (rp.lat + ',' + rp.lng) : encodeURIComponent(rp.name || '');
+                    ctvEndLink.href = 'https://maps.google.com/?q=' + q;
+                }
+                if (ctvNextCountdownInterval) { clearInterval(ctvNextCountdownInterval); ctvNextCountdownInterval = null; }
+            }
+            _prevApplyCtvUiLock13(lockKey);
+        };
+
+        // --- FIX SOS KHI MÁY CHƯA KỊP BẮT GPS ---
+        triggerSOS = function() {
+            if (!currentTeamId) { alert('Chưa xác định được đội! Lỗi tải trang.'); return; }
+            if (confirm('🚨 BẠN ĐANG GẶP SỰ CỐ?\n\nNhấn OK để báo động KHẨN CẤP ngay cho Ban Tổ chức (kể cả khi máy chưa kịp định vị GPS).')) {
+                isSOSMode = true;
+                var latestGps = sessionStorage.getItem('currentGPS');
+                var sosPayload = latestGps ? (latestGps + ' [SOS]') : 'Chưa có GPS [SOS]';
+                google.script.run.updateGPSInBackground(currentTeamId, currentMssv, sosPayload, 'student');
+
+                if (gpsIntervalId) clearInterval(gpsIntervalId);
+                gpsIntervalId = setInterval(function() {
+                    var gps = sessionStorage.getItem('currentGPS');
+                    var p = gps ? (gps + ' [SOS]') : 'Chưa có GPS [SOS]';
+                    google.script.run.updateGPSInBackground(currentTeamId, currentMssv, p, 'student');
+                }, 60000);
+                alert('🚨 Đã phát tín hiệu SOS về Ban Tổ chức! Hãy giữ liên lạc và chờ hỗ trợ.');
+            }
+        };
+
+        // --- GIẢM TẢI APPS SCRIPT: TẮT loadGlobalStats KHI ĐÃ ĐĂNG NHẬP HOẶC ẨN TAB ---
+        var _origLoadGlobalStats13 = loadGlobalStats;
+        loadGlobalStats = function() {
+            if (document.hidden) return;
+            var appCard = document.getElementById('appCard');
+            if (appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-ctv') || appCard.classList.contains('logged-in-qtv'))) {
+                return;
+            }
+            if (getClientEventPhase() !== 'live') return;
+            _origLoadGlobalStats13();
+        };
+
+        // --- NÂNG CẤP CTV: ĐỒNG HỒ CHỐNG GIẬT + ĐẾM NGƯỢC 5 GIÂY RÕ RÀNG + CHUÔNG CHECK-IN ---
+        function startCtvLiveTick() {
+            if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+            ctvTimerIntervalId = setInterval(function() {
+                if (ctvTimerState !== 'running') return;
+                var liveMs = ctvServerRunStartMs > 0
+                    ? (ctvServerBaseElapsedMs + Math.max(0, getSyncedNowMs() - ctvServerRunStartMs))
+                    : (Date.now() - ctvStartTime);
+                if (liveMs > ctvHighWaterMs) ctvHighWaterMs = liveMs;
+                ctvElapsedTime = ctvHighWaterMs;
+                renderCtvTimerUI();
+            }, 300);
+        }
+
+        ctvTimerAction = function(action) {
+            var ph = getClientEventPhase();
+            if (ph === 'pre_opening' || ph === 'opening') {
+                alert('⏳ Hiện chưa phát lệnh bắt đầu chương trình, không thể tính giờ bắt đầu.');
+                return;
+            }
+            if (ph === 'post') {
+                applyCtvUiLock('CTV_ENDGAME');
+                alert('🚨 Chương trình đã kết thúc! Mọi thao tác bấm giờ đã bị khóa.');
+                return;
+            }
+
+            var statusEl = document.getElementById('ctv-timer-status');
+            if (action === 'start') {
+                if (statusEl) statusEl.textContent = 'Đang kết nối Server...';
+                google.script.run.withSuccessHandler(function(res) {
+                    if (res && res.success) {
+                        syncTimeFromServerPayload(res);
+                        ctvTimerState = 'running';
+                        ctvServerRunStartMs = Number(res.startTimeMs) || getSyncedNowMs();
+                        ctvServerBaseElapsedMs = Number(res.baseElapsedMs) || 0;
+                        ctvHighWaterMs = 0;
+                        ctvElapsedTime = 0;
+                        ctvStartTime = Date.now();
+                        startCtvLiveTick();
+                        document.getElementById('ctv-btn-start').style.display = 'none';
+                        document.getElementById('ctv-btn-pause').style.display = 'block';
+                        if (statusEl) { statusEl.textContent = 'Đang tính giờ cho đội ' + ctvManagingTeam; statusEl.style.color = '#ef4444'; }
+                    } else {
+                        if (statusEl) { statusEl.textContent = (res && res.message) ? res.message : 'Lỗi kết nối!'; statusEl.style.color = '#ef4444'; }
+                        if (res && res.message) alert(res.message);
+                    }
+                }).startTeamStationTime(ctvManagingTeam, currentRoleAssign);
+
+            } else if (action === 'pause') {
+                ctvTimerState = 'paused';
+                if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                ctvServerRunStartMs = 0;
+                ctvServerBaseElapsedMs = ctvElapsedTime;
+                document.getElementById('ctv-btn-pause').style.display = 'none';
+                document.getElementById('ctv-btn-resume').style.display = 'block';
+                document.getElementById('ctv-btn-finish').style.display = 'block';
+                if (statusEl) { statusEl.textContent = 'Đã tạm dừng. Thời gian: ' + formatTimeMs(ctvElapsedTime); statusEl.style.color = '#b45309'; }
+                google.script.run.withSuccessHandler(function() {}).pauseTeamStationTime(ctvManagingTeam, currentRoleAssign, ctvElapsedTime);
+
+            } else if (action === 'resume') {
+                ctvTimerState = 'running';
+                ctvStartTime = Date.now() - ctvElapsedTime;
+                ctvServerRunStartMs = getSyncedNowMs();
+                ctvServerBaseElapsedMs = ctvElapsedTime;
+                ctvHighWaterMs = ctvElapsedTime;
+                startCtvLiveTick();
+                document.getElementById('ctv-btn-resume').style.display = 'none';
+                document.getElementById('ctv-btn-finish').style.display = 'none';
+                document.getElementById('ctv-btn-pause').style.display = 'block';
+                if (statusEl) { statusEl.textContent = 'Đang tính giờ cho đội ' + ctvManagingTeam; statusEl.style.color = '#ef4444'; }
+                google.script.run.withSuccessHandler(function(res) {
+                    if (res && res.success) {
+                        syncTimeFromServerPayload(res);
+                        if (res.startTimeMs) ctvServerRunStartMs = Number(res.startTimeMs);
+                    }
+                }).resumeTeamStationTime(ctvManagingTeam, currentRoleAssign, ctvElapsedTime);
+
+            } else if (action === 'finish') {
+                var finalTimeStr = formatTimeMs(ctvElapsedTime);
+                if (confirm('Xác nhận KẾT THÚC trạm cho đội ' + ctvManagingTeam + ' với thành tích: ' + finalTimeStr + ' ?')) {
+                    if (statusEl) statusEl.textContent = 'Đang lưu lên hệ thống...';
+                    google.script.run.withSuccessHandler(function(res) {
+                        if (res && res.success) {
+                            showToast('Đã lưu thành tích: ' + finalTimeStr, false);
+                            ctvSearchTeam(ctvManagingTeam);
+                        } else {
+                            alert((res && res.message) ? res.message : 'Lỗi khi lưu!');
+                        }
+                    }).finishTeamStationTime(ctvManagingTeam, currentRoleAssign, finalTimeStr);
+                }
+            }
+        };
+
+        fetchProximityTeams = function() {
+            if (document.hidden) return;
+            google.script.run.withSuccessHandler(function(res) {
+                var container = document.getElementById('ctv-proximity-container');
+                var statusEl = document.getElementById('prox-update-status');
+                if (statusEl) statusEl.textContent = 'Cập nhật: ' + padNum(new Date().getHours()) + ':' + padNum(new Date().getMinutes()) + ':' + padNum(new Date().getSeconds());
+                if (!container) return;
+
+                if (res && res.success) {
+                    syncTimeFromServerPayload(res);
+                    if (res.broadcast && typeof applyBroadcastBanner === 'function') applyBroadcastBanner(res.broadcast);
+                    if (res.eventPhase === 'post') { applyCtvUiLock('CTV_ENDGAME'); return; }
+                }
+
+                container.innerHTML = '';
+                var newCheckinDetected = false;
+
+                if (res && res.success && res.teams && res.teams.length > 0) {
+                    res.teams.forEach(function(t) {
+                        if (t.hasCheckedIn) {
+                            var ckKey = t.teamId + '_' + (t.checkinTime || 'ok');
+                            if (ctvRadarFirstLoadDone && !lastCtvCheckinKeys[ckKey]) {
+                                newCheckinDetected = true;
+                            }
+                            lastCtvCheckinKeys[ckKey] = true;
+                        }
+
+                        var item = document.createElement('div');
+                        var distText = t.dist < 1 ? (t.dist * 1000).toFixed(0) + ' m' : t.dist.toFixed(2) + ' km';
+                        if (t.dist === 999) distText = 'Chưa bật GPS';
+
+                        var badgeClass = 'blue';
+                        var itemClass = 'proximity-item';
+                        var statusDesc = 'Đang di chuyển đến trạm';
+
+                        if (t.timerStatus === 'running') {
+                            badgeClass = 'green'; itemClass += ' arrived-checked';
+                            statusDesc = '⏱️ ĐANG CHƠI TẠI TRẠM'; distText = 'Đang chơi';
+                        } else if (t.timerStatus === 'paused') {
+                            badgeClass = 'amber'; itemClass += ' approaching';
+                            statusDesc = '⏸️ ĐANG TẠM DỪNG'; distText = 'Tạm dừng';
+                        } else if (t.timerStatus === 'finished') {
+                            badgeClass = 'blue'; statusDesc = '✅ ĐÃ XONG — Chờ gửi mật thư'; distText = 'Hoàn thành';
+                        } else if (t.hasCheckedIn) {
+                            badgeClass = 'green'; itemClass += ' arrived-checked';
+                            statusDesc = '📸 ĐÃ CHECK-IN ẢNH' + (t.checkinTime ? (' (' + t.checkinTime + ')') : '') + ' • Sẵn sàng chơi';
+                            distText = 'Đã đến';
+                        } else if (t.dist <= 0.1) {
+                            badgeClass = 'red'; itemClass += ' very-close';
+                            statusDesc = '🚨 RẤT GẦN TRẠM (Chưa bấm check-in ảnh)';
+                        } else if (t.dist <= 1.0) {
+                            badgeClass = 'amber'; itemClass += ' approaching';
+                            statusDesc = '⚠️ Đang ở gần (< 1km)';
+                        }
+
+                        item.className = itemClass;
+                        item.innerHTML = '<div class="prox-team-info">' +
+                                         '<span class="prox-team-id">Đội: ' + escapeHtmlComm(t.teamId) + '</span>' +
+                                         '<span class="prox-team-status">' + statusDesc + '</span>' +
+                                         '</div>' +
+                                         '<div class="prox-dist-badge ' + badgeClass + '">' + distText + '</div>';
+                        container.appendChild(item);
+                    });
+                } else {
+                    container.innerHTML = '<div style="font-size: 12px; color: #64748b; text-align: center; padding: 40px 0;">Chưa có đội nào đang di chuyển tới hoặc đang chơi tại trạm này.</div>';
+                }
+
+                ctvRadarFirstLoadDone = true;
+                if (newCheckinDetected) {
+                    playAlertBeep('checkin');
+                    showToast('📸 Có đội mới vừa Check-in ảnh tại trạm!', false);
+                }
+            }).getProximityTeamsForStation(currentRoleAssign);
+        };
+
+        ctvSearchTeam = function(forceTeamId) {
+            if (ctvNextCountdownInterval) { clearInterval(ctvNextCountdownInterval); ctvNextCountdownInterval = null; }
+            if (getClientEventPhase() === 'post') {
+                applyCtvUiLock('CTV_ENDGAME');
+                return;
+            }
+
+            var selectEl = document.getElementById('ctv-search-team-id');
+            var btnEl = document.getElementById('ctv-btn-search-el');
+            var ckInfoEl = document.getElementById('ctv-checkin-info-box');
+            if (ckInfoEl) { ckInfoEl.style.display = 'none'; ckInfoEl.innerHTML = ''; }
+
+            var teamId = forceTeamId ? forceTeamId : (selectEl ? selectEl.value.trim() : '');
+
+            if (teamId === '') {
+                ctvManagingTeam = '';
+                ctvTimerState = 'idle'; ctvElapsedTime = 0; ctvHighWaterMs = 0; ctvServerRunStartMs = 0;
+                if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                document.getElementById('ctv-target-team-name').textContent = '---';
+                document.getElementById('ctv-team-progress').textContent = '🏆 ---';
+                document.getElementById('ctv-timer-controls').style.display = 'none';
+                document.getElementById('ctv-local-stopwatch').textContent = '00:00:00';
+                var statusEmpty = document.getElementById('ctv-timer-status');
+                if (statusEmpty) {
+                    statusEmpty.style.display = 'block';
+                    statusEmpty.textContent = 'Sẵn sàng chọn đội chơi...';
+                    statusEmpty.style.color = '#64748b';
+                }
+                var existingBtn = document.getElementById('btn-send-next-challenge');
+                if (existingBtn) existingBtn.style.display = 'none';
+                return;
+            }
+
+            var curPh = getClientEventPhase();
+            if (curPh === 'pre_opening' || curPh === 'opening') {
+                if (!forceTeamId && selectEl) selectEl.value = teamId;
+                ctvManagingTeam = teamId;
+                document.getElementById('ctv-target-team-name').textContent = teamId;
+                document.getElementById('ctv-team-progress').textContent = (curPh === 'opening') ? '🎤 Đang khai mạc' : '⏳ Chờ giờ G';
+                document.getElementById('ctv-timer-controls').style.display = 'none';
+                var stPre = document.getElementById('ctv-timer-status');
+                if (stPre) {
+                    stPre.style.display = 'block';
+                    stPre.style.color = '#d97706';
+                    stPre.textContent = '⏳ Chưa phát lệnh bắt đầu chương trình, chưa thể tính giờ.';
+                }
+                showToast('⏳ Chưa phát lệnh bắt đầu chương trình!', true);
+                return;
+            }
+
+            if (!forceTeamId && selectEl) selectEl.value = teamId;
+            if (btnEl) { btnEl.disabled = true; btnEl.textContent = '...'; }
+
+            google.script.run.withSuccessHandler(function(res) {
+                if (btnEl) { btnEl.disabled = false; btnEl.textContent = 'TÌM ĐỘI'; }
+                var statusEl = document.getElementById('ctv-timer-status');
+                if (!res || !res.success) {
+                    if (res && res.message) alert(res.message);
+                    return;
+                }
+
+                syncTimeFromServerPayload(res);
+                if (res.eventPhase === 'post') {
+                    applyCtvUiLock('CTV_ENDGAME');
+                    return;
+                }
+
+                ctvManagingTeam = res.teamId;
+                document.getElementById('ctv-target-team-name').textContent = res.teamId;
+                document.getElementById('ctv-team-progress').textContent = '🏆 ' + res.progress + '/5 Trạm';
+                if (statusEl) statusEl.style.display = 'block';
+
+                var nextBtnOld = document.getElementById('btn-send-next-challenge');
+                if (nextBtnOld) nextBtnOld.style.display = 'none';
+
+                if (!res.foundInRoute) {
+                    document.getElementById('ctv-timer-controls').style.display = 'none';
+                    if (statusEl) { statusEl.textContent = '❌ Trạm của bạn KHÔNG CÓ trong lộ trình đội này!'; statusEl.style.color = '#ef4444'; }
+                } else if (res.isWrongStation) {
+                    document.getElementById('ctv-timer-controls').style.display = 'none';
+                    if (statusEl) {
+                        statusEl.innerHTML = '⚠️ Đội này hiện đang ở <strong>' + escapeHtmlComm(res.currentStationText) + '</strong>. Vui lòng chọn đúng đội đang ở trạm của bạn!';
+                        statusEl.style.color = '#d97706';
+                    }
+                    ctvTimerState = 'idle'; ctvElapsedTime = 0; ctvHighWaterMs = 0;
+                    if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                    document.getElementById('ctv-local-stopwatch').textContent = '00:00:00';
+                } else if (res.isCipherLocked) {
+                    document.getElementById('ctv-timer-controls').style.display = 'none';
+                    if (statusEl) {
+                        statusEl.innerHTML = '🔒 Đội này <strong>ĐANG GIẢI MẬT THƯ</strong> (chưa mở khóa lộ trình tới trạm), không được phép cho chơi!';
+                        statusEl.style.color = '#ef4444';
+                    }
+                    ctvTimerState = 'idle'; ctvElapsedTime = 0; ctvHighWaterMs = 0;
+                    if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                    document.getElementById('ctv-local-stopwatch').textContent = '00:00:00';
+                } else if (res.hasFinishedCurrent) {
+                    if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                    ctvTimerState = 'finished';
+                    if (res.timerState && res.timerState.elapsedMs) {
+                        ctvElapsedTime = res.timerState.elapsedMs;
+                        renderCtvTimerUI();
+                    }
+
+                    // ĐẾM NGƯỢC 5 GIÂY RÕ RÀNG TRƯỚC KHI MỞ NÚT GỬI THỬ THÁCH TIẾP THEO
+                    var ctrlArea = document.getElementById('ctv-timer-controls');
+                    ctrlArea.style.display = 'flex';
+                    document.getElementById('ctv-btn-start').style.display = 'none';
+                    document.getElementById('ctv-btn-pause').style.display = 'none';
+                    document.getElementById('ctv-btn-resume').style.display = 'none';
+                    document.getElementById('ctv-btn-finish').style.display = 'none';
+
+                    var nextBtn = document.getElementById('btn-send-next-challenge');
+                    if (!nextBtn) {
+                        nextBtn = document.createElement('button');
+                        nextBtn.id = 'btn-send-next-challenge';
+                        nextBtn.className = 'btn-timer-main';
+                        ctrlArea.appendChild(nextBtn);
+                    }
+
+                    var isFinalNext = !!res.isLastStationInRoute;
+                    var finalBtnLabel = isFinalNext ? '🏁 GỬI MẬT THƯ VỀ ĐÍCH (TRAM_11)' : '🚀 GỬI THỬ THÁCH TIẾP THEO';
+                    var secsLeft = 5;
+
+                    nextBtn.style.display = 'block';
+                    nextBtn.disabled = true;
+                    nextBtn.classList.add('btn-timer-countdown');
+                    nextBtn.style.background = '';
+                    nextBtn.innerHTML = '⏳ Mở nút gửi sau ' + secsLeft + 's...';
+                    if (statusEl) {
+                        statusEl.innerHTML = '✅ Đội đã hoàn thành trạm! Vui lòng chờ 5 giây để xác nhận gửi thử thách kế tiếp...';
+                        statusEl.style.color = '#10b981';
+                    }
+
+                    ctvNextCountdownInterval = setInterval(function() {
+                        if (ctvManagingTeam !== res.teamId || getClientEventPhase() === 'post') {
+                            clearInterval(ctvNextCountdownInterval);
+                            ctvNextCountdownInterval = null;
+                            return;
+                        }
+                        secsLeft--;
+                        if (secsLeft > 0) {
+                            nextBtn.innerHTML = '⏳ Mở nút gửi sau ' + secsLeft + 's...';
+                        } else {
+                            clearInterval(ctvNextCountdownInterval);
+                            ctvNextCountdownInterval = null;
+                            nextBtn.disabled = false;
+                            nextBtn.classList.remove('btn-timer-countdown');
+                            nextBtn.style.background = isFinalNext
+                                ? 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'
+                                : 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)';
+                            nextBtn.innerHTML = finalBtnLabel;
+                            nextBtn.onclick = function() { sendNextChallengeAction(res.teamId); };
+                            if (statusEl) {
+                                statusEl.textContent = isFinalNext
+                                    ? '🏁 Đội đã xong đủ 5 trạm! Bấm nút trên để gửi Mật thư Về đích (TRAM_11).'
+                                    : 'Sẵn sàng gửi thử thách trạm tiếp theo cho đội ' + res.teamId + '!';
+                                statusEl.style.color = '#0284c7';
+                            }
+                        }
+                    }, 1000);
+                } else {
+                    var tStatus = (res.timerState && res.timerState.status) ? res.timerState.status : 'idle';
+
+                    if (tStatus === 'idle' && !res.hasCheckedIn) {
+                        ctvTimerState = 'idle'; ctvElapsedTime = 0; ctvHighWaterMs = 0;
+                        if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                        document.getElementById('ctv-local-stopwatch').textContent = '00:00:00';
+                        document.getElementById('ctv-timer-controls').style.display = 'none';
+                        if (statusEl) { statusEl.textContent = '⚠️ Chưa thể bấm giờ cho đội ' + res.teamId; statusEl.style.color = '#b45309'; }
+                        if (ckInfoEl) {
+                            ckInfoEl.className = 'ctv-checkin-badge warn';
+                            ckInfoEl.innerHTML = '📸 <strong>CẢNH BÁO:</strong> Đội chưa xác nhận đã tới trạm & chụp ảnh lưu niệm!<br>Vui lòng nhắc đội ấn xác nhận trên điện thoại, sau đó bấm <strong>TÌM ĐỘI</strong> lại để mở nút bấm giờ.';
+                            ckInfoEl.style.display = 'block';
+                        }
+                        return;
+                    }
+
+                    if (res.hasCheckedIn && ckInfoEl) {
+                        ckInfoEl.className = 'ctv-checkin-badge ok';
+                        var linkPart = res.checkinPhotoUrl ? (' — <a href="' + res.checkinPhotoUrl + '" target="_blank" style="color:#0369a1; text-decoration:underline;">Xem ảnh</a>') : '';
+                        ckInfoEl.innerHTML = '✅ Đã check-in ảnh lưu niệm' + (res.checkinTime ? (' (' + res.checkinTime.split(' ')[0] + ')') : '') + linkPart;
+                        ckInfoEl.style.display = 'block';
+                    }
+
+                    document.getElementById('ctv-timer-controls').style.display = 'flex';
+                    ctvServerRunStartMs = (res.timerState && res.timerState.startTimeMs) ? Number(res.timerState.startTimeMs) : 0;
+                    ctvServerBaseElapsedMs = (res.timerState && res.timerState.baseElapsedMs) ? Number(res.timerState.baseElapsedMs) : 0;
+                    ctvElapsedTime = (res.timerState && res.timerState.elapsedMs) ? Number(res.timerState.elapsedMs) : 0;
+                    ctvHighWaterMs = ctvElapsedTime;
+                    renderCtvTimerUI();
+
+                    if (tStatus === 'running') {
+                        ctvTimerState = 'running';
+                        ctvStartTime = Date.now() - ctvElapsedTime;
+                        startCtvLiveTick();
+                        document.getElementById('ctv-btn-start').style.display = 'none';
+                        document.getElementById('ctv-btn-pause').style.display = 'block';
+                        document.getElementById('ctv-btn-resume').style.display = 'none';
+                        document.getElementById('ctv-btn-finish').style.display = 'none';
+                        if (statusEl) { statusEl.textContent = 'Đang tính giờ cho đội ' + res.teamId; statusEl.style.color = '#ef4444'; }
+                    } else if (tStatus === 'paused') {
+                        ctvTimerState = 'paused';
+                        if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                        document.getElementById('ctv-btn-start').style.display = 'none';
+                        document.getElementById('ctv-btn-pause').style.display = 'none';
+                        document.getElementById('ctv-btn-resume').style.display = 'block';
+                        document.getElementById('ctv-btn-finish').style.display = 'block';
+                        if (statusEl) { statusEl.textContent = 'Đã tạm dừng. Thời gian: ' + formatTimeMs(ctvElapsedTime); statusEl.style.color = '#b45309'; }
+                    } else {
+                        ctvTimerState = 'idle';
+                        if (ctvTimerIntervalId) clearInterval(ctvTimerIntervalId);
+                        document.getElementById('ctv-btn-start').style.display = 'block';
+                        document.getElementById('ctv-btn-pause').style.display = 'none';
+                        document.getElementById('ctv-btn-resume').style.display = 'none';
+                        document.getElementById('ctv-btn-finish').style.display = 'none';
+                        if (statusEl) { statusEl.textContent = 'Sẵn sàng bấm giờ cho đội ' + res.teamId; statusEl.style.color = '#15803d'; }
+                    }
+                }
+            }).getTeamProgressForCTV(teamId, currentRoleAssign);
+        };
+
+        // --- QTV: KHO ẢNH CHECK-IN, CHUÔNG BÁO SOS, BẢNG XẾP HẠNG 6 MẬT THƯ & TAB 7 ---
+        function renderQtvPhotosGallery() {
+            var grid = document.getElementById('qtv-photos-grid');
+            var pill = document.getElementById('qtv-photos-count-pill');
+            if (!grid || !qtvLastData) return;
+
+            var allPhotos = qtvLastData.checkins || [];
+            var stSel = document.getElementById('qtv-photo-filter-station');
+            var tmSel = document.getElementById('qtv-photo-filter-team');
+
+            // Nạp danh sách trạm & đội vào dropdown lọc (giữ giá trị đang chọn)
+            if (stSel && tmSel) {
+                var prevSt = stSel.value;
+                var prevTm = tmSel.value;
+                var stSet = {}, tmSet = {};
+                allPhotos.forEach(function(p) {
+                    if (p.stationCode) stSet[p.stationCode] = true;
+                    if (p.teamId) tmSet[p.teamId] = true;
+                });
+                stSel.innerHTML = '<option value="">Tất cả trạm</option>' + Object.keys(stSet).sort().map(function(s) {
+                    return '<option value="' + escapeHtmlComm(s) + '">' + escapeHtmlComm(s) + '</option>';
+                }).join('');
+                tmSel.innerHTML = '<option value="">Tất cả đội</option>' + Object.keys(tmSet).sort().map(function(t) {
+                    return '<option value="' + escapeHtmlComm(t) + '">Đội ' + escapeHtmlComm(t) + '</option>';
+                }).join('');
+                stSel.value = prevSt;
+                tmSel.value = prevTm;
+            }
+
+            var filterSt = stSel ? stSel.value : '';
+            var filterTm = tmSel ? tmSel.value : '';
+            var filtered = allPhotos.filter(function(p) {
+                if (filterSt && p.stationCode !== filterSt) return false;
+                if (filterTm && p.teamId !== filterTm) return false;
+                return true;
+            });
+
+            if (pill) pill.textContent = filtered.length + ' ảnh';
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="color:#64748b; font-size:13px; grid-column:1/-1; text-align:center; padding:30px;">Chưa có ảnh check-in nào phù hợp bộ lọc.</div>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map(function(p) {
+                var imgSrc = p.thumbUrl || p.photoUrl;
+                return '<div class="qtv-gallery-card">' +
+                    '<a href="' + escapeHtmlComm(p.photoUrl) + '" target="_blank" class="qtv-gallery-img-wrap" title="Bấm để xem ảnh gốc trên Drive">' +
+                        '<img class="qtv-gallery-img" src="' + escapeHtmlComm(imgSrc) + '" loading="lazy" alt="Check-in" onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<span style=&quot;font-size:12px;color:#0284c7;font-weight:800;&quot;>🖼️ Mở ảnh trên Drive</span>\';" />' +
+                    '</a>' +
+                    '<div class="qtv-gallery-body">' +
+                        '<div class="qtv-gallery-top">' +
+                            '<span class="qtv-badge badge-blue">Đội ' + escapeHtmlComm(p.teamId) + '</span>' +
+                            '<span class="qtv-badge badge-green">' + escapeHtmlComm(p.stationCode) + '</span>' +
+                        '</div>' +
+                        '<div class="qtv-gallery-meta">🕒 ' + escapeHtmlComm(p.time) + '</div>' +
+                        '<div class="qtv-gallery-meta">👤 ' + escapeHtmlComm(p.sender) + ' • <a href="' + escapeHtmlComm(p.photoUrl) + '" target="_blank" style="color:#0284c7; font-weight:800;">Xem gốc</a></div>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        // Bọc fetchQtvDashboardData để giảm tải khi ẩn tab + đồng bộ 4 giai đoạn + báo chuông SOS + render Kho ảnh
+        var _origFetchQtv13 = fetchQtvDashboardData;
+        fetchQtvDashboardData = function(isManual) {
+            if (!isManual && document.hidden) return;
+            var refreshBtn = document.getElementById('qtv-refresh-btn');
+            if (isManual && refreshBtn) { refreshBtn.classList.add('spin-anim'); refreshBtn.disabled = true; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (isManual && refreshBtn) { refreshBtn.classList.remove('spin-anim'); refreshBtn.disabled = false; }
+                    if (!res || !res.success) {
+                        if (isManual) showToast(res ? res.message : 'Lỗi tải dữ liệu QTV', true);
+                        return;
+                    }
+                    syncTimeFromServerPayload(res);
+                    qtvLastData = res;
+                    var syncEl = document.getElementById('qtv-last-sync');
+                    if (syncEl) syncEl.textContent = 'Sync: ' + res.updatedAt;
+
+                    var sosCount = (res.sosList || []).length;
+                    if (lastQtvSosCountSeen !== -1 && sosCount > lastQtvSosCountSeen) {
+                        playAlertBeep('sos');
+                        showToast('🚨 CẢNH BÁO: Có tín hiệu SOS mới từ đội chơi!', true);
+                    }
+                    lastQtvSosCountSeen = sosCount;
+
+                    renderQtvMap(res);
+                    renderQtvTeamsTable();
+                    renderQtvStationsGrid(res);
+                    renderQtvSosCenter(res);
+                    renderQtvLeaderboard(res);
+                    renderQtvPhotosGallery();
+                    updateQtvStartProgramButtonUI();
+
+                    if (isManual) showToast('Đã làm mới dữ liệu điều hành!', false);
+                })
+                .withFailureHandler(function(err) {
+                    if (isManual && refreshBtn) { refreshBtn.classList.remove('spin-anim'); refreshBtn.disabled = false; }
+                    if (isManual) showToast('Lỗi kết nối: ' + err.message, true);
+                })
+                .getQTVDashboardData();
+        };
+
+        // Nâng cấp bảng xếp hạng QTV & Trang chủ hiển thị 6 mật thư (5 trạm + TRAM_11)
+        var _origRenderQtvLb13 = renderQtvLeaderboard;
+        renderQtvLeaderboard = function(data) {
+            _origRenderQtvLb13(data);
+            var tbody = document.getElementById('qtv-leaderboard-tbody');
+            if (!tbody || !data || !data.leaderboard || data.leaderboard.length === 0) return;
+
+            var html = '';
+            data.leaderboard.forEach(function(t, index) {
+                var hasActivity = (t.progress > 0 || t.ciphersSolved > 0);
+                var rankDisplay = '#' + (index + 1);
+                if (index === 0 && hasActivity) rankDisplay = '🥇 #1';
+                else if (index === 1 && hasActivity) rankDisplay = '🥈 #2';
+                else if (index === 2 && hasActivity) rankDisplay = '🥉 #3';
+
+                var scoreColor = (hasActivity && t.rankingScoreMs < 0) ? '#15803d' : '#0369a1';
+                var hintTag = t.hintsUsedCount > 0 ? '<span class="qtv-badge badge-amber" style="margin-left:4px;">💡 ' + t.hintsUsedCount + '</span>' : '';
+
+                var routeHtml = (t.route || []).map(function(r) {
+                    var cls = r.status === 'finished' ? 'badge-green' : (r.status === 'running' ? 'badge-amber' : 'badge-slate');
+                    var cipherNote = r.cipherDeltaStr ? (' • 🔑 ' + r.cipherDeltaStr + (r.cipherHintUsed ? ' 💡' : '')) : '';
+                    return '<span class="qtv-badge ' + cls + '" style="margin:2px;">' + escapeHtmlComm(r.station) + ': ' + r.timeStr + cipherNote + '</span>';
+                }).join('');
+
+                if (t.finalCipher && t.finalCipher.solved) {
+                    routeHtml += '<span class="qtv-badge badge-amber" style="margin:2px;">🏁 TRAM_11: 🔑 ' + t.finalCipher.deltaStr + (t.finalCipher.hintUsed ? ' 💡' : '') + '</span>';
+                }
+
+                var totalMt = t.totalCiphersCount || 6;
+                html += '<tr>' +
+                    '<td><span class="rank-medal">' + rankDisplay + '</span></td>' +
+                    '<td><strong style="font-family:\'Space Mono\',monospace; font-size:14px;">' + escapeHtmlComm(t.id) + '</strong></td>' +
+                    '<td>' +
+                        '<span class="qtv-badge ' + (t.progress >= 5 ? 'badge-green' : 'badge-blue') + '">🏆 ' + t.progress + '/5 Trạm</span>' +
+                        '<div style="margin-top:4px;"><span class="qtv-badge badge-slate">🔑 ' + t.ciphersSolved + '/' + totalMt + ' Mật thư</span>' + hintTag + '</div>' +
+                    '</td>' +
+                    '<td>' +
+                        '<strong style="font-family:\'Space Mono\',monospace; font-size:15px; color:' + scoreColor + ';">' + t.rankingScoreStr + '</strong>' +
+                        '<div style="font-size:10.5px; color:#64748b; margin-top:3px; font-family:\'Space Mono\',monospace;">Trạm: ' + t.totalTimeStr + ' | ΔMT: ' + t.totalCipherDeltaStr + '</div>' +
+                    '</td>' +
+                    '<td>' + routeHtml + '</td>' +
+                '</tr>';
+            });
+            tbody.innerHTML = html;
+        };
+
+        renderPublicFinalLeaderboard = function(rows) {
+            var listEl = document.getElementById('lp-result-list');
+            if (!listEl) return;
+            if (!rows || rows.length === 0) {
+                listEl.innerHTML = '<div style="text-align:center; padding:24px; color:#64748b; font-size:12px; font-weight:700;">Chưa có dữ liệu xếp hạng.</div>';
+                return;
+            }
+            listEl.innerHTML = rows.map(function(t, idx) {
+                var topCls = idx === 0 ? 'top-1' : (idx === 1 ? 'top-2' : (idx === 2 ? 'top-3' : ''));
+                var medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : '#' + (idx + 1)));
+                var hintBadge = t.hintsUsedCount > 0 ? (' • 💡' + t.hintsUsedCount) : '';
+                var totalMt = t.totalCiphersCount || 6;
+                return '<div class="lp-rank-row ' + topCls + '">' +
+                    '<div class="lp-rank-left">' +
+                        '<div class="lp-rank-medal">' + medal + '</div>' +
+                        '<div>' +
+                            '<div class="lp-rank-team">' + escapeHtmlComm(t.id) + '</div>' +
+                            '<div class="lp-rank-sub">🏆 ' + t.progress + '/5 Trạm • 🔑 ' + t.ciphersSolved + '/' + totalMt + ' MT' + hintBadge + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="lp-rank-score">' + t.rankingScoreStr + '</div>' +
+                '</div>';
+            }).join('');
+        };
+
+        // --- TAB 7 (CHỈ QTV-001): QUẢN TRỊ DỮ LIỆU GOOGLE SHEETS TRỰC TIẾP TRÊN WEB ---
+        var qtvSheetsOverviewList = [];
+        var qtvActiveSheetData = null;
+        var qtvSheetModalMode = 'add';
+        var qtvSheetEditRowIndex = -1;
+
+        var _origUpdateCommVis13 = updateQtvCommTabVisibility;
+        updateQtvCommTabVisibility = function() {
+            _origUpdateCommVis13();
+            var sheetTabBtn = document.getElementById('qtv-tab-btn-sheets');
+            if (!sheetTabBtn) return;
+            var appCard = document.getElementById('appCard');
+            var isQtv001 = !!(
+                appCard &&
+                appCard.classList.contains('logged-in-qtv') &&
+                currentTeamId &&
+                currentTeamId.toString().trim().toUpperCase() === 'QTV-001'
+            );
+            sheetTabBtn.style.display = isQtv001 ? '' : 'none';
+            updateQtvStartProgramButtonUI();
+        };
+
+        var _origQtvSwitchTab13 = qtvSwitchTab;
+        qtvSwitchTab = function(tabId, element) {
+            _origQtvSwitchTab13(tabId, element);
+            if (tabId === 'sheets' && qtvSheetsOverviewList.length === 0) {
+                loadQtvSheetsOverview(false);
+            } else if (tabId === 'photos' && qtvLastData) {
+                renderQtvPhotosGallery();
+            }
+        };
+
+        function loadQtvSheetsOverview(showMsg) {
+            var listEl = document.getElementById('qtv-sheets-list');
+            if (listEl) listEl.innerHTML = '<span style="font-size:12px; color:#0284c7; font-weight:700;">⏳ Đang tải danh sách trang tính...</span>';
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (!res || !res.success) {
+                        if (listEl) listEl.innerHTML = '<span style="color:#ef4444; font-size:12px;">' + escapeHtmlComm(res ? res.message : 'Lỗi tải danh sách!') + '</span>';
+                        return;
+                    }
+                    qtvSheetsOverviewList = res.sheets || [];
+                    renderQtvSheetsPills();
+                    if (qtvActiveSheetData) {
+                        var stillExists = qtvSheetsOverviewList.some(function(s) { return s.name === qtvActiveSheetData.sheetName; });
+                        if (stillExists) loadQtvSheetRows(qtvActiveSheetData.sheetName);
+                        else if (qtvSheetsOverviewList.length > 0) loadQtvSheetRows(qtvSheetsOverviewList[0].name);
+                    } else if (qtvSheetsOverviewList.length > 0) {
+                        loadQtvSheetRows(qtvSheetsOverviewList[0].name);
+                    }
+                    if (showMsg) showToast('Đã làm mới danh sách trang tính!', false);
+                })
+                .withFailureHandler(function(err) {
+                    if (listEl) listEl.innerHTML = '<span style="color:#ef4444; font-size:12px;">❌ ' + escapeHtmlComm(err.message) + '</span>';
+                })
+                .qtvGetSheetsOverview(currentTeamId);
+        }
+
+        function renderQtvSheetsPills() {
+            var listEl = document.getElementById('qtv-sheets-list');
+            if (!listEl) return;
+            var activeName = qtvActiveSheetData ? qtvActiveSheetData.sheetName : '';
+            listEl.innerHTML = qtvSheetsOverviewList.map(function(s) {
+                var cls = 'qtv-sheet-pill' + (s.name === activeName ? ' active' : '');
+                var icon = s.isCore ? '🔒' : '📄';
+                return '<button type="button" class="' + cls + '" onclick="loadQtvSheetRows(\'' + escapeHtmlComm(s.name).replace(/'/g, "\\'") + '\')">' +
+                    icon + ' ' + escapeHtmlComm(s.name) + ' <span style="opacity:0.75; font-size:10.5px;">(' + s.rowCount + ')</span>' +
+                '</button>';
+            }).join('');
+        }
+
+        function loadQtvSheetRows(sheetName) {
+            var tbody = document.getElementById('qtv-sheet-tbody');
+            if (tbody) tbody.innerHTML = '<tr><td style="text-align:center; color:#0284c7; padding:26px; font-weight:700;">⏳ Đang tải dữ liệu "' + escapeHtmlComm(sheetName) + '"...</td></tr>';
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (!res || !res.success) {
+                        alert(res ? res.message : 'Không thể đọc trang tính!');
+                        return;
+                    }
+                    qtvActiveSheetData = res;
+                    renderQtvSheetsPills();
+
+                    var tb = document.getElementById('qtv-sheet-toolbar');
+                    if (tb) tb.style.display = 'flex';
+                    var lbl = document.getElementById('qtv-active-sheet-label');
+                    if (lbl) lbl.textContent = '📄 ' + res.sheetName;
+                    var badge = document.getElementById('qtv-active-sheet-badge');
+                    if (badge) {
+                        badge.className = res.isCore ? 'qtv-badge badge-amber' : 'qtv-badge badge-green';
+                        badge.textContent = res.isCore ? '🔒 Sheet lõi (khóa xóa sheet)' : '📄 Sheet phụ';
+                    }
+                    var delShBtn = document.getElementById('btn-qtv-delete-sheet');
+                    if (delShBtn) delShBtn.style.display = res.isCore ? 'none' : 'inline-block';
+
+                    var searchEl = document.getElementById('qtv-sheet-search');
+                    if (searchEl) searchEl.value = '';
+                    renderQtvActiveSheetTable();
+                })
+                .withFailureHandler(function(err) {
+                    alert('❌ Lỗi đọc Sheet: ' + err.message);
+                })
+                .qtvGetSheetRows(currentTeamId, sheetName);
+        }
+
+        function renderQtvActiveSheetTable() {
+            var thead = document.getElementById('qtv-sheet-thead');
+            var tbody = document.getElementById('qtv-sheet-tbody');
+            if (!thead || !tbody || !qtvActiveSheetData) return;
+
+            var headers = qtvActiveSheetData.headers || [];
+            var rows = qtvActiveSheetData.rows || [];
+            var kw = ((document.getElementById('qtv-sheet-search') || {}).value || '').trim().toLowerCase();
+
+            var headHtml = '<tr><th style="width:62px;">Dòng</th><th style="width:125px;">Thao tác</th>';
+            headers.forEach(function(h) {
+                headHtml += '<th>' + escapeHtmlComm(h) + '</th>';
+            });
+            headHtml += '</tr>';
+            thead.innerHTML = headHtml;
+
+            var filtered = rows.filter(function(r) {
+                if (!kw) return true;
+                return (r.cells || []).some(function(c) { return String(c || '').toLowerCase().indexOf(kw) !== -1; });
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="' + (headers.length + 2) + '" style="text-align:center; color:#64748b; padding:24px;">Không có dòng dữ liệu nào.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(function(r) {
+                var cellsHtml = (r.cells || []).map(function(c) {
+                    var txt = String(c === null || c === undefined ? '' : c);
+                    return '<td title="' + escapeHtmlComm(txt) + '"><span class="qtv-sheet-cell-truncate">' + escapeHtmlComm(txt) + '</span></td>';
+                }).join('');
+                return '<tr>' +
+                    '<td><strong>#' + r.rowIndex + '</strong></td>' +
+                    '<td><div class="qtv-action-group">' +
+                        '<button type="button" class="qtv-mini-btn btn-next" onclick="openSheetRowModal(\'edit\', ' + r.rowIndex + ')">✏️ Sửa</button>' +
+                        '<button type="button" class="qtv-mini-btn btn-reset" onclick="handleQtvDeleteSheetRow(' + r.rowIndex + ')">🗑️</button>' +
+                    '</div></td>' +
+                    cellsHtml +
+                '</tr>';
+            }).join('');
+        }
+
+        function openSheetRowModal(mode, rowIndex) {
+            if (!qtvActiveSheetData) return;
+            qtvSheetModalMode = mode;
+            qtvSheetEditRowIndex = rowIndex || -1;
+
+            var titleEl = document.getElementById('qtv-sheet-row-modal-title');
+            if (titleEl) {
+                titleEl.textContent = (mode === 'add')
+                    ? ('➕ THÊM DÒNG MỚI — ' + qtvActiveSheetData.sheetName)
+                    : ('✏️ SỬA DÒNG #' + rowIndex + ' — ' + qtvActiveSheetData.sheetName);
+            }
+
+            var existingCells = [];
+            if (mode === 'edit') {
+                var found = (qtvActiveSheetData.rows || []).find(function(r) { return r.rowIndex === rowIndex; });
+                if (found) existingCells = found.cells || [];
+            }
+
+            var formBox = document.getElementById('qtv-sheet-row-form-fields');
+            if (formBox) {
+                formBox.innerHTML = (qtvActiveSheetData.headers || []).map(function(h, idx) {
+                    var val = existingCells[idx] !== undefined ? String(existingCells[idx]) : '';
+                    return '<div>' +
+                        '<label class="input-label" style="margin-bottom:4px;">' + escapeHtmlComm(h || ('Cột ' + (idx + 1))) + '</label>' +
+                        '<input type="text" class="form-control-custom qtv-sheet-field-input" data-col-idx="' + idx + '" value="' + escapeHtmlComm(val) + '" style="margin-bottom:4px; padding:9px 12px; font-size:13px;" />' +
+                    '</div>';
+                }).join('');
+            }
+            var m = document.getElementById('qtv-sheet-row-modal');
+            if (m) m.classList.add('show');
+        }
+
+        function closeSheetRowModal() {
+            var m = document.getElementById('qtv-sheet-row-modal');
+            if (m) m.classList.remove('show');
+        }
+
+        function submitSheetRowModal() {
+            if (!qtvActiveSheetData) return;
+            var inputs = document.querySelectorAll('#qtv-sheet-row-form-fields .qtv-sheet-field-input');
+            var cells = [];
+            inputs.forEach(function(inp) { cells.push(inp.value); });
+
+            var btn = document.getElementById('btn-qtv-save-sheet-row');
+            if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang lưu...'; }
+
+            var onDone = function(res) {
+                if (btn) { btn.disabled = false; btn.textContent = '💾 Lưu vào Sheet'; }
+                if (res && res.success) {
+                    closeSheetRowModal();
+                    showToast(res.message, false);
+                    loadQtvSheetRows(qtvActiveSheetData.sheetName);
+                } else {
+                    alert(res ? res.message : 'Không thể lưu dòng dữ liệu!');
+                }
+            };
+            var onFail = function(err) {
+                if (btn) { btn.disabled = false; btn.textContent = '💾 Lưu vào Sheet'; }
+                alert('❌ Lỗi lưu Sheet: ' + err.message);
+            };
+
+            if (qtvSheetModalMode === 'add') {
+                google.script.run.withSuccessHandler(onDone).withFailureHandler(onFail)
+                    .qtvSheetAddRow(currentTeamId, qtvActiveSheetData.sheetName, cells);
+            } else {
+                google.script.run.withSuccessHandler(onDone).withFailureHandler(onFail)
+                    .qtvSheetUpdateRow(currentTeamId, qtvActiveSheetData.sheetName, qtvSheetEditRowIndex, cells);
+            }
+        }
+
+        function handleQtvDeleteSheetRow(rowIndex) {
+            if (!qtvActiveSheetData) return;
+            if (!confirm('⚠️ Xác nhận XÓA vĩnh viễn dòng #' + rowIndex + ' khỏi trang tính "' + qtvActiveSheetData.sheetName + '"?')) return;
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    showToast(res.message, !res.success);
+                    if (res.success) loadQtvSheetRows(qtvActiveSheetData.sheetName);
+                })
+                .withFailureHandler(function(err) { alert('❌ Lỗi xóa dòng: ' + err.message); })
+                .qtvSheetDeleteRow(currentTeamId, qtvActiveSheetData.sheetName, rowIndex);
+        }
+
+        function openCreateSheetModal() {
+            var nEl = document.getElementById('qtv-new-sheet-name');
+            var hEl = document.getElementById('qtv-new-sheet-headers');
+            if (nEl) nEl.value = '';
+            if (hEl) hEl.value = '';
+            var m = document.getElementById('qtv-sheet-create-modal');
+            if (m) m.classList.add('show');
+        }
+
+        function closeCreateSheetModal() {
+            var m = document.getElementById('qtv-sheet-create-modal');
+            if (m) m.classList.remove('show');
+        }
+
+        function submitCreateSheetModal() {
+            var name = ((document.getElementById('qtv-new-sheet-name') || {}).value || '').trim();
+            var rawHeaders = ((document.getElementById('qtv-new-sheet-headers') || {}).value || '').trim();
+            if (!name) { alert('Vui lòng nhập tên trang tính mới!'); return; }
+            var headers = rawHeaders ? rawHeaders.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : ['Cột 1', 'Cột 2'];
+
+            var btn = document.getElementById('btn-qtv-create-sheet');
+            if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang tạo...'; }
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (btn) { btn.disabled = false; btn.textContent = '✅ Tạo Sheet'; }
+                    if (res && res.success) {
+                        closeCreateSheetModal();
+                        showToast(res.message, false);
+                        qtvActiveSheetData = { sheetName: name };
+                        loadQtvSheetsOverview(false);
+                    } else {
+                        alert(res ? res.message : 'Không thể tạo trang tính!');
+                    }
+                })
+                .withFailureHandler(function(err) {
+                    if (btn) { btn.disabled = false; btn.textContent = '✅ Tạo Sheet'; }
+                    alert('❌ Lỗi tạo Sheet: ' + err.message);
+                })
+                .qtvSheetCreate(currentTeamId, name, headers);
+        }
+
+        function handleQtvDeleteCurrentSheet() {
+            if (!qtvActiveSheetData || qtvActiveSheetData.isCore) return;
+            var target = qtvActiveSheetData.sheetName;
+            if (!confirm('⚠️ CẢNH BÁO: Xác nhận XÓA toàn bộ trang tính phụ "' + target + '"? Thao tác không thể hoàn tác!')) return;
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    showToast(res.message, !res.success);
+                    if (res.success) {
+                        qtvActiveSheetData = null;
+                        loadQtvSheetsOverview(false);
+                    }
+                })
+                .withFailureHandler(function(err) { alert('❌ Lỗi xóa Sheet: ' + err.message); })
+                .qtvSheetDelete(currentTeamId, target);
+        }
+
+        // --- CẬP NHẬT fetchPublicEventBoardState & startCommBroadcastPolling ĐỂ ĐỒNG BỘ 4 GIAI ĐOẠN + GIẢM TẢI KHI ẨN TAB ---
+        fetchPublicEventBoardState = function() {
+            if (document.hidden) return;
+            var appCard = document.getElementById('appCard');
+            if (appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-ctv') || appCard.classList.contains('logged-in-qtv'))) {
+                return;
+            }
+
+            google.script.run.withSuccessHandler(function(res) {
+                if (!res || !res.success) return;
+                syncTimeFromServerPayload(res);
+                if (res.broadcast && typeof applyBroadcastBanner === 'function') applyBroadcastBanner(res.broadcast);
+                if (res.briefing && typeof applyBriefingContent === 'function') applyBriefingContent(res.briefing);
+
+                savePublicBoardCache(res);
+
+                var wasPublished = publicBoardState.published;
+                publicBoardState.published = !!res.published;
+                publicBoardState.teamCount = res.teamCount || 6;
+
+                var ph = getClientEventPhase();
+                publicBoardState.phase = ph;
+                applyLeftPanelPhaseUI(ph);
+                updateGlobalCountdown();
+
+                var overlayEl = document.getElementById('lp-frost-overlay');
+                var titleEl = document.getElementById('lp-post-title');
+
+                if (ph === 'post') {
+                    if (res.published) {
+                        renderPublicFinalLeaderboard(res.leaderboard);
+                        if (titleEl) titleEl.textContent = '🎉 BẢNG XẾP HẠNG CHÍNH THỨC';
+                        if (overlayEl) overlayEl.classList.add('revealed');
+                        if (!publicBoardState.confettiFired || !wasPublished) {
+                            publicBoardState.confettiFired = true;
+                            launchCelebrationConfetti();
+                        }
+                    } else {
+                        renderSealedDummyRows(res.teamCount);
+                        if (titleEl) titleEl.textContent = '🏆 BẢNG XẾP HẠNG CHUNG CUỘC';
+                        if (overlayEl) overlayEl.classList.remove('revealed');
+                        publicBoardState.confettiFired = false;
+                    }
+                }
+            }).getPublicEventBoard();
+        };
+
+        startCommBroadcastPolling = function() {
+            if (commPollIntervalId) clearInterval(commPollIntervalId);
+            commPollIntervalId = setInterval(function() {
+                if (document.hidden) return;
+                var appCard = document.getElementById('appCard');
+                if (appCard && (appCard.classList.contains('logged-in') || appCard.classList.contains('logged-in-qtv'))) {
+                    return;
+                }
+                google.script.run.withSuccessHandler(function(res) {
+                    if (!res || !res.success) return;
+                    syncTimeFromServerPayload(res);
+                    if (res.broadcast) applyBroadcastBanner(res.broadcast);
+                    if (res.briefing) applyBriefingContent(res.briefing);
+                    updateGlobalCountdown();
+                }).getPublicCommState();
+            }, 15000);
+        };
+
+        // --- DỌN DẸP THÊM KHI ĐĂNG XUẤT ---
+        var _origHandleLogout13 = handleLogout;
+        handleLogout = function() {
+            _origHandleLogout13();
+            finalFinishConfettiFired = false;
+            currentSvAchievement = null;
+            svStationClockKey = '';
+            svStationHighWaterMs = 0;
+            svStationRunStartServerMs = 0;
+            cipherStartServerMs = 0;
+            cipherHighWaterMs = 0;
+            lastQtvSosCountSeen = -1;
+            lastCtvCheckinKeys = {};
+            ctvRadarFirstLoadDone = false;
+            qtvSheetsOverviewList = [];
+            qtvActiveSheetData = null;
+            if (ctvNextCountdownInterval) { clearInterval(ctvNextCountdownInterval); ctvNextCountdownInterval = null; }
+            var finCard = document.getElementById('svFinalFinishCard');
+            if (finCard) finCard.style.display = 'none';
+            var sheetTabBtn = document.getElementById('qtv-tab-btn-sheets');
+            if (sheetTabBtn) sheetTabBtn.style.display = 'none';
+            var startBtn = document.getElementById('qtv-start-program-btn');
+            if (startBtn) startBtn.style.display = 'none';
+        };
+
+        // --- TỰ ĐỘNG ĐỒNG BỘ NGAY KHI MỞ LẠI TAB TRÌNH DUYỆT (SAU KHI TẮT MÀN HÌNH / CHUYỂN APP) ---
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) return;
+            var appCard = document.getElementById('appCard');
+            if (!appCard) return;
+            if (appCard.classList.contains('logged-in') && typeof currentStudentFetchTimer === 'function') {
+                currentStudentFetchTimer();
+            } else if (appCard.classList.contains('logged-in-ctv')) {
+                fetchProximityTeams();
+            } else if (appCard.classList.contains('logged-in-qtv')) {
+                fetchQtvDashboardData(false);
+            } else {
+                fetchPublicEventBoardState();
+            }
+        });
+
+        updateSoundButtonUI();
+
     </script>
     <canvas id="confetti-canvas"></canvas>
 </body>
